@@ -24,11 +24,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
-import application.preferences.IconesAPP;
-
 import utilitaires.CopierFichier;
 import utilitaires.GestionImage;
-import configuration.*;
+import application.preferences.IconesAPP;
+import configuration.Config;
 
 /**
  * Classe permettznt de créer la fenêtre préférences
@@ -190,6 +189,7 @@ public class PreferencesIHM implements SelectionListener {
 			Button button = (Button)arg0.getSource();
 			//Traitement si clic sur le bouton valider
 			if (button == valider) {
+				AutoMailIHM.saveMail();
 				if (modifie || langueIHM.getListe().getSelectionIndex() != -1){
 					MessageBox messageBox = new MessageBox(shell,SWT.ICON_INFORMATION|SWT.OK);
 					messageBox.setMessage(message.getString("messageBox.message"));
