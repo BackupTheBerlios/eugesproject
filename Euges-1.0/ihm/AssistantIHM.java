@@ -134,7 +134,9 @@ public class AssistantIHM extends Dialog {
 			 		FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
 			 		
 					((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
+					FenetrePrincipaleIHM._vues.elementAt(0).setVisible(true);
 					ArbrePrincipalIHM._tri.actualiser();
+					EugesElements.processusEnregistre=false;
 					shellAssistant.dispose();
 			 	}
 			 });
