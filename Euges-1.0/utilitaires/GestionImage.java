@@ -26,6 +26,7 @@ public class GestionImage {
 	public static Image _role;
 	public static Image _aideBar;
 	public static Image _enregistrerBar;
+	public static Image _enregistrerSousBar;
 	public static Image _fermerBar;
 	public static Image _mailBar;
 	public static Image _nouveauBar;
@@ -85,23 +86,26 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "iconesAide/afficher.ico");
 			_afficherAide = new Image(display,url.openStream());
 			
-//			url = getClass().getResource(_basePath + "icones/enregistrer.ico");
-//			_enregistrerBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/fermer.ico");
-//			_fermerBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/nouveau.ico");
-//			_nouveauBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/ouvrir.ico");
-//			_ouvrirBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/mail.ico");
-//			_mailBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/aide.ico");
-//			_aideBar = new Image(display,url.openStream());
+			url = getClass().getResource(_basePath + "icones/enregistrer.png");
+			_enregistrerBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/saveas.png");
+			_enregistrerSousBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/fermer.png");
+			_fermerBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/nouveau.png");
+			_nouveauBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/ouvrir.png");
+			_ouvrirBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/mail.png");
+			_mailBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/aide.png");
+			_aideBar = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/tri_refresh.ico");
 			_triRefresh = new Image(display,url.openStream());

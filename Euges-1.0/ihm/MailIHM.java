@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -61,13 +62,7 @@ public class MailIHM extends Dialog{
 		Cursor curseurMain = new Cursor(display, SWT.CURSOR_HAND);
 		shellMail.setImage(GestionImage._euges);
 		
-		
-		
-		
-		
-		
 		//Création des élements de la fenêtre
-		
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
 		shellMail.setLayout(gridLayout);
@@ -100,7 +95,6 @@ public class MailIHM extends Dialog{
 			}
 		});
 		
-		
 		//Sujet
 		Label label2 = new Label(shellMail, SWT.NONE);
 		label2.setText(message.getString("MailIHM.suj"));
@@ -114,24 +108,33 @@ public class MailIHM extends Dialog{
 		//bouton envoie
 		Button envoie=new Button(shellMail, SWT.PUSH | SWT.FLAT);
 		envoie.setCursor(curseurMain);
-		envoie.setImage(GestionImage._euges);
+		envoie.setText(message.getString("MailIHM.envoyer"));
 		envoie.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				
+				boolean erreur = false;
 				MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),text4.getText(),text3.getText(),text2.getText());
 				try {
 					mail.sendMsg();
 				} catch (Exception e1) {
-					
+					MessageBox msg = new MessageBox(shellMail, SWT.ICON_ERROR);
+					msg.setText(message.getString("MailIHM.problemeTitre"));
+					msg.setMessage(message.getString("MailIHM.problemeCorps"));
+					msg.open();
+					erreur=true;
 				}
+				if(erreur=false)
+					shellMail.dispose();
+			}
+		});
+		//bouton annuler
+		Button annuler=new Button(shellMail, SWT.PUSH | SWT.FLAT);
+		annuler.setCursor(curseurMain);
+		annuler.setText(message.getString("MailIHM.annuler"));
+		annuler.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
 				shellMail.dispose();
 			}
 		});
-		
-		
-		
-		
-		
 		
 		//Mise en place des éléments
 		GridData data = new GridData();
@@ -163,12 +166,8 @@ public class MailIHM extends Dialog{
 		data3.horizontalSpan = 2;
 		GridData data4 = new GridData();
 		envoie.setLayoutData(data4);
-		
-		
-		
-		
-		
-		
+		data4 = new GridData();
+		annuler.setLayoutData(data4);
 		
 		// ouvrir la fenêtre au centre de l'écran
 		Rectangle bounds = shell.getBounds ();
@@ -177,17 +176,13 @@ public class MailIHM extends Dialog{
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		shellMail.setLocation (x, y);
 		
-		
-		
-		
-		
-		
 		//ouverture du shell
 		shellMail.open();
-		
-		
-		
 	}
+	/**
+	 * 
+	 *
+	 */
 	public void choose(){
 		this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+";");
 		

@@ -81,4 +81,10 @@ public class VuesIHM extends ViewForm{
 	public  PageVuesIHM elementAt(int i){
 		return (PageVuesIHM)_vues.elementAt(i);
 	}
+	public void disposePages(){
+		for(int i=0; i<_vues.size()-1; i++){
+			elementAt(i).loadData();
+			elementAt(i).setVisible(false);
+		}
+	}
 }

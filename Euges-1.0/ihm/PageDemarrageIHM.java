@@ -12,7 +12,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -49,10 +48,9 @@ public class PageDemarrageIHM extends Dialog{
 		
 		shellDemarrage.setText(message.getString("PageDemarrageIHM.titre"));
 		//bouton nouveau projet
-		Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.png");
 		Button nouveauProjet=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		nouveauProjet.setCursor(curseurMain);
-		nouveauProjet.setImage(imageNouveau);
+		nouveauProjet.setImage(GestionImage._nouveauBar);
 		nouveauProjet.addSelectionListener(new SelectionAdapter() {
 										public void widgetSelected(SelectionEvent e) {
 											shellDemarrage.dispose();
@@ -67,10 +65,9 @@ public class PageDemarrageIHM extends Dialog{
 		Label sep1 = new Label(shellDemarrage, SWT.SEPARATOR | SWT.HORIZONTAL);
 		
 		//bouton projet existant
-		Image imageOuvrir = new Image(Display.getCurrent(), Config.config.getProperty("cheminIcone")+"ouvrir.png");
 		Button projetExistant=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		projetExistant.setCursor(curseurMain);
-		projetExistant.setImage(imageOuvrir);
+		projetExistant.setImage(GestionImage._ouvrirBar);
 		projetExistant.addSelectionListener(new SelectionAdapter() {
 												public void widgetSelected(SelectionEvent e) {
 													FileDialog fileDialog = new FileDialog(shell);
