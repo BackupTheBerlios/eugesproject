@@ -373,12 +373,7 @@ public class Iteration {
 				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitOut(iteration);
 			}
 			iteration.write("</table><br>");
-			iteration.write("<table class='it'>\n<tr class='ititle'><td><b>Produit en entr&eacute;e</b></td></tr>");
-			for (int i = 0; i<_activitesRealisees.size();i++)
-			{
-				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitIn(iteration);
-			}
-			iteration.write("</table>\n<br>\n</div>\n</body>\n</html>");
+			iteration.write("</body>\n</html>");
 			iteration.close();
 		} catch (IOException e) {
 			System.out.println (e);
