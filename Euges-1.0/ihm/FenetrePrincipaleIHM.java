@@ -9,6 +9,7 @@ package ihm;
 
 import ihm.preferences.PreferencesIHM;
 import ihm.vues.VuesIHM;
+import ihm.vues.planIt.PlanItIHM;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -259,7 +260,7 @@ public class FenetrePrincipaleIHM {
 			menuItemIterations.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					PageGestionIterationIHM gestionIt = new PageGestionIterationIHM(shell);
-					//_vues.rechargerPage(0);
+					((PlanItIHM)_vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 				}
 			});
 		
