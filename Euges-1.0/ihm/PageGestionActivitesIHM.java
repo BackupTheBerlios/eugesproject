@@ -60,9 +60,6 @@ public class PageGestionActivitesIHM implements SelectionListener {
 	/**Bouton de suppression d'une activité*/
 	private Button removeActivite;
 	
-	/**Le bouton d'appel de l'aide*/
-	private Button aide;
-		
 	/**Le bouton de fermeture de la gestion des activités*/
 	private Button fermer;
 	
@@ -145,12 +142,6 @@ public class PageGestionActivitesIHM implements SelectionListener {
 		// liste des rôles
 		listRoles = new List(shell,SWT.SINGLE|SWT.H_SCROLL|SWT.BORDER|SWT.V_SCROLL);
 
-
-		aide = new Button(shell,SWT.PUSH);
-		aide.setText(message.getString("aide"));
-		aide.addSelectionListener(this);
-		
-		
 		fermer = new Button(shell,SWT.PUSH);
 		fermer.setText(message.getString("fermer"));
 		fermer.addSelectionListener(this);
@@ -205,10 +196,8 @@ public class PageGestionActivitesIHM implements SelectionListener {
 		
 		
 
-		GridData data3 = new GridData();
-		data3.horizontalSpan=2;
-		aide.setLayoutData(data3);
-		data3 = new GridData(GridData.FILL_HORIZONTAL);
+		GridData data3 = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		data3.horizontalSpan=3;
 		fermer.setLayoutData(data3);
 		
 		

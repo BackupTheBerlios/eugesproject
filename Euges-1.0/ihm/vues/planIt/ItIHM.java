@@ -420,17 +420,23 @@ public class ItIHM extends Composite {
 				newEditor.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent e) {
 						Text text = (Text)editor.getEditor();
-						editor.getItem().setText(_EDITABLECOLUMN, text.getText());
-
-						if (!item.getText(_EDITABLECOLUMN).equals("")) {
-							EugesActRealise a = (EugesActRealise) item.getData();
-							// on insère les nouvelles heures
-							if (_EDITABLECOLUMN == 1) { // charge prévue
-								a.set_chargeEstimee(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
+						try {
+							if(!editor.getItem().isDisposed()){
+								
+								editor.getItem().setText(_EDITABLECOLUMN, text.getText());
+								if (!item.getText(_EDITABLECOLUMN).equals("")) {
+									EugesActRealise a = (EugesActRealise) item.getData();
+									// on insère les nouvelles heures
+									if (_EDITABLECOLUMN == 1) { // charge prévue
+										a.set_chargeEstimee(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
+									}
+									else { // charge réelle
+										a.set_chargeReelle(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
+									}
+								}
 							}
-							else { // charge réelle
-								a.set_chargeReelle(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
-							}
+						} catch (Exception except) {
+							except.printStackTrace();
 						}
 					}
 				});
