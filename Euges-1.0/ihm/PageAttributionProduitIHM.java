@@ -27,8 +27,6 @@ import org.eclipse.swt.widgets.Shell;
 import utilitaires.GestionImage;
 import application.EugesElements;
 import configuration.Config;
-import donnees.eugesSpem.EugesActRealise;
-import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesVersion;
 

@@ -426,7 +426,7 @@ public class EugesElements {
 				auxVersion = auxProduit.getVersionPrecise(n);
 				
 				// Si auxPersonne est responsable de la version
-				if (auxVersion.get_responsable() != null && pers.getNom() == auxVersion.get_responsable().getNom()) {
+				if (auxVersion.get_responsable() != null && pers.getNom() == auxVersion.get_responsable().getNom() && !appartient) {
 					resultat.add(auxVersion.get_produitParent());
 					appartient = true;
 				}
