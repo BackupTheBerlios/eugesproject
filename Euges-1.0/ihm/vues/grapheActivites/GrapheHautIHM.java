@@ -123,7 +123,7 @@ public class GrapheHautIHM extends PageVuesIHM {
 			}
 			_tableColonnes.removeAllElements();
 			//recupération du nombre d'itérations
-			int nbIteration=EugesElements._projet.getNombreIteration();
+			int nbIteration = EugesElements._projet.getNombreIteration();
 			TableColumn tmp;
 			//génération des colonnes correspondant au nombre d'itération
 			for (int i=0; i<nbIteration+1; i++){
@@ -151,11 +151,11 @@ public class GrapheHautIHM extends PageVuesIHM {
 				int dateDebut, dateFin; //dates de debut et fin de l'activite
 				int nit = 0;
 				for (Iterator iter = vecteurTmp.iterator(); iter.hasNext();) {
-					System.out.println("Activité n° : " + nit);
+					//System.out.println("Activité n° : " + nit);
 					nit ++;
 					//recuperation de l'activite a traiter
 					EugesActivite element = (EugesActivite) iter.next();
-					System.out.println("	 activité : " + element);
+					//System.out.println("	 activité : " + element);
 					//recuperation du vecteur d'activite realise correspondant a l'activité en cours et ordonnancement du vecteur
 					Vector listeActReal = element.get_activitesRealisees();
 					ordonnerListeActivitesRealisees(listeActReal);
@@ -166,6 +166,7 @@ public class GrapheHautIHM extends PageVuesIHM {
 					texte=new String[nbIteration+1];
 					texte[0]=element.getName();
 					for (int i=0; i<nbIteration; i++){
+						//System.out.println("		IT n° : " + i);
 						boolean ok=false;
 						int j=0;
 						while(!ok && j<listeActReal.size()){
@@ -174,13 +175,19 @@ public class GrapheHautIHM extends PageVuesIHM {
 								MyDate itdatedebut = EugesElements._projet.getIteration(i).get_dateDebut();
 								MyDate itdatefin = EugesElements._projet.getIteration(i).get_dateFin();
 								MyDate dateDuJour = FenetrePrincipaleIHM.dateDuJour;
-								
+								//System.out.println("			activité présente pour cette IT");
 								if (itdatefin.compare(dateDuJour)<0)
+								{
 									item.setBackground(i+1, activitesFondPasse);
+								}
 								else if (itdatedebut.compare(dateDuJour)>0)
-									item.setBackground(i+1, activitesFondFutur);
+									 {	 
+										item.setBackground(i+1, activitesFondFutur);
+									 }
 								else
+								{
 									item.setBackground(i+1, activitesFondEnCours);
+								}
 								texte[i+1]="";
 							}else{
 								texte[i+1]="";

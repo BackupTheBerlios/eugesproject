@@ -211,6 +211,7 @@ public class MySAXApp extends DefaultHandler{
 	  		EugesActRealise eugesActRealise = new EugesActRealise(EugesElements.getActivite(attributs.getValue(2)));
 	  		eugesActRealise.set_chargeEstimee(Integer.parseInt(attributs.getValue(0)));
 	  		eugesActRealise.set_chargeReelle(Integer.parseInt(attributs.getValue(1)));
+	  		eugesActRealise.setIt(numIt);
 	  		EugesElements._projet.getIteration(numIt).ajouterActivite(eugesActRealise);
 			nbActIt = EugesElements._projet.getIteration(numIt).getActiviteCount();
 			activite = attributs.getValue(2);
