@@ -1,5 +1,5 @@
 /*
- * Created on 28 déc. 2003
+ * Created on 28 d?c. 2003
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
@@ -79,11 +79,11 @@ public class EugesAide {
 		itemAfficher.setToolTipText(message.getString("eugesAide.MasquerToolTipText"));
 		itemAfficher.setText(message.getString("eugesAide.BoutonMasquer"));
 		
-		// Icone Précédent
-		ToolItem itemPrécédent = new ToolItem(toolbar, SWT.FLAT);
-		itemPrécédent.setImage(GestionImage._precedentAide);
-		itemPrécédent.setToolTipText(message.getString("eugesAide.PrécédentToolTipText"));
-		itemPrécédent.setText(message.getString("eugesAide.BoutonPrécédent"));
+		// Icone Pr?c?dent
+		ToolItem itemPrecedent = new ToolItem(toolbar, SWT.FLAT);
+		itemPrecedent.setImage(GestionImage._precedentAide);
+		itemPrecedent.setToolTipText(message.getString("eugesAide.Pr?c?dentToolTipText"));
+		itemPrecedent.setText(message.getString("eugesAide.BoutonPr?c?dent"));
 		
 		// Icone Suivant
 		ToolItem itemSuivant = new ToolItem(toolbar, SWT.FLAT);
@@ -131,7 +131,7 @@ public class EugesAide {
 		//final Browser browser = new Browser(right, SWT.NONE);
 		
 		
-		// Propriétés du sashForm
+		// Propri?t?s du sashForm
 		sashForm.setWeights(new int [] {20,80});
 		sashForm.setSize(800,400);
 		
@@ -175,8 +175,8 @@ public class EugesAide {
 					System.out.println("Masquer");
 					sashForm.setWeights(new int [] {0,100});	
 				}
-				else if (string.equals(message.getString("eugesAide.BoutonPrécédent"))) {
-					System.out.println("Précédent");
+				else if (string.equals(message.getString("eugesAide.BoutonPr?c?dent"))) {
+					System.out.println("Pr?c?dent");
 					browser.back();
 				}
 				else if (string.equals(message.getString("eugesAide.BoutonSuivant"))) {
@@ -235,7 +235,7 @@ public class EugesAide {
 			}
 		});
 		itemAfficher.addListener(SWT.Selection, listener);
-		itemPrécédent.addListener(SWT.Selection, listener);
+		itemPrecedent.addListener(SWT.Selection, listener);
 		itemSuivant.addListener(SWT.Selection, listener);
 
 		
@@ -245,7 +245,7 @@ public class EugesAide {
 	}
 	
 	
-	// Pour créer Parser le fichier XML et créer le root
+	// Pour cr?er Parser le fichier XML et cr?er le root
 	public void readXML(String file, Tree tree) {
 		try {
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
@@ -307,7 +307,7 @@ public class EugesAide {
 		}
 	}
 	
-	// Fonction utiliser pour affichier dans les noeuds du tree des espaces à la place des _ 
+	// Fonction utiliser pour affichier dans les noeuds du tree des espaces ? la place des _ 
 	public static String remplacementCaractere(String chaine, String caractere, String remplacement)
 	{
 		//permet de remplacer les symboles caractere dans une chaine par les symboles remplacement

@@ -126,7 +126,7 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "iconesAide/masquer.ico");
 			_masquerAide = new Image(display,url.openStream());
 			
-			url = getClass().getResource(_basePath + "iconesAide/précédent.ico");
+			url = getClass().getResource(_basePath + "iconesAide/precedent.ico");
 			_precedentAide = new Image(display,url.openStream());
 
 			url = getClass().getResource(_basePath + "iconesAide/suivant.ico");

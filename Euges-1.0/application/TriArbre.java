@@ -1,5 +1,5 @@
 /*
- * Created on 13 févr. 2004
+ * Created on 13 f?vr. 2004
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
@@ -95,14 +95,14 @@ public class TriArbre {
 			itemProjet.setData(EugesElements._projet);
 		}
 		
-		// Texte affiché sur le noeud
+		// Texte affich? sur le noeud
 		itemIteration.setText(message.getString("arbre.iterations"));
 		itemActivite.setText(message.getString("arbre.activites"));
 		itemProduit.setText(message.getString("arbre.produits"));
 		itemRole.setText(message.getString("arbre.roles"));
 		itemPersonne.setText(message.getString("arbre.personnes"));
 
-		// Texte utilisé pour la fénétre des propriétés
+		// Texte utilis? pour la f?n?tre des propri?t?s
 		itemIteration.setData("iterations");
 		itemActivite.setData("activites");
 		itemProduit.setData("produits");
@@ -160,14 +160,14 @@ public class TriArbre {
 		itemProduit.setExpanded(true);
 		
 		
-		// Les rôles
-		Vector vectRôles = EugesElements.listeRoles;
-		int nbRôles = vectRôles.size();
-		TreeItem itemAuxRôles; 
-		for (int i=0; i<nbRôles; i++) {
-			itemAuxRôles = new TreeItem(itemRole, SWT.NONE);
-			itemAuxRôles.setText(((EugesRole) vectRôles.get(i)).getName());
-			itemAuxRôles.setData((EugesRole) vectRôles.get(i));
+		// Les r?les
+		Vector vectRoles = EugesElements.listeRoles;
+		int nbRoles = vectRoles.size();
+		TreeItem itemAuxRoles; 
+		for (int i=0; i<nbRoles; i++) {
+			itemAuxRoles = new TreeItem(itemRole, SWT.NONE);
+			itemAuxRoles.setText(((EugesRole) vectRoles.get(i)).getName());
+			itemAuxRoles.setData((EugesRole) vectRoles.get(i));
 		}
 		itemRole.setExpanded(true);
 		
@@ -328,7 +328,7 @@ public class TriArbre {
 			itemRoles.setImage(GestionImage._role);
 			itemRoles.setData("roles");
 			
-			// Récupération des rôles pour l'activité
+			// R?cup?ration des r?les pour l'activit?
 			TreeItem itemAuxRole;
 			EugesRole auxRole;
 			auxRole = auxActivite.getRole();
@@ -410,7 +410,7 @@ public class TriArbre {
 		}
 		
 		
-		// Les Rôles
+		// Les R?les
 		TreeItem itemAuxRole;
 		EugesRole auxRole;
 		for (int i=0; i<EugesElements.listeRoles.size(); i++) {
@@ -426,7 +426,7 @@ public class TriArbre {
 			itemPersonnes.setImage(GestionImage._actor);
 			itemPersonnes.setData("personnes");
 			
-			// Recuperation des Personnes associées au rôle
+			// Recuperation des Personnes associ?es au r?le
 			TreeItem itemAuxPersonne;
 			
 			Vector personnes = EugesElements.getPersonnesRole(auxRole);
@@ -442,7 +442,7 @@ public class TriArbre {
 			
 			
 
-			// Noeud fixe 'Activités'
+			// Noeud fixe 'Activit?s'
 			TreeItem itemActivites = new TreeItem(itemAuxRole, SWT.NONE);
 			itemActivites.setText(message.getString("arbre.activites"));
 			itemActivites.setImage(GestionImage._activite);
@@ -458,7 +458,7 @@ public class TriArbre {
 				itemAuxActivite.setImage(GestionImage._activite);
 				itemAuxActivite.setData(auxActivite);
 
-				// Ajout des produits en entrées et en sorties de cette activité
+				// Ajout des produits en entr?es et en sorties de cette activit?
 				// Noeuds fixes 'Produits', 'Produits In' et 'Produits Out'
 				TreeItem itemProduitsIn = new TreeItem(itemAuxActivite, SWT.NONE);
 				TreeItem itemProduitsOut = new TreeItem(itemAuxActivite, SWT.NONE);
@@ -530,7 +530,7 @@ public class TriArbre {
 			itemAuxPersonne.setImage(GestionImage._actor);
 			itemAuxPersonne.setData(auxPersonne);
 			
-			// un noeud fixe pour chaque itération
+			// un noeud fixe pour chaque it?ration
 			TreeItem itemAuxIteration;
 			Iteration auxIteration;
 			for (Iterator it = EugesElements._projet.get_listeIteration().iterator(); it.hasNext();) {
@@ -540,7 +540,7 @@ public class TriArbre {
 				itemAuxIteration.setImage(GestionImage._it);
 				itemAuxIteration.setData(auxIteration);
 				
-				// Recuperation des Roles de l'itération
+				// Recuperation des Roles de l'it?ration
 				TreeItem itemAuxRole;
 				EugesRole auxRole;	
 				Vector tempRoles = auxIteration.getAssociation(auxPersonne);
