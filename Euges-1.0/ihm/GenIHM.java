@@ -95,8 +95,11 @@ public class GenIHM extends Dialog{
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				saveGen();
-				EugesElements.genereSite(text4.getText());
-				shellGen.dispose();
+				try {
+					EugesElements.genereSite(text4.getText());
+					shellGen.dispose();
+				} catch (Exception e1) {}
+				
 			}
 		});
 		

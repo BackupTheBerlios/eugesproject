@@ -79,9 +79,13 @@ public class MailIHM extends Dialog{
 		Label label1 = new Label(shellMail, SWT.NONE);
 		label1.setText(message.getString("MailIHM.choix"));
 		this.combo1 = new Combo(shellMail,SWT.DROP_DOWN | SWT.READ_ONLY);
-		//combo1.setItems(TabPers);
-		combo1.setItems(new String[] {"Julien","Cyril","Bruno","Nicolas","Ludovic"});
-		combo1.select(0);
+		try {
+			combo1.setItems(TabPers);
+			combo1.select(0);
+		} catch (Exception e1) {}
+		
+		//combo1.setItems(new String[] {"Julien","Cyril","Bruno","Nicolas","Ludovic"});
+		
 		
 		//bouton choix
 		//Image imageChoix = new Image(display, Config.config.getProperty("cheminIcone")+"ouvrir.ico");
