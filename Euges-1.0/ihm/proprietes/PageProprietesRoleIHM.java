@@ -24,8 +24,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import application.EugesElements;
-
-
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesPersonne;

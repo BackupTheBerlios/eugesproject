@@ -20,7 +20,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import configuration.Config;
-
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;

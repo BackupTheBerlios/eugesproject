@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import utilitaires.GestionImage;
-
 import application.EugesElements;
 import configuration.Config;
 import donnees.eugesSpem.EugesActRealise;

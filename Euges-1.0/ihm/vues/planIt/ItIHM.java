@@ -682,6 +682,7 @@ public class ItIHM extends Composite {
 			_produitsCOMBO.add(e.toString());
 		}
 		_produitsCOMBO.select(0);
+		_produitsCOMBO.pack();
 		
 		// maj de la table prodIn
 		_produitsInTABLE.removeAll();
@@ -730,6 +731,7 @@ public class ItIHM extends Composite {
 			_activitesCOMBO.add(e1.toString());
 		}
 		_activitesCOMBO.select(0);
+		_activitesCOMBO.pack();
 		
 		_activitesTABLE.removeAll();
 		TableTreeItem item;

@@ -6,6 +6,8 @@
  */
 package ihm.proprietes;
 
+import ihm.PageAssistantIHM;
+
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.SortedSet;
@@ -21,12 +23,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import application.EugesElements;
-
 import configuration.Config;
 import donnees.Iteration;
 import donnees.Projet;
-
-import ihm.PageAssistantIHM;
 
 
 /**
