@@ -199,28 +199,9 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrerSous.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					String chemin = new String (enregistrerSous());
-					//on rajoute l'extension egs au nom de fichier si l'utilisateur ne l'a pas saisie
-					if (!chemin.endsWith(".egs"))
+					//si la fonction enregistrerSous renvoye un nom ayant l'extension egs, on enregistre
+					if (chemin.endsWith(".egs"))
 					{
-							chemin+=".egs";
-					}
-					//on regarde si le fichier existe déjà
-					File testExiste = new File (chemin);
-					boolean ecraser = true;
-					if (testExiste.exists())
-					{
-						//si oui, on demande à l'utilisateur voir s'il veut l'écraser ou pas
-						MessageBox mess = new MessageBox (shell,SWT.ICON_WARNING|SWT.YES|SWT.NO);
-						mess.setText(message.getString("titreMessageBoxEnregistrerSous"));
-						mess.setMessage(message.getString("messageMessageBoxEnregistrerSous"));
-						if (mess.open()==SWT.NO)
-						{
-							ecraser = false;
-						}
-					}
-					if (ecraser)
-					{
-						//si le fichier doit etre créé ou écrasé, on sauvegarde
 						EugesElements.sauvegarde(chemin);
 					}
 				}
@@ -625,12 +606,35 @@ public class FenetrePrincipaleIHM {
 		
 			// Ouvre une fenêtre qui permet de choisir un fichier de destination de l'enregistrement
 		private String enregistrerSous(){
-			FileDialog fileDialog = new FileDialog(shell);
+			FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
 			fileDialog.setText(message.getString("titreFenetreEnregistrerSous"));
 			String [] tab = {"*.egs"};
 			fileDialog.setFilterExtensions(tab);
 			String file = fileDialog.open();
-			
+			if (file != null)
+			{
+				if (!file.endsWith(".egs"))
+				{
+						file+=".egs";
+				}
+				//on regarde si le fichier existe déjà
+				File testExiste = new File (file);
+				if (testExiste.exists())
+				{
+					//si oui, on demande à l'utilisateur voir s'il veut l'écraser ou pas
+					MessageBox mess = new MessageBox (shell,SWT.ICON_WARNING|SWT.YES|SWT.NO);
+					mess.setText(message.getString("titreMessageBoxEnregistrerSous"));
+					mess.setMessage(message.getString("messageMessageBoxEnregistrerSous"));
+					if (mess.open()==SWT.NO)
+					{
+							file =enregistrerSous();
+					}
+				}
+			}
+			else
+			{
+				file = "";
+			}
 			return file;
 		}
 		
