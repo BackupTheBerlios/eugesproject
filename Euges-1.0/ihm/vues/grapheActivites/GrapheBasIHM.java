@@ -4,7 +4,7 @@
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-package ihm.vues.graphe;
+package ihm.vues.grapheActivites;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;

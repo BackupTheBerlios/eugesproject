@@ -2,7 +2,9 @@
  * Created on 15 janv. 2004
  *
  */
-package ihm.vues;
+package ihm.vues.planIt;
+
+import ihm.vues.PageVuesIHM;
 
 import java.util.ResourceBundle;
 
@@ -21,7 +23,7 @@ import configuration.Config;
  * @author Mathieu GAYRAUD
  *
  */
-public class PlanItIHM extends Composite {
+public class PlanItIHM extends PageVuesIHM {
 
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 
@@ -33,7 +35,7 @@ public class PlanItIHM extends Composite {
 	 * @param nbIt
 	 */
 	public PlanItIHM(final Composite parent, int nbIt) {
-		super(parent, SWT.BORDER);
+		super(parent, SWT.NONE);
 		_tabFolder = new CTabFolder(this,SWT.NONE);
 		_tabFolder.setSelectionBackground(new Color[] {
 			parent.getDisplay().getSystemColor(SWT.COLOR_GRAY), 
@@ -54,9 +56,9 @@ public class PlanItIHM extends Composite {
 		}
 		_tabFolder.setSelection(0);
 		
-		addListener(SWT.Resize, new Listener() {
+		parent.addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
-				_tabFolder.setBounds(getClientArea());
+				_tabFolder.setBounds(parent.getClientArea());
 			}
 		});
 	}
@@ -88,5 +90,13 @@ public class PlanItIHM extends Composite {
 			it.majAct();
 			it.majProd();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see ihm.vues.PageVuesIHM#loadData()
+	 */
+	public void loadData() {
+		// TODO Auto-generated method stub
+		majContenuWidgets();
 	}
 }

@@ -2,7 +2,7 @@
  * Created on 15 janv. 2004
  *
  */
-package ihm.vues;
+package ihm.vues.planIt;
 
 import ihm.FenetreAttributionRoleIHM;
 import ihm.FenetreGestionProduitsIHM;

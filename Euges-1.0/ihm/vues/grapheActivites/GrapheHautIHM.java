@@ -2,7 +2,7 @@
  * Created on 15 janv. 2004
  *
  */
-package ihm.vues.graphe;
+package ihm.vues.grapheActivites;
 
 
 import java.util.Iterator;
@@ -39,7 +39,7 @@ public class GrapheHautIHM extends Composite {
 	private Vector _tableColonnes = new Vector();
 	
 	public GrapheHautIHM(final Composite comp) {
-		super(comp, SWT.NONE);
+		super(comp, SWT.BORDER);
 		// titre
 		Font font = new Font(comp.getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE|SWT.CENTER);
@@ -90,48 +90,50 @@ public class GrapheHautIHM extends Composite {
 		Color activitesFond = new Color(Display.getCurrent(), 255, 255, 204);
 		Color activitesTexte = new Color(Display.getCurrent(), 0,0,0);
 		
-		/*a modifier*/
-		//recupération du nombre d'itérations
-		//int nbIteration=EugesElements._projet.getNombreIteration();
-		int nbIteration=3;
-		TableColumn tmp;
-		//génération des colonnes correspondant au nombre d'itération
-		for (int i=0; i<nbIteration; i++){
-			tmp = new TableColumn(_graphe, SWT.CENTER);
-			//titre de la colonne
-			tmp.setText(message.getString("grapheIHM.iteration")+" "+i);
-			_tableColonnes.add(tmp);
-		}
-		
-	/*/	int largeur = _graphe.getClientArea().width;
-		TableColumn[] cols = _graphe.getColumns();
-		for (int i=; i<cols.length; i++)
-			cols[i].setWidth(largeur / 4);*/
-		
-		//création des activites
-		//recuperation du vecteur d'activités
-		Vector vecteurTmp = EugesElements.listeActivites;
-		
-		//remplissage des lignes
-		TableItem item;
-		String[] texte;	//texte a afficher
-		int dateDebut, dateFin; //dates de debut et fin de l'activite 
-		for (Iterator iter = vecteurTmp.iterator(); iter.hasNext();) {
-			EugesActivite element = (EugesActivite) iter.next();
-			//creation d'un nouvel item
-			item = new TableItem(_graphe, SWT.NONE);
-			//creation des lignes avec ecriture du texte et mise en forme(couleur fond et texte)
-			texte=new String[nbIteration];
+		//si le projet a été créé
+		if (EugesElements._projet!=null){
+			//recupération du nombre d'itérations
+			int nbIteration=EugesElements._projet.getNombreIteration();
+			System.out.println("->>>"+nbIteration);
+			TableColumn tmp;
+			//génération des colonnes correspondant au nombre d'itération
 			for (int i=0; i<nbIteration; i++){
-				if (i>=element.getIterationDebut() && i<=element.getIterationFin()){
-					item.setForeground(i, activitesTexte);
-					item.setBackground(i, activitesFond);
-					texte[i]=element.getName();
-				}else{
-					texte[i]="";
-				}
+				tmp = new TableColumn(_graphe, SWT.CENTER);
+				//titre de la colonne
+				tmp.setText(message.getString("grapheIHM.iteration")+" "+i);
+				_tableColonnes.add(tmp);
 			}
-			item.setText(texte);
+			
+			/*/	int largeur = _graphe.getClientArea().width;
+			 TableColumn[] cols = _graphe.getColumns();
+			 for (int i=; i<cols.length; i++)
+			 cols[i].setWidth(largeur / 4);*/
+			
+			//création des activites
+			//recuperation du vecteur d'activités
+			Vector vecteurTmp = EugesElements.listeActivites;
+			
+			//remplissage des lignes
+			TableItem item;
+			String[] texte;	//texte a afficher
+			int dateDebut, dateFin; //dates de debut et fin de l'activite 
+			for (Iterator iter = vecteurTmp.iterator(); iter.hasNext();) {
+				EugesActivite element = (EugesActivite) iter.next();
+				//creation d'un nouvel item
+				item = new TableItem(_graphe, SWT.NONE);
+				//creation des lignes avec ecriture du texte et mise en forme(couleur fond et texte)
+				texte=new String[nbIteration];
+				for (int i=0; i<nbIteration; i++){
+					if (i>=element.getIterationDebut() && i<=element.getIterationFin()){
+						item.setForeground(i, activitesTexte);
+						item.setBackground(i, activitesFond);
+						texte[i]=element.getName();
+					}else{
+						texte[i]="";
+					}
+				}
+				item.setText(texte);
+			}
 		}
 	}
 }

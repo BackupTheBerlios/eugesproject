@@ -6,15 +6,15 @@
  */
 package ihm.vues;
 
-import ihm.vues.graphe.GrapheIHM;
+import ihm.vues.grapheActivites.GrapheIHM;
+import ihm.vues.grapheCharges.*;
+import ihm.vues.planIt.*;
 
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ViewForm;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Listener;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class Vues extends ViewForm{
+public class VuesIHM extends ViewForm{
 
 	//vecteur de vues
 	private Vector _vues;
@@ -34,7 +34,7 @@ public class Vues extends ViewForm{
 	 * @param parent
 	 * @param nbIt
 	 */
-	public Vues(final SashForm parent) {
+	public VuesIHM(final SashForm parent) {
 		super(parent, SWT.BORDER);
 		//allocation du vecteur de vues
 		_vues = new Vector();
@@ -42,21 +42,19 @@ public class Vues extends ViewForm{
 		final Composite c = new Composite(this, SWT.NONE);
 		//ajout des vues dans la liste des vues
 		_vues.add(new PlanItIHM(c, 0));
+		_vues.add(new GrapheChargesIHM(c));
 		_vues.add(new GrapheIHM(c));
 		
-		((Composite)_vues.elementAt(0)).setVisible(true);
-		((Composite)_vues.elementAt(1)).setVisible(false);
-		
-		//mise en place du layout
-		FormLayout layout = new FormLayout();
-		this.setLayout(layout);
-		
-		FormData data = new FormData();
-		c.setLayoutData(data);
+		((PageVuesIHM)_vues.elementAt(0)).setVisible(true);
+		((PageVuesIHM)_vues.elementAt(1)).setVisible(false);
+		((PageVuesIHM)_vues.elementAt(2)).setVisible(false);
 		
 		addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
-				c.setBounds(c.getParent().getClientArea());
+				c.setBounds(getClientArea());
+				((PageVuesIHM)_vues.elementAt(0)).setBounds(c.getClientArea());
+				((PageVuesIHM)_vues.elementAt(1)).setBounds(c.getClientArea());
+				((PageVuesIHM)_vues.elementAt(2)).setBounds(c.getClientArea());
 			}
 		});
 	}
@@ -65,11 +63,16 @@ public class Vues extends ViewForm{
 	 * @param numPage numero de la page a afficher
 	 */
 	public void setVisible(int numPage){
-		((Composite)_vues.elementAt(numPage)).setVisible(true);
-		((Composite)_vues.elementAt(pageCourante)).setVisible(false);
+		System.out.println("page courante="+pageCourante);
+		System.out.println("nouvelle page="+numPage);
+		
+		((PageVuesIHM)_vues.elementAt(numPage)).setVisible(true);
+		((PageVuesIHM)_vues.elementAt(numPage)).loadData();
+		((PageVuesIHM)_vues.elementAt(pageCourante)).setVisible(false);
+		
+		pageCourante=numPage;
 	}
 	/**
-	 * 
 	 * @param i indice du composite a retourner
 	 * @return composite voulu
 	 */
