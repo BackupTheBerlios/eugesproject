@@ -85,12 +85,13 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 		
 		
 		// Rôle associé
-		CLabel lblRole = new CLabel(this,SWT.WRAP);
-		lblRole.setText(message.getString("PageProprietesActiviteIHM.activite.lblRole"));
-		Text role = new Text(this,SWT.WRAP);
-		role.setText(act.getRole(0).getName());
-		role.setEditable(false);
-		
+		if(act.getRoleCount()!=0){
+			CLabel lblRole = new CLabel(this,SWT.WRAP);
+			lblRole.setText(message.getString("PageProprietesActiviteIHM.activite.lblRole"));
+			Text role = new Text(this,SWT.WRAP);
+			role.setText(act.getRole(0).getName());
+			role.setEditable(false);
+		}
 		// Vide pour la présentation
 		CLabel lblVide2 = new CLabel(this,SWT.WRAP);
 		lblVide2.setText("");
