@@ -109,7 +109,9 @@ public class EugesPersonne {
 	 */
 	public void setPrenom(String prenom) {
 		this._prenom = prenom;
-	}	public boolean contientRole(EugesRole a) {
+	}
+	
+	public boolean contientRole(EugesRole a) {
 		return _roles.contains(a);
 	}
 
@@ -175,6 +177,13 @@ public class EugesPersonne {
 		}
 		
 	}
+	
+	public Vector genereListePersonne(Vector listePersonne) {
+			if (!listePersonne.contains(this)) {
+				listePersonne.add(this);
+			}
+			return (listePersonne);
+	} 
 	
 	public void genereMenu(BufferedWriter buffer) {
 		try {

@@ -318,9 +318,16 @@ public class Iteration {
 			
 			// 1er tableau : Roles & Personnes :
 			iteration.write("<div align='right'><img src='../images/role.gif'><I><B>Roles & Personnes</B></I></div><hr><table border='0' width='100%'>");
+			
+			Vector listePersonne = new Vector();
 			for (int i = 0; i<_activitesRealisees.size();i++)
 			{
-				((EugesActRealise)_activitesRealisees.get(i)).genereTabPersonne(iteration);
+				listePersonne = ((EugesActRealise)_activitesRealisees.get(i)).genereTabPersonne(listePersonne);
+			}
+			
+			for (int i = 0; i<listePersonne.size();i++)
+			{
+				iteration.write("<tr><td><a href='mailto:"+((EugesPersonne)listePersonne.get(i)).getMail()+"'>"+((EugesPersonne)listePersonne.get(i)).getPrenom()+" "+((EugesPersonne)listePersonne.get(i)).getNom()+"</a></td></tr>");
 			}
 			iteration.write("</table><br>");
 			

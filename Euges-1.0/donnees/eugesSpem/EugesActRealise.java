@@ -248,17 +248,16 @@ public class EugesActRealise {
 		}
 	}
 	
-	public void genereTabPersonne(BufferedWriter buffer) {
-		//System.out.println("pers"+_personnes.size());
+	public Vector genereTabPersonne(Vector listePersonne) {
+		
 		for (int i = 0; i<_personnes.size();i++)
 		{
-			//System.out.println("pers2");
-			((EugesPersonne)_personnes.get(i)).genereMenu(buffer);
+			((EugesPersonne)_personnes.get(i)).genereListePersonne(listePersonne);
 		}
+		return (listePersonne);
 	}
 	
 	public void genereTabProduitIn(BufferedWriter buffer) {
-		//System.out.println("produitIn"+_produitsIn.size());
 		for (int i = 0; i<_produitsIn.size();i++)
 		{
 			((EugesVersion)_produitsIn.get(i)).genereTabProduitIn(buffer,this.get_activiteParent().getName());
