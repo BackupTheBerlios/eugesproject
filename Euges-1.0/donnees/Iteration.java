@@ -271,7 +271,7 @@ public class Iteration {
 					{
 						roleCour = (EugesRole)role.elementAt(j);
 						//System.out.println ("role : "+roleCour.getName());
-						roleCour.sauvegarder(ecriture);
+						persCour.ajouterRole(roleCour);
 					}
 				}
 			}
