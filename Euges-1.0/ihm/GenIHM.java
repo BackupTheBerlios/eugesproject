@@ -21,6 +21,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import application.EugesElements;
+
 import java.io.FileOutputStream;
 
 import utilitaires.GestionImage;
@@ -91,6 +94,7 @@ public class GenIHM extends Dialog{
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				saveGen();
+				EugesElements.genereSite(text4.getText());
 				shellGen.dispose();
 			}
 		});

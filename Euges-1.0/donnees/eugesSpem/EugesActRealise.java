@@ -233,4 +233,40 @@ public class EugesActRealise {
 		}
 		
 	}
+	
+	public void genereTabActivite(BufferedWriter buffer) {
+		try {
+			buffer.write("<tr bgcolor='white'><td>"+this.get_activiteParent()+"</td><td>"+this.get_chargeEstimee()+"</td><td>"+this.get_chargeReelle()+"</td></tr>");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void genereTabPersonne(BufferedWriter buffer) {
+		System.out.println("pers"+_personnes.size());
+		for (int i = 0; i<_personnes.size();i++)
+		{
+			System.out.println("pers2");
+			((EugesPersonne)_personnes.get(i)).genereMenu(buffer);
+		}
+	}
+	
+	public void genereTabProduitIn(BufferedWriter buffer) {
+		System.out.println("produitIn"+_produitsIn.size());
+		for (int i = 0; i<_produitsIn.size();i++)
+		{
+			((EugesVersion)_produitsIn.get(i)).genereTabProduitIn(buffer,this.get_activiteParent().getName());
+		}
+		
+	}
+	
+	public void genereTabProduitOut(BufferedWriter buffer) {
+		for (int i = 0; i<_produitsOut.size();i++)
+		{
+			((EugesVersion)_produitsOut.get(i)).genereTabProduitOut(buffer,this.get_activiteParent().getName());
+		}
+		
+	}
+	
 }

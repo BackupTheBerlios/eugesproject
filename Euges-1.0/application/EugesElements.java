@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
+import utilitaires.CopierFichier;
+import utilitaires.EugesNavigateur;
 import utilitaires.MyDate;
 import donnees.Iteration;
 import donnees.Projet;
@@ -22,6 +24,7 @@ import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 import donnees.eugesSpem.EugesVersion;
+
 
 /**
  * @author will
@@ -631,4 +634,84 @@ public class EugesElements {
 		listeProduits.removeAllElements();
 		listePersonnes.removeAllElements();
 	}
+	public static void genereSite(String chemin){
+		File FileIndex = new File (chemin + "/index.htm");
+		File FileMenu  = new File (chemin+"/menu.htm");
+		File FilePrincipale  = new File (chemin+"/principale.htm");
+		File FileTitre  = new File (chemin+"/titre.htm");
+		try {
+			
+			//Génération de l'index : 
+			FileWriter fichierIndex = new FileWriter (FileIndex);
+			BufferedWriter index = new BufferedWriter (fichierIndex);
+			_projet.genereIndex(index);
+			index.close();
+			
+			//Génération du titre de la page : 
+			FileWriter fichierTitre = new FileWriter (FileTitre);
+			BufferedWriter titre = new BufferedWriter (fichierTitre);
+			_projet.genereTitre(titre);
+			titre.close();
+			
+			//Génération du corps de la page principale : 
+			FileWriter fichierPrincipale = new FileWriter (FilePrincipale);
+			BufferedWriter principale = new BufferedWriter (fichierPrincipale);
+			_projet.generePrincipale(principale);
+			principale.close();
+			
+			//Génération du menu : 
+			FileWriter fichierMenu = new FileWriter (FileMenu);
+			BufferedWriter menu = new BufferedWriter (fichierMenu);
+			menu.write("<html><head></head><body><table border='0'><tr><td><img src='images/it.gif'>Itérations</td></tr>");
+			_projet.genereMenuIt(menu);
+			menu.write("<tr><td><img src='images/activite.gif'>Activités</b></td></tr>");
+			for (int i = 0; i<listeActivites.size();i++)
+			{
+				((EugesActivite)listeActivites.get(i)).genereMenu(menu);
+			}
+			menu.write("<tr><td><img src='images/produit.gif'>Produits</tr>");
+			for (int i = 0; i<listeProduits.size();i++)
+			{
+				((EugesProduit)listeProduits.get(i)).genereMenu(menu);
+			}
+			menu.write("<tr><td><img src='images/role.gif'>Roles</td></tr>");
+			for (int i = 0; i<listeRoles.size();i++)
+			{
+				((EugesRole)listeRoles.get(i)).genereMenu(menu);
+			}
+			menu.write("<tr><td><img src='images/actor.gif'>Personnes</td></tr>");
+			for (int i = 0; i<listePersonnes.size();i++)
+			{
+				((EugesPersonne)listePersonnes.get(i)).genereMenu(menu);
+			}
+			menu.write("</table></body></html>");
+			menu.close();
+			
+			//Génération des pages d'itérations : 
+			File repIterations = new File(chemin+"/iterations");
+			repIterations.mkdir();
+			_projet.genereIterations(chemin);
+			
+			//Création du repertoire contenant les images :
+			File repImages = new File(chemin+"/images");
+			repImages.mkdir();
+			
+			//Copie des images :
+			CopierFichier.copyFile("configuration/images/actor.gif",chemin+"/images/actor.gif");
+			CopierFichier.copyFile("configuration/images/activite.gif",chemin+"/images/activite.gif");
+			CopierFichier.copyFile("configuration/images/role.gif",chemin+"/images/role.gif");
+			CopierFichier.copyFile("configuration/images/produit.gif",chemin+"/images/produit.gif");
+			CopierFichier.copyFile("configuration/images/it.gif",chemin+"/images/it.gif");
+			CopierFichier.copyFile("configuration/images/logo2.png",chemin+"/images/logo2.png");
+			CopierFichier.copyFile("configuration/images/iconeAngle.gif",chemin+"/images/iconeAngle.gif");
+			
+			//Ouverture du site dans le navigateur d'Euges :
+			EugesNavigateur fenetre = new EugesNavigateur(chemin+"/index.htm");
+			
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
 }

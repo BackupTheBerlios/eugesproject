@@ -225,4 +225,14 @@ public class EugesActivite extends Activity{
 		}
 		
 	}
+	
+	public void genereMenu(BufferedWriter buffer) {
+		try {
+			buffer.write("<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+this.getName()+"</td></tr>");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -206,4 +206,30 @@ public class EugesVersion {
 		}
 		
 	}
+	
+	public void genereTabProduitIn(BufferedWriter buffer, String activite) {
+		try {
+			buffer.write("<tr bgcolor='white'><td>"+this.get_nom()+"(Act: "+activite+")</td></tr>");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}	
+	}
+	
+	public void genereTabProduitOut(BufferedWriter buffer,String activite) {
+		try {
+			buffer.write("<tr bgcolor='white'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			if (this.get_responsable() != null){
+				buffer.write("<tr bgcolor='white'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.get_responsable()+"(Resp)</td><td> </td><td> </td></tr>");
+			}
+			for (int i = 0; i<_acteurs.size();i++)
+			{
+				((EugesPersonne)_acteurs.get(i)).genereTabProduitOutActeur(buffer);
+			}
+			
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
 }

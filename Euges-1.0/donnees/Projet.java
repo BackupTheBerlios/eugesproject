@@ -278,4 +278,55 @@ public class Projet {
 				((Iteration)iter.next()).sauvegardePartielle(ecriture);
 			}		
 	}
+	
+	public void genereIndex(BufferedWriter buffer) {
+		try {
+			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet());
+			buffer.write("</title>\n</head>\n<frameset frameborder='yes' border='1' rows='15%,85%'>\n<frame src='titre.htm' scrolling='no' noresize>\n");
+			buffer.write("<frameset  frameborder='yes' border='1' cols='18%,82%'>\n<frame src='menu.htm' scrolling='auto'>\n");
+			buffer.write("<frame src='principale.htm' scrolling='no' noresize name='dyn'>\n</frameset>\n</html>\n");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void generePrincipale(BufferedWriter buffer) {
+		try {
+			buffer.write("<html>\n<head>\n");
+			buffer.write("</head>\n<body bgcolor='lightgrey'>\n<div align='center'>\n");
+			buffer.write("<table border='0'>\n<tr>\n<td width='50%'>Date de début de projet : </td>\n<td width='50%'>"+this.get_dateDebut()+"</td>\n</tr>\n<td width='50%'>Date de fin de projet : </td>\n<td width='50%'>"+this.get_dateFin()+"</td>\n<tr>\n<td width='50%'>Description du projet : </td>\n<td width='50%'>"+this.get_description()+"</td>\n	</tr>\n</table>");
+			buffer.write("</div></body></html>");
+			} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void genereTitre(BufferedWriter buffer) {
+		try {
+			buffer.write("<html>\n<head>\n</head>\n<body>\n");
+			buffer.write("<table border='0' width='100%' height='100%'>\n<tr width='100%' height='100%'>\n<td width='18%' height='100%' >\n<img src='images/logo2.png' width='100%' height='100%'>\n</td>\n<td width='82%' height='100%'>\n<div align='center'><b><a href='principale.htm' target='dyn'><h2>"+this.get_nomProjet()+"</h2></a></b></div>\n</td>\n</tr>");
+			buffer.write("</body></html>");
+			} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void genereMenuIt(BufferedWriter buffer) {
+		
+		for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
+		{
+			((Iteration)iter.next()).genereLigneMenu(buffer);
+		}
+	}
+	
+	public void genereIterations(String chemin) {
+		for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
+		{
+			((Iteration)iter.next()).genereIteration(chemin);
+		}
+	}
+	
 }

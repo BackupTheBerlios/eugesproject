@@ -7,6 +7,8 @@
 package donnees;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
@@ -270,4 +272,61 @@ public class Iteration {
 		}
 		
 	}
+	
+	public void genereLigneMenu(BufferedWriter buffer) {
+		try {
+			buffer.write("<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='iterations/iteration"+this.get_numIt()+".htm' target='dyn'>It&eacute;ration "+this.get_numIt()+"</td></tr>");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}	
+	}
+	
+	public void genereIteration(String chemin) {
+		File FileIteration  = new File (chemin+"/iterations/iteration"+this.get_numIt()+".htm");
+		try {
+			
+			//Génération de l'index : 
+			FileWriter fichierIteration = new FileWriter (FileIteration);
+			BufferedWriter iteration = new BufferedWriter (fichierIteration);
+			
+			iteration.write("<HTML><HEAD></HEAD><BODY bgcolor='lightgrey'><div align='center'><i><h3>Plan d'it&eacute;ration "+this.get_numIt()+"</h3></i></div>");
+			iteration.write("<div align='center'>Du "+this.get_dateDebut()+" au "+this.get_dateFin()+"</div><br>");
+			
+			// 1er tableau : Roles & Personnes :
+			iteration.write("<div align='right'><img src='../images/role.gif'><I><B>Roles & Personnes</B></I></div><hr><table border='0' width='100%'>");
+			for (int i = 0; i<_activitesRealisees.size();i++)
+			{
+				((EugesActRealise)_activitesRealisees.get(i)).genereTabPersonne(iteration);
+			}
+			iteration.write("</table><br>");
+			
+			// 2eme tableau : Activités :
+			iteration.write("<div align='right'><img src='../images/activite.gif'><I><b>Activités</b></I></div><hr><table cellspacing='0'cellpadding='0' border='1' bordercolor='black' width='100%'><tr><td>Activit&eacute;</td><td>Charges pr&eacute;vue (h)</td><td>Charges r&eacute;elle (h)</td></tr>");
+			for (int i = 0; i<_activitesRealisees.size();i++)
+			{
+				((EugesActRealise)_activitesRealisees.get(i)).genereTabActivite(iteration);
+			}
+			iteration.write("</table><br>");
+			
+			// 3eme tableau : Produits : 
+			iteration.write("<div align='right'><img src='../images/produit.gif'><i><B>Produits</B></i></div><hr><table cellspacing='0'cellpadding='0' border='1' bordercolor='black' width='100%'><tr><td>Produit en sortie</td><td>Version</td><td>Etat / R&eacute;alisation</td></tr>");
+			for (int i = 0; i<_activitesRealisees.size();i++)
+			{
+				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitOut(iteration);
+			}
+			iteration.write("</table><br>");
+			iteration.write("<table cellspacing='0'cellpadding='0' border='1' bordercolor='black' width='100%'><tr><td>Produit en entr&eacute;e</td></tr>");
+			for (int i = 0; i<_activitesRealisees.size();i++)
+			{
+				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitIn(iteration);
+			}
+			iteration.write("</table><br>");
+			iteration.close();
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}	
+	}
+	
 }
