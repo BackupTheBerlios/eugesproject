@@ -264,17 +264,19 @@ public class Iteration {
 			EugesPersonne persCour = new EugesPersonne();
 			Vector role = new Vector ();
 			EugesRole roleCour = new EugesRole();
+			//System.out.println ("numéro de l'it : "+get_numIt());
 			for (int i =0;i< pers.size();i++)
 			{
 				persCour = (EugesPersonne)pers.elementAt(i);
 				persCour.sauvegardePartielle(ecriture);
 				role = getAssociation(persCour);
+				//System.out.println ("personne (nb roles): "+persCour.getNom()+" "+role.size());
 				for (int j = 0;j<role.size();j++)
 				{
 					roleCour = (EugesRole)role.elementAt(j);
+					//System.out.println ("role : "+roleCour.getName());
 					roleCour.sauvegarder(ecriture);
 				}
-				//System.out.println (_personnesRoles.elementAt(i));
 			}
 			
 			//sauvegarde des activités réalisées
