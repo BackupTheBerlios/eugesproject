@@ -45,7 +45,7 @@ public class IconesAPP {
 				boolean accept = false;
 				String extension = name.substring(name.lastIndexOf('.')+1);
 				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("xpm") || extension.equals("png") || extension.equals("gif");
-				return (file.isFile() && accept);
+				return file.isFile() && accept;
 			}
 		});
 		   // on copie tous les anciens icônes dans le répertoire xxxOld

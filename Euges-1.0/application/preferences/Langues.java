@@ -115,14 +115,14 @@ public class Langues {
 	
 	public class filtreRepertoireTraduction implements FileFilter {
 		public boolean accept(File pathname) {
-			return ((pathname.getName().length() == 2)&&(pathname.isDirectory()));
+			return (pathname.getName().length() == 2)&&(pathname.isDirectory());
 		}
 	}
 	
 
 	public class filtreDescription implements FileFilter {
 		public boolean accept(File pathname) {
-			return (pathname.getName().equals("Description.conf"));
+			return pathname.getName().equals("Description.conf");
 		}
 	}
 

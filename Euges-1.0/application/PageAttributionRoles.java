@@ -28,7 +28,6 @@ public class PageAttributionRoles {
 	}
 	
 	public static EugesRole getRole (String role) {
-		EugesRole r = null;
 		for (Iterator iter = EugesElements.listeRoles.iterator(); iter.hasNext();) {
 			EugesRole e = (EugesRole) iter.next();
 			if (e.toString().equals(role)) {

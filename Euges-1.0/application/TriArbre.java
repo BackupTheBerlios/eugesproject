@@ -122,7 +122,6 @@ public class TriArbre {
 		}
 		else {			
 			SortedSet vectIteration = EugesElements._projet.get_listeIteration();
-			int nbIteration = vectIteration.size();
 			TreeItem itemAuxIteration;
 			Iterator it = vectIteration.iterator();
 			Iteration auxIteration;
@@ -428,7 +427,6 @@ public class TriArbre {
 			itemPersonnes.setData("personnes");
 			
 			// Recuperation des Personnes associées au rôle
-			EugesPersonne auxPersonne;
 			TreeItem itemAuxPersonne;
 			
 			Vector personnes = EugesElements.getPersonnesRole(auxRole);
@@ -453,7 +451,6 @@ public class TriArbre {
 			// Recuperation des Activites
 			TreeItem itemAuxActivite;
 			Vector activites = EugesElements.getActivitesRole(auxRole) ;
-			EugesActRealise auxActRealise;
 			for (Iterator it = activites.iterator(); it.hasNext();) {
 				EugesActivite auxActivite = (EugesActivite) it.next();
 				itemAuxActivite = new TreeItem(itemActivites, SWT.NONE);

@@ -286,7 +286,6 @@ public class EugesElements {
 	}
 	
 	public static EugesRole getRole (String role) {
-		EugesRole r = null;
 		for (Iterator iter = EugesElements.listeRoles.iterator(); iter.hasNext();) {
 			EugesRole e = (EugesRole) iter.next();
 			if (e.toString().equals(role)) {
@@ -383,7 +382,7 @@ public class EugesElements {
 				Vector tempRoles = auxIteration.getAssociation(auxPersonne);
 				for (Iterator iterator = tempRoles.iterator(); iterator.hasNext();) {
 					auxRoleAct = (EugesRole) iterator.next();
-					if (auxRoleAct.getName() == r.getName() && !resultat.contains(auxPersonne)) {
+					if (auxRoleAct.getName().equals(r.getName()) && !resultat.contains(auxPersonne)) {
 						appartient = true;
 						resultat.add(auxPersonne);	
 					}
@@ -400,7 +399,6 @@ public class EugesElements {
 	public static Vector getActivitesRole(EugesRole r) {
 		Vector resultat = new Vector();
 		EugesActivite auxActivite;
-		EugesActRealise auxActRealise;
 		boolean appartient = false;
 		Iterator it2 = EugesElements.listeActivites.iterator();
 		while(!appartient && it2.hasNext()){
@@ -431,7 +429,7 @@ public class EugesElements {
 				auxVersion = auxProduit.getVersionPrecise(n);
 				
 				// Si auxPersonne est responsable de la version
-				if (auxVersion.get_responsable() != null && pers.getNom() == auxVersion.get_responsable().getNom() && !appartient) {
+				if (auxVersion.get_responsable() != null && pers.getNom().equals(auxVersion.get_responsable().getNom()) && !appartient) {
 					resultat.add(auxVersion.get_produitParent());
 					appartient = true;
 				}
@@ -470,7 +468,6 @@ public class EugesElements {
 	 */
 	public static Vector getActivitesProduitOut(EugesProduit prod) {
 		Vector resultat = new Vector();
-		EugesActivite act;
 		Vector activites = EugesElements.listeActivites;
 		for (Iterator it = activites.iterator(); it.hasNext();) {
 			EugesActivite auxActivite = (EugesActivite) it.next();
@@ -485,7 +482,6 @@ public class EugesElements {
 	// Retourne toutes les versions associées à une itération
 	public static Vector getProduitsIteration(Iteration it) {
 		Vector resultat = new Vector();
-		EugesVersion auxProduits;
 		
 		for (int i=0; i<it.getActiviteCount(); i++) {
 			EugesActRealise auxActRealise = it.getActivite(i);
@@ -712,7 +708,7 @@ public class EugesElements {
 			
 			
 			
-			if (check=="1"){
+			if (check.equals("1")){
 			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/style.css");
 			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/iterations/style.css");
 			}
@@ -723,7 +719,7 @@ public class EugesElements {
 			}
 			
 			//Ouverture du site dans le navigateur d'Euges :
-			EugesNavigateur fenetre = new EugesNavigateur(chemin+"/index.htm");
+			new EugesNavigateur(chemin+"/index.htm");
 			
 		} catch (IOException e) {
 			System.out.println (e);

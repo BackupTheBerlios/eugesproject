@@ -19,9 +19,9 @@ import configuration.Config;
 public class Euges {
 
 	public static void main(String[] args) {
-		Config config = new Config();
-		EugesElements eugesElement = new EugesElements();
+		new Config();
+		new EugesElements();
 		
-		FenetrePrincipaleIHM fenetre = new FenetrePrincipaleIHM();	
+		new FenetrePrincipaleIHM();	
 	}
 }

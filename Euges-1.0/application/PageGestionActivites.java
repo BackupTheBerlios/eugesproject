@@ -33,7 +33,7 @@ public class PageGestionActivites {
 	 */
 	public static void nouvelleActivite(Shell parent) {
 		//ouverture de la fenêtre de saisie des informations de la nouvelle activité
-		NouvelleActiviteIHM nouvelle = new NouvelleActiviteIHM(parent);		
+		new NouvelleActiviteIHM(parent);		
 	}
 	
 	

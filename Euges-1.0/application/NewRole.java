@@ -16,8 +16,6 @@ import donnees.eugesSpem.EugesRole;
 
 public class NewRole {
 	public static Vector roleToVector () {
-		int i = 0;
-
 		Vector liste = new Vector();
 		
 		for (Iterator iter = EugesElements.listeRoles.iterator(); iter.hasNext();) {
