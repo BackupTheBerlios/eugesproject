@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Euges>
+	<comment_utiliser_Euges>
+		<Comment_creer_un_nouveau_projet/>		
+		<Comment_ouvrir_un_projet_existant/>
+		<Comment_fermer_projet/>
+		<Comment_sauvegarder_projet/>
+		<Comment_generer_site/>
+	</comment_utiliser_Euges>
+
+	<Comment_configurer_euges>
+		<Comment_configurer_la_langue/>
+		<Comment_configurer_l_aide/>
+		<Comment_configurer_les_icones/>
+	</Comment_configurer_euges>
+
+</Euges>

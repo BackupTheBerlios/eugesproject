@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+    <jar path="D:/Docs/Mes projets/Euges/Logiciel/exe/euges.jar"/>
+    <options overwrite="true" compress="true" exportErrors="false"
+        exportWarnings="true" saveDescription="true"
+        descriptionLocation="/Euges/jarEUGES.jardesc"
+        useSourceFolders="false" buildIfNeeded="true"/>
+    <manifest manifestVersion="1.0" usesManifest="true"
+        reuseManifest="true" saveManifest="true"
+        generateManifest="false" manifestLocation="/Euges/manifest.mf" mainClassHandleIdentifier="=Euges/&lt;{Euges.java[Euges">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false">
+        <file path="/Euges/configuration/images/actor.gif"/>
+        <file path="/Euges/configuration/images/iconesDefaut/fermer.ico"/>
+        <file path="/Euges/configuration/images/iconesAide/masquer.ico"/>
+        <file path="/Euges/configuration/images/iconesDefaut/ouvrir.ico"/>
+        <file path="/Euges/configuration/images/euges.ico"/>
+        <file path="/Euges/configuration/images/eugesAssistant.png"/>
+        <file path="/Euges/configuration/images/iconesDefaut/nouveau.ico"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoV_minus.jpg"/>
+        <javaElement handleIdentifier="=Euges/&lt;application"/>
+        <file path="/Euges/configuration/images/moins.gif"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoH_default.jpg"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.traduction.en"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoV_default.jpg"/>
+        <file path="/Euges/configuration/images/iconesDefaut/mail.ico"/>
+        <file path="/Euges/configuration/images/plus.gif"/>
+        <file path="/Euges/configuration/help/fr/images/scroll_rt.gif"/>
+        <javaElement handleIdentifier="=Euges/&lt;"/>
+        <file path="/Euges/configuration/help/fr/images/logo.png"/>
+        <file path="/Euges/configuration/images/iconesDefaut/tri_activite.ico"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.basic"/>
+        <javaElement handleIdentifier="=Euges/&lt;ihm.preferences"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoV_plus.jpg"/>
+        <file path="/Euges/configuration/images/iconesDefaut/tri_iteration.ico"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.core"/>
+        <file path="/Euges/configuration/help/fr/images/icone.jpg"/>
+        <file path="/Euges/configuration/images/iconesDefaut/tri_defaut.ico"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.traduction.fr"/>
+        <file path="/Euges/configuration/images/produit.gif"/>
+        <javaElement handleIdentifier="=Euges/&lt;ihm.graphe"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.help.fr"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.images.icones"/>
+        <javaElement handleIdentifier="=Euges/&lt;utilitaires"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.process.structure"/>
+        <javaElement handleIdentifier="=Euges/&lt;ihm"/>
+        <file path="/Euges/configuration/help/fr/images/10.jpg"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.modelmanagement"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoH_minus.jpg"/>
+        <file path="/Euges/configuration/help/fr/images/scrollend.gif"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.diagram"/>
+        <file path="/Euges/configuration/images/activite.gif"/>
+        <file path="/Euges/configuration/images/start.jpg"/>
+        <file path="/Euges/configuration/images/iconesDefaut/enregistrer.ico"/>
+        <file path="/Euges/configuration/images/iconesShash/sashPersoH_plus.jpg"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.preferences"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.help.en"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration"/>
+        <file path="/Euges/configuration/images/role.gif"/>
+        <javaElement handleIdentifier="=Euges/&lt;configuration.images.navigatorGif"/>
+        <file path="/Euges/configuration/images/iconesAide/suivant.ico"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem.process.components"/>
+        <file path="/Euges/configuration/images/it_disabled.gif"/>
+        <file path="/Euges/configuration/images/it.gif"/>
+        <file path="/Euges/configuration/images/iconesAide/afficher.ico"/>
+        <file path="/Euges/configuration/images/iconesDefaut/aide.ico"/>
+        <file path="/Euges/configuration/images/calendrier.png"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.eugesSpem"/>
+        <javaElement handleIdentifier="=Euges/&lt;donnees.spem"/>
+        <file path="/Euges/configuration/images/eclipse.png"/>
+        <javaElement handleIdentifier="=Euges/&lt;application.preferences"/>
+        <file path="/Euges/configuration/images/iconesAide/précédent.ico"/>
+        <file path="/Euges/configuration/images/iconesDefaut/tri_role.ico"/>
+    </selectedElements>
+</jardesc>
