@@ -441,7 +441,7 @@ public class FenetrePrincipaleIHM {
 			Image imageGen = new Image(display, Config.config.getProperty("cheminIcone")+"web.ico");
 			itemGen = new ToolItem(toolBar6, SWT.NONE);
 			itemGen.setImage(imageGen);
-			itemGen.setToolTipText(message.getString("toolbar.mail.tooltiptext"));
+			itemGen.setToolTipText(message.getString("toolbar.web.tooltiptext"));
 			itemGen.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					GenIHM genIHM = new GenIHM(shell);
