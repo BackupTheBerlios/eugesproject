@@ -46,7 +46,7 @@ import configuration.Config;
 
 
 /**
- * @author Nicolas
+ * @author Nicolas Elbeze
  *
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
@@ -208,7 +208,8 @@ public class EugesAide {
 		
 		tree.addListener(SWT.MouseDown, new Listener() {
 			public void handleEvent(Event e) {
-				String fichier = "configuration\\help\\" + Config.locale.getLanguage() + "\\" + tree.getSelection()[0].getText() + ".xml";
+				String nom = remplacementCaractere(tree.getSelection()[0].getText(), " ", "_");
+				String fichier = "configuration\\help\\" + Config.locale.getLanguage() + "\\" + nom + ".xml";
 				
 				File file = new File(fichier);
 				if (file.exists()) {
@@ -300,6 +301,7 @@ public class EugesAide {
 						ti.setData("Feuille");
 					}
 					break;
+					
 				default:
 					break;
 			}
