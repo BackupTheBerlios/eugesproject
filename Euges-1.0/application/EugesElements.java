@@ -504,6 +504,7 @@ public class EugesElements {
 	//fonction qui sauvegarde
 	public static void sauvegarde ()
 	{
+		sauvegarde (_projet.get_repDestination()+_projet.get_nomProjet()+".egs");/*
 		File fichier = new File (_projet.get_repDestination(), _projet.get_nomProjet()+".egs");
 		try {
 			FileWriter fichierEcriture = new FileWriter (fichier);
@@ -558,7 +559,7 @@ public class EugesElements {
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	/**
