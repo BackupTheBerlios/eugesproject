@@ -75,6 +75,8 @@ public class FenetrePrincipaleIHM {
 		public static MenuItem menuItemOuvrirAide;
 		public static MenuItem menuItemAPropos;
 		
+		// Barre d'outils
+		final CoolBar coolBar;
 			// définition de items de la barre d'outils
 		public static ToolItem itemNouveau;
 		public static ToolItem itemOuvrir;	
@@ -255,11 +257,17 @@ public class FenetrePrincipaleIHM {
 			Menu menuAffichage = new Menu(shell, SWT.DROP_DOWN);
 			menuItemAffichage.setMenu(menuAffichage);
 
-			menuItemBarreOutils = new MenuItem(menuAffichage,SWT.PUSH);
+			menuItemBarreOutils = new MenuItem(menuAffichage,SWT.CHECK);
+			menuItemBarreOutils.setSelection(false);
 			menuItemBarreOutils.setText(message.getString("menu.affichage.barreOutils"));
 			menuItemBarreOutils.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Barre outils");
+					if(menuItemBarreOutils.getSelection()==true){
+						coolBar.setLocked(true);
+					}else{
+						coolBar.setLocked(false);
+					}
+					
 				}
 			});
 		
@@ -307,7 +315,7 @@ public class FenetrePrincipaleIHM {
 			
 	
 				// Barre d'outils
-			final CoolBar coolBar = new CoolBar(shell, SWT.FLAT);
+			coolBar = new CoolBar(shell, SWT.FLAT);
 			
 			CoolItem item1 = new CoolItem(coolBar, SWT.NONE);
 			CoolItem item2 = new CoolItem(coolBar, SWT.NONE);
