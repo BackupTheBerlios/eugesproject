@@ -256,6 +256,7 @@ public class ItIHM extends Composite {
 						item.setText(2,"0");
 						item.setData(It.ajouterActRealise(_activitesCOMBO.getText(),numIt));
 						majProd();
+						EugesElements.processusEnregistre = false;
 					}
 //					TableTreeItem subitem = new TableTreeItem(item, SWT.NONE);
 //					subitem.setText(0,"Participants...");
@@ -276,6 +277,7 @@ public class ItIHM extends Composite {
 						It.supprimerActRealise((EugesActRealise) select[0].getData(), numIt);
 						select[0].dispose();
 						majProd();
+						EugesElements.processusEnregistre = false;
 					}
 				}
 			}
@@ -429,9 +431,11 @@ public class ItIHM extends Composite {
 									// on insère les nouvelles heures
 									if (_EDITABLECOLUMN == 1) { // charge prévue
 										a.set_chargeEstimee(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
+										EugesElements.processusEnregistre = false;
 									}
 									else { // charge réelle
 										a.set_chargeReelle(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
+										EugesElements.processusEnregistre = false;
 									}
 								}
 							}
@@ -513,6 +517,7 @@ public class ItIHM extends Composite {
 						item.setText(1, v.get_nom()); // rechercher la nouvelle version
 						item.setText(2, v.get_etat()); // rechercher l'état
 						item.setData(v);
+						EugesElements.processusEnregistre = false;
 					}
 				}
 			}
@@ -528,6 +533,7 @@ public class ItIHM extends Composite {
 					if (select[0].getParentItem() == null) {
 						It.supprimerVersion((EugesVersion) select[0].getData(), _it);
 						select[0].dispose();
+						EugesElements.processusEnregistre = false;
 					}
 				}
 			}
@@ -711,6 +717,7 @@ public class ItIHM extends Composite {
 									EugesVersion v = (EugesVersion) item.getData();
 									// on insère les nouvelles données
 									v.set_realisation(new Integer(item.getText(_EDITABLECOLUMN2)).intValue());
+									EugesElements.processusEnregistre = false;
 								}
 							}
 						});
@@ -751,6 +758,7 @@ public class ItIHM extends Composite {
 								EugesVersion v = (EugesVersion) item.getData();
 								// on insère les nouvelles données
 								v.set_etat(item.getText(_EDITABLECOLUMN2));
+								EugesElements.processusEnregistre = false;
 							}
 						});
 						newEditor.addKeyListener(new KeyListener() {
@@ -801,6 +809,7 @@ public class ItIHM extends Composite {
 									EugesVersion v = (EugesVersion) item.getData();
 									// on insère les nouvelles données
 									v.set_nom(item.getText(_EDITABLECOLUMN2));
+									EugesElements.processusEnregistre = false;
 								}
 							}
 						}
