@@ -110,7 +110,7 @@ public class PageAttributionProduitIHM {
 				}
 				else {
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 					// une personne sélectionnée
 					
 					String nomPersonne = listePersProjet.getSelection()[0];
@@ -184,7 +184,7 @@ public class PageAttributionProduitIHM {
 							   // on l'insére dans la liste des acteurs de la version
 							version.ajouterModifieur(personne);
 							//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-							EugesElements.processusEnregistre = true;
+							EugesElements.processusEnregistre = false;
 						}
 						   // on rafraichit l'affichage de l'arbre
 						chargementElementList(shell, version);

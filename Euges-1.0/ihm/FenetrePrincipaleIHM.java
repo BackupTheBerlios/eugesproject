@@ -116,7 +116,7 @@ public class FenetrePrincipaleIHM {
 			GestionImage images = new GestionImage(display);
 			shell = new Shell(display);
 			//fenetre de progression
-			ProgressStart progressStart = new ProgressStart(display);
+			ProgressStart progressStart = new ProgressStart(display, true);
 			progressStart.progression(10, "Initialisation fenêtre...");
 			
 			// Mise en place de l'affichage de la fenêtre
@@ -188,7 +188,6 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					EugesElements.sauvegarde();
-					EugesElements.processusEnregistre=true;
 				}
 			});
 		
@@ -327,7 +326,7 @@ public class FenetrePrincipaleIHM {
 			menuItemAPropos.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					System.out.println("A propos");
-					ProgressStart progressStart = new ProgressStart(display);
+					ProgressStart progressStart = new ProgressStart(display, false);
 				}
 			});
 		
@@ -406,7 +405,6 @@ public class FenetrePrincipaleIHM {
 			itemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					EugesElements.sauvegarde();
-					EugesElements.processusEnregistre=true;
 				}
 			});	
 			toolBar2.pack();

@@ -108,7 +108,7 @@ public class NewRoleIHM {
 								EugesElements.ajouterElement(role);
 								
 								//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-								EugesElements.processusEnregistre = true;
+								EugesElements.processusEnregistre = false;
 								_liste = NewRole.roleToVector();
 								String[] temp = new String[_liste.size()];
 								_liste.copyInto(temp);
@@ -143,7 +143,7 @@ public class NewRoleIHM {
 						EugesElements.ajouterElement(role);
 						
 						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-						EugesElements.processusEnregistre = true;
+						EugesElements.processusEnregistre = false;
 						_liste = NewRole.roleToVector();
 						String[] temp = new String[_liste.size()];
 						_liste.copyInto(temp);
@@ -175,7 +175,7 @@ public class NewRoleIHM {
 				}
 				
 				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-				EugesElements.processusEnregistre = true;
+				EugesElements.processusEnregistre = false;
 				_liste = NewRole.roleToVector();
 				temp = new String[_liste.size()];
 				_liste.copyInto(temp);

@@ -110,7 +110,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 						//activation du bouton reinitialiser
 						boutonReinitialiser.setEnabled(true);
 						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-						EugesElements.processusEnregistre = true;
+						EugesElements.processusEnregistre = false;
 					}else{
 						MessageBox msg = new MessageBox(shellCourant, SWT.ICON_ERROR);
 						msg.setText(message.getString("pageIterationIHM.erreur"));
@@ -152,7 +152,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 			public void widgetSelected(SelectionEvent e) {
 				modifierIteration(_tableauIteration.getSelectionIndex());
 				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-				EugesElements.processusEnregistre = true;
+				EugesElements.processusEnregistre = false;
 				}
 		});
 		//bouton supprimer itération
@@ -162,7 +162,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 			public void widgetSelected(SelectionEvent e) {
 				supprimerIteration(_tableauIteration.getSelectionIndex());
 				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-				EugesElements.processusEnregistre = true;
+				EugesElements.processusEnregistre = false;
 			}
 		});
 		//bouton supprimer reinitialiser
@@ -183,7 +183,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 					//desactivation du bouton reinitialiser
 					boutonReinitialiser.setEnabled(false);
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 				}
 			}
 		});

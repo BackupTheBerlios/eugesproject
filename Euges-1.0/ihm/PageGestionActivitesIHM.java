@@ -6,6 +6,8 @@
  */
 package ihm;
 
+import ihm.vues.planIt.PlanItIHM;
+
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -307,7 +309,7 @@ public class PageGestionActivitesIHM implements SelectionListener {
 						msgErreur.open();
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 				}
 			}
 			//Suppression d'un lien entre un role et une activite
@@ -331,7 +333,7 @@ public class PageGestionActivitesIHM implements SelectionListener {
 				else {
 					PageGestionActivites.supprLienActiviteRole((EugesActivite)roleSelected[0].getParentItem().getData(),(EugesRole)roleSelected[0].getData());
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 					//redessiner l'arbre
 					activites.removeAll();
 					for(Iterator it = EugesElements.listeActivites.iterator();it.hasNext();) {
@@ -402,17 +404,18 @@ public class PageGestionActivitesIHM implements SelectionListener {
 						}
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 				}
 			}
 			else if (button == fermer) {
+				//rafraichissement de la fenetre principale (plantIt)
+				//((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 				shell.close();
 			}
 			//idem pour les produits
 		}
 		
 	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
 	 */
@@ -420,16 +423,4 @@ public class PageGestionActivitesIHM implements SelectionListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-
-	
-	/* (non-Javadoc)
-	 * @see ihm.PageAssistantIHM#loadData()
-	 */
-	public void loadData() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

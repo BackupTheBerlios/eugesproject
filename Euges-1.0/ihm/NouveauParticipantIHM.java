@@ -113,7 +113,7 @@ public class NouveauParticipantIHM extends Dialog {
 						}
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 					_persDispo.deselectAll();
 				}
 			}
@@ -153,7 +153,7 @@ public class NouveauParticipantIHM extends Dialog {
 						}
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 					_participants.deselectAll();
 				}
 			}

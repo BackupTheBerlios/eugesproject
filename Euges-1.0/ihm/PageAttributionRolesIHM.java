@@ -222,7 +222,7 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 								}
 							}
 							//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-							EugesElements.processusEnregistre = true;
+							EugesElements.processusEnregistre = false;
 							persSelected[0].setExpanded(true);
 							listRoles.deselectAll();
 						}
@@ -257,7 +257,7 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 						persSelected[0].dispose();
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 				}
 			}
 		});

@@ -158,7 +158,7 @@ public class FenetreGestionProduitsIHM {
 						selection[0].dispose();
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 				}
 			}
 		});
@@ -182,7 +182,7 @@ public class FenetreGestionProduitsIHM {
 				else {
 					if (actSelected.length > 0) {
 						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-						EugesElements.processusEnregistre = true;
+						EugesElements.processusEnregistre = false;
 						TreeItem temp = actSelected[0];
 						while (temp.getParentItem() != null) {
 							temp = temp.getParentItem();
@@ -225,7 +225,7 @@ public class FenetreGestionProduitsIHM {
 				else {
 					if (actSelected.length > 0) {
 						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-						EugesElements.processusEnregistre = true;
+						EugesElements.processusEnregistre = false;
 						TreeItem temp = actSelected[0];
 						while (temp.getParentItem() != null) {
 							temp = temp.getParentItem();

@@ -185,7 +185,7 @@ public class ModifierIterationIHM extends Dialog {
 				}else{
 					
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
-					EugesElements.processusEnregistre = true;
+					EugesElements.processusEnregistre = false;
 					//si le champ de debut a ete modifie, on modifie l'iteration ainsi que l'iteration precedente si l'it courante n'est pas la 0
 					if (champDebut.toMyDate().compare(ancienDebut)!=0){
 						EugesElements._projet.getIteration(numIt).set_dateDebut(champDebut.toMyDate());
