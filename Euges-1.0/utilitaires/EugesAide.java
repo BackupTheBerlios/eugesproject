@@ -82,7 +82,7 @@ public class EugesAide {
 		// Icone Pr?c?dent
 		ToolItem itemPrecedent = new ToolItem(toolbar, SWT.FLAT);
 		itemPrecedent.setImage(GestionImage._precedentAide);
-		itemPrecedent.setToolTipText(message.getString("eugesAide.Pr?c?dentToolTipText"));
+		itemPrecedent.setToolTipText(message.getString("eugesAide.PrecedentToolTipText"));
 		itemPrecedent.setText(message.getString("eugesAide.BoutonPr?c?dent"));
 		
 		// Icone Suivant
