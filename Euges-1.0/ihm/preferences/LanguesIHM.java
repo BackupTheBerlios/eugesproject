@@ -37,12 +37,12 @@ public class LanguesIHM extends Composite implements SelectionListener {
 	
 	/**La liste contenant les traductions existantes*/
 	private List liste;
+
+	///**Le bouton permettant de créer une nouvelle traduction*/
+	//private Button creer;
 	
-	/**Le bouton permettant de créer une nouvelle traduction*/
-	private Button creer;
-	
-	/**Le bouton permettant de supprimer la traduction sélectionnée*/
-	private Button supprimer;
+	///**Le bouton permettant de supprimer la traduction sélectionnée*/
+	//private Button supprimer;
 	
 	/**La classe contenant les controles sur l'ihm*/
 	private Langues langues = new Langues();
@@ -71,7 +71,7 @@ public class LanguesIHM extends Composite implements SelectionListener {
 		comp.setLayout(gridLayout);
 		
 		// Bouton permettant de créer une traduction
-		creer = new Button(comp,SWT.PUSH);
+	/*	creer = new Button(comp,SWT.PUSH);
 		creer.setText(message.getString("creer"));
 		creer.addSelectionListener(this);
 		
@@ -80,14 +80,14 @@ public class LanguesIHM extends Composite implements SelectionListener {
 		supprimer.setText(message.getString("supprimer"));
 		supprimer.addSelectionListener(this);
 
-		
-		GridData data1 = new GridData(GridData.FILL_HORIZONTAL);
+	*/	
+	/*	GridData data1 = new GridData(GridData.FILL_HORIZONTAL);
 		data1.horizontalSpan=1;
 		creer.setLayoutData(data1);
 		data1 = new GridData(GridData.FILL_HORIZONTAL);
 		data1.horizontalSpan=1;
 		supprimer.setLayoutData(data1);
-				
+	*/		
 		FormData formLabel = new FormData();
 		formLabel.top = new FormAttachment(0, 0);
 		formLabel.left = new FormAttachment(0, 0);
@@ -99,7 +99,7 @@ public class LanguesIHM extends Composite implements SelectionListener {
 		formListe.top = new FormAttachment(haut, 0);
 		formListe.left = new FormAttachment(0, 0);
 		formListe.bottom = new FormAttachment(90, 0);
-		formListe.right = new FormAttachment(75,0);
+		formListe.right = new FormAttachment(100,0);
 		liste.setLayoutData(formListe);
 		
 
@@ -122,9 +122,9 @@ public class LanguesIHM extends Composite implements SelectionListener {
 	 * Permet de récupérer le bouton créer
 	 * @return le bouton creer
 	 */
-	public Button getCreer() {
+	/*public Button getCreer() {
 		return creer;
-	}
+	}*/
 
 	/**
 	 * Permet de récupérer la liste contenant les traductions
@@ -139,9 +139,9 @@ public class LanguesIHM extends Composite implements SelectionListener {
 	 * Permet de récupérer le bouton supprimer
 	 * @return le bouton supprimer
 	 */
-	public Button getSupprimer() {
+	/*public Button getSupprimer() {
 		return supprimer;
-	}
+	}*/
 	
 	/**
 	 * Permet de récupérer l'instance langue effectuant le "control" de langueIHM
@@ -161,13 +161,13 @@ public class LanguesIHM extends Composite implements SelectionListener {
 		if (arg0.getSource() instanceof Button) {
 			Button button = (Button)arg0.getSource();
 			//Traitement si clic sur le bouton créer
-			if (button == creer) {
+		/*	if (button == creer) {
 				CreerTraductionIHM creerTraduction = new CreerTraductionIHM(_shell);				
 			}
 			//Traitement si clic sur le bouton supprimer
 			else if (button == supprimer) {
 				System.out.println("Supprimer traduction");				
-			}
+			}*/
 		}
 		
 	}
