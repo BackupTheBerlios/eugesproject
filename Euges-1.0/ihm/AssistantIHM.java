@@ -6,13 +6,13 @@
  */
 package ihm;
 
+import ihm.preferences.PreferencesIHM;
 import ihm.vues.planIt.PlanItIHM;
 
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-import ihm.preferences.PreferencesIHM;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,16 +21,15 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.MessageBox;
-
+import org.eclipse.swt.widgets.Shell;
 
 import utilitaires.EugesAide;
 import utilitaires.EugesNavigateur;
 import utilitaires.GestionImage;
+import utilitaires.MailElements;
 import application.EugesElements;
 import configuration.Config;
-import utilitaires.MailElements;
 
 /**
  * @author will

@@ -40,6 +40,7 @@ import utilitaires.GestionImage;
 import utilitaires.MyDate;
 import application.EugesElements;
 import application.OuvertureProjet;
+import application.Sauvegarde;
 import configuration.Config;
 
 
@@ -185,7 +186,7 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrer.setEnabled(false);
 			menuItemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					EugesElements.sauvegarde();
+					Sauvegarde.sauvegarde();
 				}
 			});
 		
@@ -199,7 +200,7 @@ public class FenetrePrincipaleIHM {
 					//si la fonction enregistrerSous renvoye un nom ayant l'extension egs, on enregistre
 					if (chemin.endsWith(".egs"))
 					{
-						EugesElements.sauvegarde(chemin);
+						Sauvegarde.sauvegarde(chemin);
 					}
 				}
 			});
@@ -385,7 +386,7 @@ public class FenetrePrincipaleIHM {
 			itemEnregistrer.setEnabled(false);
 			itemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					EugesElements.sauvegarde();
+					Sauvegarde.sauvegarde();
 				}
 			});	
 			toolBar2.pack();
@@ -633,7 +634,7 @@ public class FenetrePrincipaleIHM {
 				msg.setMessage(message.getString("fenetrePrincipaleIHM.fermerProjet"));
 				reponse = msg.open();
 				if (reponse==SWT.YES){
-					EugesElements.sauvegarde();
+					Sauvegarde.sauvegarde();
 					EugesElements.clearAllElements();
 					_vues.disposePages();
 					ArbrePrincipalIHM._tri.actualiser();

@@ -15,6 +15,7 @@ import java.util.Vector;
 
 import utilitaires.MyDate;
 import application.EugesElements;
+import application.GenererSite;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesRole;
@@ -329,7 +330,7 @@ public class Iteration {
 			
 			EugesElements._projet.genereIndex(iteration);
 			EugesElements._projet.genereTitre2(iteration);
-			EugesElements.genereMenu2(iteration,chemin);		
+			GenererSite.genereMenu2(iteration,chemin);		
 			
 			iteration.write("<div class='common'>\n<center>\n<i><h1 class='title'>Plan d'it&eacute;ration "+this.get_numIt()+"</h1></i>");
 			iteration.write("<h2>Du "+this.get_dateDebut()+" au "+this.get_dateFin()+"</h2>\n</center>\n<br>");

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
-import application.EugesElements;
+import application.GenererSite;
 import configuration.Config;
 
 /**
@@ -124,7 +124,7 @@ public class GenIHM extends Dialog{
 					getCheck();
 					try {
 						
-						EugesElements.genereSite(text4.getText(),check);
+						new GenererSite(text4.getText(),check);
 						
 					} catch (Exception e1) {}{
 						
