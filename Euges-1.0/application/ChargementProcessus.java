@@ -8,6 +8,7 @@ package application;
 
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,15 +48,19 @@ public class ChargementProcessus {
 			HashMap activiteHashMap = new HashMap();
 			HashMap produitHashMap = new HashMap();
 			
+			// MAJ de _cheminProcessus dans la classe projet
+			EugesElements._projet.set_cheminProcessus(root.getChildNodes().item(1).getChildNodes().item(0).toString());
+			
 			
 			// Chargement des roles
-			Node nodeRole = root.getChildNodes().item(1);
+			Node nodeRole = root.getChildNodes().item(3);
 			Node auxNodeRole;
 			EugesRole auxRole;
 			for(int i=1; i<nodeRole.getChildNodes().getLength(); i=i+2) {
 				auxNodeRole = nodeRole.getChildNodes().item(i);
-				auxRole = new EugesRole(auxNodeRole.getChildNodes().item(3).getChildNodes().item(0).toString());
-				//System.out.println("Ajout du role : " + auxNodeRole.getChildNodes().item(3).getChildNodes().item(0));
+				String name = auxNodeRole.getChildNodes().item(3).getChildNodes().item(0).toString();
+				String chemin = auxNodeRole.getChildNodes().item(9).getChildNodes().item(0).toString();
+				auxRole = new EugesRole(name, chemin);
 				EugesElements.listeRoles.addElement(auxRole);
 			
 				// ajout dans la HashMap des rôles
@@ -64,13 +69,14 @@ public class ChargementProcessus {
 			
 			
 			// Chargement des activités
-			Node nodeActivite = root.getChildNodes().item(3);
+			Node nodeActivite = root.getChildNodes().item(5);
 			Node auxNodeActivite;
 			EugesActivite auxActivite;
 			for(int i=1; i<nodeActivite.getChildNodes().getLength(); i=i+2) {
 				auxNodeActivite = nodeActivite.getChildNodes().item(i);
-				auxActivite = new EugesActivite(auxNodeActivite.getChildNodes().item(3).getChildNodes().item(0).toString());
-				//System.out.println("Ajout d'une activité : " + auxNodeActivite.getChildNodes().item(3).getChildNodes().item(0));
+				String nom = auxNodeActivite.getChildNodes().item(3).getChildNodes().item(0).toString();
+				String chemin = auxNodeActivite.getChildNodes().item(11).getChildNodes().item(0).toString();
+				auxActivite = new EugesActivite(nom, chemin);
 						
 				// ajout dans la HashMap des activités
 				activiteHashMap.put(auxNodeActivite.getChildNodes().item(1).getChildNodes().item(0).toString(), auxActivite);
@@ -80,22 +86,28 @@ public class ChargementProcessus {
 				if (!auxActivite.contientRole(auxRole))
 					auxActivite.ajouterRole(auxRole);
 				
-				//System.out.println("Association de l'activité au role : " + auxRole.getName());
-				
 				EugesElements.listeActivites.addElement(auxActivite);
 			}
 			
 			
 			
 			// Chargement des produits
-			Node nodeProduit = root.getChildNodes().item(5);
+			Node nodeProduit = root.getChildNodes().item(7);
 			Node auxNodeProduit;
 			EugesProduit auxProduit;
 			
 			for(int i=1; i<nodeProduit.getChildNodes().getLength(); i=i+2) {
 				auxNodeProduit = nodeProduit.getChildNodes().item(i);
-				auxProduit = new EugesProduit(auxNodeProduit.getChildNodes().item(3).getChildNodes().item(0).toString());
-				//System.out.println("Ajout du produit : " + auxNodeProduit.getChildNodes().item(3).getChildNodes().item(0));
+				String nom = auxNodeProduit.getChildNodes().item(3).getChildNodes().item(0).toString();
+				String chemin = auxNodeProduit.getChildNodes().item(13).getChildNodes().item(0).toString();
+				// Chargement des etats du produit courrant
+				Vector etats = new Vector();
+				for (int j = 1; j < auxNodeProduit.getChildNodes().item(11).getChildNodes().getLength(); j=j+2) {
+					String auxEtat = auxNodeProduit.getChildNodes().item(11).getChildNodes().item(j).getChildNodes().item(0).toString();
+					etats.add(auxEtat);
+				}
+				
+				auxProduit = new EugesProduit(nom, chemin, etats);
 				EugesElements.listeProduits.addElement(auxProduit);
 				
 				// ajout dans la HashMap des produits
@@ -109,7 +121,6 @@ public class ChargementProcessus {
 					auxNodeActIn = auxNodeProduit.getChildNodes().item(7).getChildNodes().item(j);
 					auxInputAct = (EugesActivite) activiteHashMap.get(auxNodeActIn.getChildNodes().item(0).toString());
 					auxInputAct.ajouterProduitIn(auxProduit);
-//					System.out.println("Association : " + auxProduit.getName() + "-" + auxInputAct.getName() );
 				}
 				
 				
@@ -120,7 +131,6 @@ public class ChargementProcessus {
 					auxNodeActOut = auxNodeProduit.getChildNodes().item(9).getChildNodes().item(j);
 					auxOutputAct = (EugesActivite) activiteHashMap.get(auxNodeActOut.getChildNodes().item(0).toString());
 					auxOutputAct.ajouterProduitOut(auxProduit);
-//					System.out.println("Association : " + auxProduit.getName() + "-" + auxOutputAct.getName() );
 				}
 				
 			}
