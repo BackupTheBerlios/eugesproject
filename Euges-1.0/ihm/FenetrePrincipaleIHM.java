@@ -439,10 +439,10 @@ public class FenetrePrincipaleIHM {
 			//creation des vues
 			//vue 0 -> plan iteration
 			//vue 1 -> graphe activites
-			//_planIt = new PlanItIHM(sashForm,0);
+			_planIt = new PlanItIHM(sashForm,0);
 			//_graphe = new GrapheIHM(sashForm);
-			_vues.add(new PlanItIHM(sashForm,0));
-			_vues.add(new GrapheIHM(sashForm));
+			//_vues.add(new PlanItIHM(sashForm,0));
+			//_vues.add(new GrapheIHM(sashForm));
 			
 			sashForm.setWeights(new int [] {25,75});		
 			
