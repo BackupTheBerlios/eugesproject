@@ -55,7 +55,7 @@ public class PageDemarrageIHM extends Dialog{
 		nouveauProjet.addSelectionListener(new SelectionAdapter() {
 										public void widgetSelected(SelectionEvent e) {
 											shellDemarrage.dispose();
-											AssistantIHM assistantIHM = new AssistantIHM(shell);
+											new AssistantIHM(shell);
 										}
 									});
 		//label nouveau projet
@@ -79,7 +79,7 @@ public class PageDemarrageIHM extends Dialog{
 													if (chemin!=null)
 													{
 														try {
-															OuvertureProjet parser = new OuvertureProjet(chemin);
+															new OuvertureProjet(chemin);
 															shellDemarrage.dispose();
 														} catch (Throwable t) {
 															t.printStackTrace();

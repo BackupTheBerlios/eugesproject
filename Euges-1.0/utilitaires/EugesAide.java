@@ -321,7 +321,7 @@ public class EugesAide {
 			chaine=chaine.substring(positionFin+longueurCaractere);
 		}
 		resultat=resultat+chaine;
-		return(resultat);
+		return resultat;
 	}
 	
 	// Fonction utilisee par tree pour afficher le contenu de la page d'aide
@@ -339,7 +339,7 @@ public class EugesAide {
 				dejaLu++;
 				contenu.append(car);
 			}
-			return (contenu.toString());
+			return contenu.toString();
 		}
 		catch (IOException e) {
 			System.out.println("erreur :" + e.toString());

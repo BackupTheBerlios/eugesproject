@@ -292,7 +292,7 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 		
 		data = new GridData();
 		point = newPers.computeSize(SWT.DEFAULT,SWT.DEFAULT);
-		int widthBut = point.x;
+		
 		data.heightHint = point.y;
 		data.widthHint = point.x;
 		newPers.setLayoutData(data);

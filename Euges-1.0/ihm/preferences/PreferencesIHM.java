@@ -236,7 +236,7 @@ public class PreferencesIHM implements SelectionListener {
 							boolean accept = false;
 							String extension = name.substring(name.lastIndexOf('.')+1);
 							accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
-							return (file.isFile() && accept);
+							return file.isFile() && accept;
 						}
 					});
 					// on copie tous les anciens icônes dans le répertoire xxxOld

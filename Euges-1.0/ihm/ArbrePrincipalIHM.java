@@ -179,7 +179,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 			}
 		});
 		
-		MenuItem menuItemSep1 = new MenuItem(menuContextuel,SWT.SEPARATOR);
+		new MenuItem(menuContextuel,SWT.SEPARATOR);
 		
 		MenuItem menuItemTrier = new MenuItem(menuContextuel, SWT.NONE);
 		menuItemTrier.setText(message.getString("menu.trier"));
@@ -221,7 +221,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 			}
 		});
 		
-		MenuItem menuItemSep2 = new MenuItem(menuContextuel,SWT.SEPARATOR);
+		new MenuItem(menuContextuel,SWT.SEPARATOR);
 		
 		MenuItem menuItemActualiser = new MenuItem(menuContextuel, SWT.NONE);
 		menuItemActualiser.setText(message.getString("menu.actualiser"));
@@ -231,7 +231,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 			}
 		});
 
-		MenuItem menuItemSep3 = new MenuItem(menuContextuel,SWT.SEPARATOR);
+		new MenuItem(menuContextuel,SWT.SEPARATOR);
 		
 		MenuItem menuItemPropriete = new MenuItem(menuContextuel, SWT.NONE);
 		menuItemPropriete.setText(message.getString("menu.propriete"));

@@ -148,7 +148,6 @@ public class GrapheHautIHM extends PageVuesIHM {
 				//remplissage des lignes
 				TableItem item;
 				String[] texte;	//texte a afficher
-				int dateDebut, dateFin; //dates de debut et fin de l'activite
 				int nit = 0;
 				for (Iterator iter = vecteurTmp.iterator(); iter.hasNext();) {
 					nit ++;
@@ -249,7 +248,7 @@ public class GrapheHautIHM extends PageVuesIHM {
 		//la taille minimale d'une colonne est de 150 pixels
 		if (largeur>cols.length*150){
 			for (int i=0; i<cols.length; i++)
-				return (largeur / cols.length);
+				return largeur / cols.length;
 		}
 		return 150;
 	}

@@ -76,12 +76,12 @@ public class PageProprietesRoleIHM extends PageAssistantIHM {
 		//role.setEditable(false);
 		
 		// Lien vers le site de l'outil publication
-		if ((r.get_cheminRole() != null) && (r.get_cheminRole() != "")) {
+		if ((r.get_cheminRole() != null) && (!r.get_cheminRole().equals(""))) {
 			role.setForeground(new Color(getDisplay(), 0, 0, 255));
 			role.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
 			role.addListener(SWT.MouseUp, new Listener(){
 				public void handleEvent(Event e){
-					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + r.get_cheminRole());
+					new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + r.get_cheminRole());
 				}
 			});
 		}

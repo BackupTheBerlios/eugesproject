@@ -47,7 +47,7 @@ public class ProgressStart{
 	public ProgressStart(Display d, boolean demarrage){
 		display=d;
 		shell = new Shell(display, SWT.ON_TOP);
-		GestionImage gestionImage = new GestionImage(display);
+		new GestionImage(display);
 		shell.setBounds(GestionImage._start.getBounds());
 		//barre de progresssion
 		/*bar = new ProgressBar (shell, SWT.SMOOTH);
@@ -85,7 +85,7 @@ public class ProgressStart{
 				 */
 				public void mouseDoubleClick(MouseEvent e) {
 					shell.dispose();
-					EugesNavigateur fenetre = new EugesNavigateur("http://www.euges.fr.st");
+					new EugesNavigateur("http://www.euges.fr.st");
 				}
 			});
 			final Button fermer = new Button(shell, SWT.NONE);

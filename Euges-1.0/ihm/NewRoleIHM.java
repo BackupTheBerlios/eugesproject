@@ -99,7 +99,6 @@ public class NewRoleIHM {
 		
 		newRole.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
-				String string = "";
 				switch (e.character) {
 					case SWT.CR:
 						if (!newRole.getText().equals("")) {

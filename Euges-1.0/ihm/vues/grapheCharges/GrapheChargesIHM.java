@@ -71,7 +71,7 @@ public class GrapheChargesIHM extends PageVuesIHM {
 			}
 		});
 		
-		MenuItem separator = new MenuItem(menu,SWT.SEPARATOR);
+		new MenuItem(menu,SWT.SEPARATOR);
 		
 		MenuItem vueSuper = new MenuItem(menu, SWT.NONE);
 		vueSuper.setText(message.getString("vueSuperposee"));
@@ -114,7 +114,6 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				hBar.setThumb (Math.min (size.x, rect.width));
 				vBar.setMaximum (size.y);
 				vBar.setThumb (Math.min (size.y, rect.height));
-				int hPage = size.x - rect.width;
 				int vPage = size.y - rect.height;
 				int hSelection = hBar.getSelection ();
 				Point location = canvas.getLocation ();
@@ -135,7 +134,7 @@ public class GrapheChargesIHM extends PageVuesIHM {
 			public void mouseMove(MouseEvent e) {
 				ActiviteGraphique actGraph = getAct(e.x,e.y);
 				if (actGraph != null) {
-					EugesActRealise act = actGraph.getActiviteRealise();
+					//EugesActRealise act = actGraph.getActiviteRealise();
 				}
 			}
 		

@@ -106,7 +106,7 @@ public class FenetreGestionProduitsIHM {
 		newProd.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected (SelectionEvent e) {
 				// ouverture d'une nouvelle fenêtre
-				PageNouveauProduitIHM np = new PageNouveauProduitIHM(_shell);
+				new PageNouveauProduitIHM(_shell);
 				// on re-rempli l'arbre
 				chargerArbreAct();
 				// on recharge la liste des produits
@@ -292,7 +292,6 @@ public class FenetreGestionProduitsIHM {
 		
 		data = new GridData();
 		point = newProd.computeSize(SWT.DEFAULT,SWT.DEFAULT);
-		int widthBut = point.x;
 		data.heightHint = point.y;
 		data.widthHint = larg;
 		newProd.setLayoutData(data);
@@ -408,7 +407,6 @@ public class FenetreGestionProduitsIHM {
 			
 			for (int i = 0; i < e.getProduitInCount(); i++) {
 				TreeItem temp3 = new TreeItem(temp2,SWT.NONE);
-				EugesProduit p = e.getProduitIn(i);
 				temp3.setText(e.getProduitIn(i).toString());
 				temp3.setImage(GestionImage._produit);
 				temp3.setData(e.getProduitIn(i));

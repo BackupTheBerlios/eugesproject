@@ -246,9 +246,7 @@ public class CalendrierIHM extends Dialog{
 	 *
 	 */
 	public void afficheGrillejours(Composite tabJour)
-	{	
-
-		GridData gridPiedDePage;
+	{
 		// création des boutons des jours
 		for(int i=1; i<=42; i++)
 		{	

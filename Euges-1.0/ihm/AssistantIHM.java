@@ -79,7 +79,7 @@ public class AssistantIHM extends Dialog {
 			boutonSite.setImage(GestionImage._eugesAssistant);
 			boutonSite.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent e) {
-									EugesNavigateur fenetre = new EugesNavigateur("http://www.euges.fr.st");
+									new EugesNavigateur("http://www.euges.fr.st");
 								}
 							});
 			//bouton aide
@@ -89,7 +89,7 @@ public class AssistantIHM extends Dialog {
 			boutonAide.setBounds(10, 430, 100, 30);
 			boutonAide.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					EugesAide eugesAide = new EugesAide("http://euges.free.fr");
+					new EugesAide("http://euges.free.fr");
 				}
 			});
 			
@@ -168,7 +168,7 @@ public class AssistantIHM extends Dialog {
 								
 								}
 								
-								if (Config.config.getProperty("login")!="" & Config.config.getProperty("suj")!="" & Config.config.getProperty("msg")!="" & Config.config.getProperty("serv")!=""){
+								if (!Config.config.getProperty("login").equals("") & !Config.config.getProperty("suj").equals("") & !Config.config.getProperty("msg").equals("") & !Config.config.getProperty("serv").equals("")){
 									
 										
 									MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),dest,Config.config.getProperty("msg"),Config.config.getProperty("suj"));
@@ -184,7 +184,7 @@ public class AssistantIHM extends Dialog {
 										msg.setMessage(message.getString("assistantIHM.msgprobmail"));
 										msg.open();
 										
-										PreferencesIHM preferences = new PreferencesIHM(shellAssistant);
+										new PreferencesIHM(shellAssistant);
 									}
 										
 									if (Config.config.getProperty("start").equals("1")){

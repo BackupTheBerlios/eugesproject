@@ -209,7 +209,7 @@ public class Iteration {
 			Vector tempRoles = (Vector) temp.elementAt(1);
 			return tempRoles;
 		}
-		return (new Vector());
+		return new Vector();
 	}
 	
 	public Vector getAssociation(EugesRole r) {

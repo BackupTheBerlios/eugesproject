@@ -112,8 +112,6 @@ public class FenetrePrincipaleIHM {
 			String dateString = formatter.format(currentTime);
 			dateDuJour=new MyDate(dateString);
 			
-			//initialisation de la bibliotheque d'images
-			GestionImage images = new GestionImage(display);
 			shell = new Shell(display);
 			//fenetre de progression
 			ProgressStart progressStart = new ProgressStart(display, true);
@@ -145,7 +143,7 @@ public class FenetrePrincipaleIHM {
 				public void handleEvent(Event e){
 					if (EugesElements.processusEnregistre==false)
 						FermerProjet(shell);
-					AssistantIHM assistantIHM = new AssistantIHM(shell);
+					new AssistantIHM(shell);
 				}
 			});
 		
@@ -160,7 +158,7 @@ public class FenetrePrincipaleIHM {
 						if (chemin!=null)
 						{
 							try {
-								OuvertureProjet parser = new OuvertureProjet(chemin);
+								new OuvertureProjet(chemin);
 							} catch (Throwable t) {
 								t.printStackTrace();
 							}
@@ -179,7 +177,7 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 		
-			MenuItem menuItemFichierSep1 = new MenuItem(menuFichier,SWT.SEPARATOR);
+			new MenuItem(menuFichier,SWT.SEPARATOR);
 		
 			menuItemEnregistrer = new MenuItem(menuFichier,SWT.PUSH);
 			menuItemEnregistrer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\enregistrer.png"));
@@ -206,7 +204,7 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 		
-			MenuItem menuItemFichierSep2 = new MenuItem(menuFichier,SWT.SEPARATOR);
+			new MenuItem(menuFichier,SWT.SEPARATOR);
 		
 			menuItemQuitter = new MenuItem(menuFichier,SWT.PUSH);
 			menuItemQuitter.setText(message.getString("menu.fichier.quitter"));
@@ -232,7 +230,7 @@ public class FenetrePrincipaleIHM {
 			menuItemActivites.setText(message.getString("menu.gestion.activites"));
 			menuItemActivites.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shell);
+					new PageGestionActivitesIHM(shell);
 					_vues.elementAt(0).loadData();
 				}
 			});
@@ -252,7 +250,7 @@ public class FenetrePrincipaleIHM {
 			menuItemIterations.setText(message.getString("menu.gestion.iterations"));
 			menuItemIterations.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					PageGestionIterationIHM gestionIt = new PageGestionIterationIHM(shell);
+					new PageGestionIterationIHM(shell);
 					((PlanItIHM)_vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 				}
 			});
@@ -283,7 +281,7 @@ public class FenetrePrincipaleIHM {
 			menuItemPreferences.setText(message.getString("menu.affichage.preferences"));
 			menuItemPreferences.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					PreferencesIHM preferences = new PreferencesIHM(shell);
+					new PreferencesIHM(shell);
 				}
 			});
 	
@@ -299,17 +297,17 @@ public class FenetrePrincipaleIHM {
 			menuItemOuvrirAide.setText(message.getString("menu.aide.aide"));
 			menuItemOuvrirAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					EugesAide eugesAide = new EugesAide("http://euges.free.fr");
+					new EugesAide("http://euges.free.fr");
 				}
 			});
 			
-			MenuItem menuItemAideSep1 = new MenuItem(menuAide,SWT.SEPARATOR);
+			new MenuItem(menuAide,SWT.SEPARATOR);
 			
 			menuItemAPropos = new MenuItem(menuAide,SWT.PUSH);
 			menuItemAPropos.setText(message.getString("menu.aide.aPropos"));
 			menuItemAPropos.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					ProgressStart progressStart = new ProgressStart(display, false);
+					new ProgressStart(display, false);
 				}
 			});
 		
@@ -338,7 +336,7 @@ public class FenetrePrincipaleIHM {
 				public void handleEvent(Event e){
 					if (EugesElements.processusEnregistre==false)
 						FermerProjet(shell);
-					AssistantIHM assistantIHM = new AssistantIHM(shell);
+					new AssistantIHM(shell);
 				}
 			});
 			
@@ -353,7 +351,7 @@ public class FenetrePrincipaleIHM {
 						if (chemin!=null)
 						{
 							try {
-								OuvertureProjet parser = new OuvertureProjet(chemin);
+								new OuvertureProjet(chemin);
 							} catch (Throwable t) {
 								t.printStackTrace();
 							}
@@ -404,7 +402,7 @@ public class FenetrePrincipaleIHM {
 			itemMail.setToolTipText(message.getString("toolbar.mail.tooltiptext"));
 			itemMail.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					MailIHM mailIHM = new MailIHM(shell);
+					new MailIHM(shell);
 				}
 			});	
 			toolBar3.pack();
@@ -421,7 +419,7 @@ public class FenetrePrincipaleIHM {
 			itemAide.setToolTipText(message.getString("toolbar.aide.tooltiptext"));
 			itemAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					EugesAide eugesAide = new EugesAide("http://euges.free.fr");
+					new EugesAide("http://euges.free.fr");
 				}
 			});
 			toolBar4.pack();
@@ -474,7 +472,7 @@ public class FenetrePrincipaleIHM {
 			itemGen.setToolTipText(message.getString("toolbar.web.tooltiptext"));
 			itemGen.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					GenIHM genIHM = new GenIHM(shell);
+					new GenIHM(shell);
 				}
 			});	
 			toolBar6.pack();
@@ -552,7 +550,7 @@ public class FenetrePrincipaleIHM {
 			
 			shell.open();
 			//	ouverture de la page de demarrage
-			PageDemarrageIHM pageDemarrage = new PageDemarrageIHM(shell);
+			new PageDemarrageIHM(shell);
 			progressStart.progression(100, "Terminé...");
 			
 			// Boucle d'évènements

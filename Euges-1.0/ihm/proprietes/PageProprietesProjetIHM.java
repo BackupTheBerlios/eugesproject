@@ -98,12 +98,12 @@ public class PageProprietesProjetIHM extends PageAssistantIHM {
 		//processus.setEditable(false);
 		
 		// Lien vers le site de l'outil publication
-		if ((p.get_cheminProcessus() != null) && (p.get_cheminProcessus() != "")) {
+		if ((p.get_cheminProcessus() != null) && (!p.get_cheminProcessus().equals(""))) {
 			processus.setForeground(new Color(getDisplay(), 0, 0, 255));
 			processus.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
 			processus.addListener(SWT.MouseUp, new Listener(){
 				public void handleEvent(Event e){
-					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + p.get_cheminProcessus());
+					new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + p.get_cheminProcessus());
 				}
 			});
 		}

@@ -158,7 +158,7 @@ public class LanguesIHM extends Composite implements SelectionListener {
 	public void widgetSelected(SelectionEvent arg0) {
 		// Traitement si clic sur un bouton
 		if (arg0.getSource() instanceof Button) {
-			Button button = (Button)arg0.getSource();
+			//Button button = (Button)arg0.getSource();
 		}
 		
 	}

@@ -51,7 +51,6 @@ public class SashPersoV extends Composite {
 	 */
 	public SashPersoV(Composite parent, int widthFirst) {
 		super(parent, SWT.NONE);
-		final Display myDisplay = parent.getDisplay();
 		
 		widthFirstDefault = widthFirst;
 		

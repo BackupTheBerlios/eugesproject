@@ -254,7 +254,7 @@ public class EugesActRealise {
 		{
 			((EugesPersonne)_personnes.get(i)).genereListePersonne(listePersonne);
 		}
-		return (listePersonne);
+		return listePersonne;
 	}
 	
 	public void genereTabProduitOut(BufferedWriter buffer, String dirProduitIt) {

@@ -212,7 +212,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 				modifierIteration(_tableauIteration.getSelectionIndex());
 			}
 		});
-		MenuItem itemSep = new MenuItem(menuContext, SWT.SEPARATOR);
+		new MenuItem(menuContext, SWT.SEPARATOR);
 		itemSupprimer = new MenuItem(menuContext, SWT.NONE);
 		itemSupprimer.setText(message.getString("pageIterationIHM.supprimer"));
 		itemSupprimer.addSelectionListener(new SelectionAdapter() {
@@ -280,13 +280,6 @@ public class PageIterationIHM extends PageAssistantIHM{
 		loadData();
 		//desactivation du bouton reinitialiser
 		boutonReinitialiser.setEnabled(false);
-		
-		//redimensionnement des colonnes pdt le redimensionnment des fenetres
-
-		int largeur = this.getClientArea().width;
-		TableColumn[] cols = _tableauIteration.getColumns();
-		
-
 	}
 
 	/* (non-Javadoc)

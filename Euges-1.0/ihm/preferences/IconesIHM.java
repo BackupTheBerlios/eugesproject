@@ -57,7 +57,7 @@ public class IconesIHM extends Composite implements SelectionListener {
 				boolean accept = false;
 				String extension = name.substring(name.lastIndexOf('.')+1);
 				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("xpm") || extension.equals("png") || extension.equals("gif");
-				return (file.isFile() && accept);
+				return file.isFile() && accept;
 			}
 		});
 		
@@ -99,7 +99,7 @@ public class IconesIHM extends Composite implements SelectionListener {
 			});
 			
 			if (cpt < tabIcones.length-1){
-				ToolItem toolItem = new ToolItem(toolIcones,SWT.SEPARATOR);
+				new ToolItem(toolIcones,SWT.SEPARATOR);
 			}
 		}
 		

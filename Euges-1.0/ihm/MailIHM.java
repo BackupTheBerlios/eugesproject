@@ -115,7 +115,6 @@ public class MailIHM extends Dialog{
 		envoie.setText(message.getString("MailIHM.envoyer"));
 		envoie.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				boolean erreur = false;
 				MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),text4.getText(),text3.getText(),text2.getText());
 				
 				try {
@@ -125,8 +124,6 @@ public class MailIHM extends Dialog{
 					msg.setText(message.getString("MailIHM.problemeTitre"));
 					msg.setMessage(message.getString("MailIHM.problemeCorps"));
 					msg.open();
-					erreur=true;
-					
 				}
 				
 				shellMail.dispose();

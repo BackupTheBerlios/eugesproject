@@ -233,7 +233,7 @@ public class EugesVersion {
 	
 	public void genereTabProduitOut(BufferedWriter buffer,String activite, String dirProduitIt) {
 		try {
-			if (this.getFile() != ""){
+			if (!this.getFile().equals("")){
 				CopierFichier.copyFile(this.getFile(),dirProduitIt+this.getFileSansPath());
 				buffer.write("<tr class='it'><td><a href='"+dirProduitIt+this.getFileSansPath()+"'> "+this.get_produitParent().getName()+"</a>(Act: "+activite+")</td><td>"+this.get_nom()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
 			} else {

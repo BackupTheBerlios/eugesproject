@@ -125,7 +125,6 @@ public class ItIHM extends Composite {
 		
 		GridData data;
 		Label toolSep;
-		ToolItem sep;
 
 		// titre
 		Font font = new Font(parent.getDisplay(), "Arial", 15, 15);
@@ -287,14 +286,14 @@ public class ItIHM extends Composite {
 
 		_activitesBAR2 = new ToolBar (c1, SWT.FLAT);
 
-		ToolItem sep2 = new ToolItem(_activitesBAR2, SWT.SEPARATOR);
+		new ToolItem(_activitesBAR2, SWT.SEPARATOR);
 
 		_activitesMNG = new ToolItem(_activitesBAR2, SWT.NONE);
 		_activitesMNG.setText(message.getString("ItIHM.mngAct"));
 		_activitesMNG.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
 				Shell shel = new Shell(parent.getShell());
-				PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shel);
+				new PageGestionActivitesIHM(shel);
 				PlanItIHM.majContenuWidgets();
 //				// on règle la taille de la liste déroulante
 //				int maxSize = c.getSize().x - _activitesBAR2.getSize().x - _activitesADD.getWidth()*2;
@@ -539,7 +538,7 @@ public class ItIHM extends Composite {
 			}
 		});
 
-		ToolItem sepp = new ToolItem(_produitsBAR1, SWT.SEPARATOR);
+		new ToolItem(_produitsBAR1, SWT.SEPARATOR);
 		
 		_produitsATT = new ToolItem(_produitsBAR1, SWT.NONE);
 		_produitsATT.setImage(GestionImage._attach_file);
@@ -563,7 +562,7 @@ public class ItIHM extends Composite {
 
 		_produitsBAR2 = new ToolBar (c2, SWT.FLAT);
 
-		ToolItem sep3 = new ToolItem(_produitsBAR2, SWT.SEPARATOR);
+		new ToolItem(_produitsBAR2, SWT.SEPARATOR);
 
 		_produitsMNG = new ToolItem(_produitsBAR2, SWT.NONE);
 		_produitsMNG.setText(message.getString("ItIHM.mngProd"));
@@ -585,7 +584,7 @@ public class ItIHM extends Composite {
 						item = item.getParentItem();
 					}
 					EugesVersion v = (EugesVersion)item.getData();
-					PageAttributionProduitIHM page= new PageAttributionProduitIHM(parent.getDisplay(), v);
+					new PageAttributionProduitIHM(parent.getDisplay(), v);
 					TableTreeItem[] items = item.getItems();
 					// on efface les anciens items
 					for (int i=0; i<items.length; i++)
@@ -858,7 +857,6 @@ public class ItIHM extends Composite {
 				Rectangle rect = getClientArea ();
 				vBar.setMaximum (size.y);
 				vBar.setThumb (Math.min (size.y, rect.height));
-				int hPage = size.x - rect.width;
 				int vPage = size.y - rect.height;
 				int vSelection = vBar.getSelection ();
 				Point location = c.getLocation ();
@@ -877,11 +875,8 @@ public class ItIHM extends Composite {
 
 	private void resizeTab() {
 		TableColumn[] cols;
-		int height;
 		int width;
-		int width2;
 		int total;
-		int temp;
 
 		width = _activitesTABLE.getClientArea().width;
 		Table table = _activitesTABLE.getTable();
@@ -905,7 +900,6 @@ public class ItIHM extends Composite {
 	}
 	
 	public void majProd() {
-		Vector vIn = It.getProdIn(_activitesTABLE.getItems());
 		Vector vOut = It.getProdOut(_activitesTABLE.getItems());
 		// maj de la combo
 		_produitsCOMBO.removeAll();

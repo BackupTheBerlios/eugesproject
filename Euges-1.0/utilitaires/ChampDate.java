@@ -109,7 +109,7 @@ public class ChampDate extends Composite implements SelectionListener{
 	 * convertir un champ date dans le format mydate
 	 */
 	public MyDate toMyDate(){
-		return (new MyDate(Integer.parseInt(_jour.getText()), Integer.parseInt(_mois.getText()), Integer.parseInt(_annee.getText())));
+		return new MyDate(Integer.parseInt(_jour.getText()), Integer.parseInt(_mois.getText()), Integer.parseInt(_annee.getText()));
 	}
 	/*
 	 * verifie si un champ est valide
@@ -123,7 +123,7 @@ public class ChampDate extends Composite implements SelectionListener{
 	 * convertit un champ en chaine de caracteres 
 	 */
 	public String toString(){
-		return(_jour.getText() + "/" + _mois.getText() + "/" +_annee.getText());
+		return _jour.getText() + "/" + _mois.getText() + "/" +_annee.getText();
 	}
 	/**
 	 * retourne si le champ est vide
@@ -207,7 +207,7 @@ public class ChampDate extends Composite implements SelectionListener{
 	public void widgetSelected(SelectionEvent e) {
 		Button button = (Button)e.getSource();
 		if (button==_calendrier){
-			CalendrierIHM calendrier = new CalendrierIHM(shellDate, this);
+			new CalendrierIHM(shellDate, this);
 		}
 		
 	}

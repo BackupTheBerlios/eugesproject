@@ -37,7 +37,7 @@ public class EugesPersonne {
 	public int getId() {
 		return _id;
 	}	public String toString() {
-		return (_id + " " + _nom + " " + _prenom);
+		return _id + " " + _nom + " " + _prenom;
 	}
 	
 
@@ -181,7 +181,7 @@ public class EugesPersonne {
 			if (!listePersonne.contains(this)) {
 				listePersonne.add(this);
 			}
-			return (listePersonne);
+			return listePersonne;
 	} 
 	
 	public void genereMenu(BufferedWriter buffer) {

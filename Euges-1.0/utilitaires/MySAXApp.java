@@ -167,7 +167,7 @@ public class MySAXApp extends DefaultHandler{
 		// Ajout d'une itération dans le vecteur
 		if(localName.equals("Iteration"))
 		{
-			MyDate dateDebut = new MyDate(attributs.getValue(1));
+			new MyDate(attributs.getValue(1));
 			MyDate dateFin = new MyDate(attributs.getValue(2));
 			EugesElements._projet.ajouterIteration(EugesElements._projet.getIteration(Integer.parseInt(attributs.getValue(0))), dateFin);
 			Iteration it = EugesElements._projet.getIteration(Integer.parseInt(attributs.getValue(0))+1);
@@ -281,7 +281,7 @@ public class MySAXApp extends DefaultHandler{
 			EugesElements.getProduitDansListeProduits(attributs.getValue(4)).ajouterVersion(ev);
 
 			// Ajout d'un produit en entrée
-			if(produit == "in")
+			if(produit.equals("in"))
 			{
 				// ajout du produit en entrée de l'activité
 				EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).ajouterProduitIn(ev);
@@ -293,7 +293,7 @@ public class MySAXApp extends DefaultHandler{
 			}
 
 			// Ajout d'un produit en sortie			
-			if(produit == "out")
+			if(produit.equals("out"))
 			{
 				// ajout du produit en sortie de l'activité
 				EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).ajouterProduitOut(ev);
@@ -310,11 +310,11 @@ public class MySAXApp extends DefaultHandler{
 	  	if(localName.equals("_acteur"))
 	  	{
 	  		EugesPersonne ep = EugesElements.getPersonneDansListePersonnes(attributs.getValue(0));
-	  		if(produit == "in")
+	  		if(produit.equals("in"))
 	  		{
 	  			EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getProduitIn(nbProInAct -1).ajouterModifieur(ep);
 	  		}
-	  		if(produit == "out")
+	  		if(produit.equals("out"))
 	  		{
 	  			EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getProduitOut(nbProOutAct -1).ajouterModifieur(ep);
 	  		}

@@ -119,7 +119,7 @@ public class GenIHM extends Dialog{
 		ok.setText(message.getString("GenIHM.ok"));
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				if 	(text4.getText()!= ""){
+				if 	(!text4.getText().equals("")){
 					saveGen();
 					getCheck();
 					try {
@@ -127,22 +127,21 @@ public class GenIHM extends Dialog{
 						EugesElements.genereSite(text4.getText(),check);
 						
 					} catch (Exception e1) {}{
-					
+						
 					}
-				
-				try {	
-					String test = EugesElements._projet.get_description();
-					shellGen.dispose();
-				}
-				catch (Exception e2)
-				
-				{
-					MessageBox msg = new MessageBox(shell, SWT.ICON_ERROR|SWT.YES);
-					msg.setText(message.getString("GenIHM.err"));
-					msg.setMessage(message.getString("GenIHM.errgen"));
-					msg.open();
-				}
-			
+					
+					try {
+						shellGen.dispose();
+					}
+					catch (Exception e2)
+					
+					{
+						MessageBox msg = new MessageBox(shell, SWT.ICON_ERROR|SWT.YES);
+						msg.setText(message.getString("GenIHM.err"));
+						msg.setMessage(message.getString("GenIHM.errgen"));
+						msg.open();
+					}
+					
 				}
 			}
 		});
