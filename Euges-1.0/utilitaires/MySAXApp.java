@@ -7,10 +7,12 @@
 
 package utilitaires;
 
-import application.EugesElements;
+import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.*;
 
+import application.EugesElements;
 import donnees.Iteration;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesActivite;

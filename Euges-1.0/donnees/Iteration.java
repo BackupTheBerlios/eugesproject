@@ -13,14 +13,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-//import application.EugesElements;
-
 import utilitaires.MyDate;
+import application.EugesElements;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesPersonne;
-//import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
-import application.EugesElements;
 
 
 /**
@@ -29,10 +26,7 @@ import application.EugesElements;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class Iteration {
-	//attributs de la classe
-	public static EugesElements _eug;
-	
+public class Iteration {	
 	private int _numIt=0;
 	private MyDate _dateDebut;
 	private MyDate _dateFin;
@@ -333,9 +327,9 @@ public class Iteration {
 			FileWriter fichierIteration = new FileWriter (FileIteration);
 			BufferedWriter iteration = new BufferedWriter (fichierIteration);
 			
-			_eug._projet.genereIndex(iteration);
-			_eug._projet.genereTitre2(iteration);
-			_eug.genereMenu2(iteration,chemin);		
+			EugesElements._projet.genereIndex(iteration);
+			EugesElements._projet.genereTitre2(iteration);
+			EugesElements.genereMenu2(iteration,chemin);		
 			
 			
 			

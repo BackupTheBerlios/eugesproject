@@ -30,9 +30,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import configuration.Config;
-
 import utilitaires.MySAXApp;
+import configuration.Config;
 
 
 public class OuvertureProjet {

@@ -25,9 +25,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import application.EugesElements;
-
 import utilitaires.EugesNavigateur;
+import application.EugesElements;
 import configuration.Config;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesProduit;
