@@ -133,7 +133,7 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 		});
 
 		// liste des rôles
-		final List listRoles = new List(this,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER);
+		final List listRoles = new List(this,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER|SWT.V_SCROLL);
 		listR = NewRole.roleToVector();
 		String[] temp = new String[listR.size()];
 		listR.copyInto(temp);

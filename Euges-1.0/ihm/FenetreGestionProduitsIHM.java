@@ -98,7 +98,7 @@ public class FenetreGestionProduitsIHM {
 		newProd.setToolTipText(message.getString("FenetreGestionProduitsIHM.toolTipNewProd"));
 		
 		// liste des produits
-		_listProd = new List(_shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER);
+		_listProd = new List(_shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER|SWT.V_SCROLL);
 		// on charge la liste des produits
 		chargerListeProd();
 
