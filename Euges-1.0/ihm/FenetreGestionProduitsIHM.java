@@ -153,9 +153,13 @@ public class FenetreGestionProduitsIHM {
 						if (selection[0].getParentItem().getText().equals(message.getString("FenetreGestionProduitsIHM.prodIn")))
 							FenetreGestionProduits.supprimerProd((EugesProduit)selection[0].getData(), (EugesActivite)selection[0].getParentItem().getParentItem().getData(), "IN");
 						else
-							FenetreGestionProduits.supprimerProd((EugesProduit)selection[0].getData(), (EugesActivite)selection[0].getParentItem().getParentItem().getData(), "OUT");
-						// on supprime dans l'arbre
-						selection[0].dispose();
+							if (selection[0].getParentItem().getParentItem()!=null) {
+								FenetreGestionProduits.supprimerProd((EugesProduit)selection[0].getData(), (EugesActivite)selection[0].getParentItem().getParentItem().getData(), "OUT");
+								
+//								 on supprime dans l'arbre
+								selection[0].dispose();
+							}
+						
 					}
 					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
 					EugesElements.processusEnregistre = false;
