@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+
 import utilitaires.MyDate;
 
 /**
@@ -23,6 +24,8 @@ import utilitaires.MyDate;
  */
 public class Projet {
 	//attributs de la classe
+	
+	
 	private String _nomProjet;
 	private MyDate _dateDebut;
 	private MyDate _dateFin;
@@ -325,10 +328,11 @@ public class Projet {
 		
 	public void genereIndex(BufferedWriter buffer) {
 		try {
-			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet());
-			buffer.write("</title>\n</head>\n<frameset frameborder='yes' border='1' rows='15%,85%'>\n<frame src='titre.htm' scrolling='no' noresize>\n");
+			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet() + "</title>\n");
+			buffer.write("<META HTTP-EQUIV= 'Content-Style-Type' CONTENT='text/css'>\n<LINK rel='stylesheet' type='text/css' href='style.css'>\n</head>");
+			/*buffer.write("</title>\n</head>\n<frameset frameborder='yes' border='1' rows='15%,85%'>\n<frame src='titre.htm' scrolling='no' noresize>\n");
 			buffer.write("<frameset  frameborder='yes' border='1' cols='22%,78%'>\n<frame src='menu.htm' scrolling='auto'>\n");
-			buffer.write("<frame src='principale.htm' scrolling='yes' noresize name='dyn'>\n</frameset>\n</html>\n");
+			buffer.write("<frame src='principale.htm' scrolling='yes' noresize name='dyn'>\n</frameset>\n</html>\n");*/
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
@@ -337,21 +341,29 @@ public class Projet {
 	
 	public void generePrincipale(BufferedWriter buffer) {
 		try {
-			buffer.write("<html>\n<head>\n");
-			buffer.write("</head>\n<body bgcolor='lightgrey'>\n<div align='center'>\n");
-			buffer.write("<table border='0'>\n<tr>\n<td width='50%'>Date de début de projet : </td>\n<td width='50%'>"+this.get_dateDebut()+"</td>\n</tr>\n<td width='50%'>Date de fin de projet : </td>\n<td width='50%'>"+this.get_dateFin()+"</td>\n<tr>\n<td width='50%'>Description du projet : </td>\n<td width='50%'>"+this.get_description()+"</td>\n	</tr>\n</table>");
-			buffer.write("</div></body></html>");
+			buffer.write("<div class='common'>\n<body>\n<table>\n<tr>\n");
+			buffer.write("<td class='dc'><h2 class='right'><b>Date de début de projet</b> : </h2></td>\n<td><h2 class='left'>"+this.get_dateDebut()+"</h2></td>\n");
+			buffer.write("</tr>\n<tr>\n<td class='dc'><h2 class='right'><b>Date de fin de projet</b> : </h2></td>\n<td><h2 class='left'>" + this.get_dateFin()+"</h2></td>\n");
+			buffer.write("</tr>\n<tr>\n<td class='dc'><h2 class='right'><b>Description du projet</b> : </h2></td>\n<td><h2 class='left'>"+this.get_description()+"</h2></td></tr>\n</table>");
+			buffer.write("</body>\n</div>\n</html>");
 			} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
 		}
 	}
 	
+	
+	
 	public void genereTitre(BufferedWriter buffer) {
 		try {
-			buffer.write("<html>\n<head>\n</head>\n<body>\n");
-			buffer.write("<table border='0' width='100%' height='100%'>\n<tr width='100%' height='100%'>\n<td width='18%' height='100%' >\n<img src='images/logo2.png' width='100%' height='100%'>\n</td>\n<td width='82%' height='100%'>\n<div align='center'><b><a href='principale.htm' target='dyn'><h2>"+this.get_nomProjet()+"</h2></a></b></div>\n</td>\n</tr>");
-			buffer.write("</body></html>");
+			
+			buffer.write("<div>\n<table>\n<tr>\n<td width='18%'>\n<img src='images/logo2.png'>\n</td>\n");
+			buffer.write("<td width='82%'>\n<b><a class='titre' href='index.htm'><center>Euges</center></a></b>\n");
+			buffer.write("</td>\n</tr>\n</table>\n</div>\n<br>\n");
+			
+			/*buffer.write("<html>\n<head>\n</head>\n<body>\n");
+			buffer.write("<table border='0' width='100%' height='100%'>\n<tr width='100%' height='100%'>\n<td width='18%' height='100%' >\n<img src='images/logo2.png' width='50%' height='20%'>\n</td>\n<td width='82%' height='100%'>\n<div align='center'><b><a href='principale.htm' target='dyn'><h2>"+this.get_nomProjet()+"</h2></a></b></div>\n</td>\n</tr>");
+			buffer.write("</body></html>");*/
 			} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
@@ -369,6 +381,7 @@ public class Projet {
 	public void genereIterations(String chemin) {
 		for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
 		{
+			
 			((Iteration)iter.next()).genereIteration(chemin);
 		}
 	}

@@ -1,0 +1,111 @@
+   body { 
+		background-color: lightgrey; 
+	}
+	 
+	b {
+		font-family: Microsoft Sans Serif;
+		font-weight: bold;
+	}
+	 
+	a {
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		font-weight: bold;
+	}
+	
+	a.titre {
+		font-family: Microsoft Sans Serif;
+		font-size: 24px;
+		font-weight: bold;
+	}
+	
+	a:link {
+		color: blue; 
+		text-decoration:underline;
+	}
+	a:visited {
+		color: gray; 
+		text-decoration:underline;
+	}
+	a:hover {
+		color:blue; 
+		text-decoration:none;
+	}
+	
+	h1.title {
+		font-family: Microsoft Sans Serif;
+		font-size: 24px;
+		font-weight: bold;
+		color: black;
+	}
+	
+	h2.left {
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		font-weight: normal;
+		color: black;
+		text-align: left;
+	}
+
+	h2.right {
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		font-weight: normal;
+		color: black;
+		text-align: right;
+	}
+	
+	h2 {
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		font-weight: normal;
+		color: black;
+	}
+	
+	table {
+		border: none;
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		font-weight: normal;
+		color: black;
+	}
+
+	table.it {
+		border-style:solid; 
+		border-width:1px; 
+		border-color:black;
+		font-family: Microsoft Sans Serif;
+		font-size: 10px;
+		width: 60%;
+	}
+	
+	td.dc {
+		width: 200px;
+	}
+	
+	tr.ititle{
+		background-color: silver;
+	}
+	
+	tr.it{
+		background-color: white;
+	}
+	
+	.menu {
+		border-style:solid; 
+		border-width:1px; 
+		border-color:black; 
+		background-color:silver; 
+		width:306px; 
+		padding:10px; 
+		float:left; 
+	}
+
+	.common {
+		border-style:none; 
+		margin-left:306px; 
+		padding:10px; 
+	}
+
+
+	
