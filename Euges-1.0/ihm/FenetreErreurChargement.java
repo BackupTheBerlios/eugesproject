@@ -42,6 +42,7 @@ public class FenetreErreurChargement extends Dialog{
 	public FenetreErreurChargement(final Shell shell){
 		//initialisation des attributs (hors combos)
 		super(shell);
+
 		_shell = new Shell(shell, SWT.APPLICATION_MODAL | SWT.CLOSE);
 		_shell.setText(message.getString("titre"));
 		GridLayout gr = new GridLayout (1,true);
