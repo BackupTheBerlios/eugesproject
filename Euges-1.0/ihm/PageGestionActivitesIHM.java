@@ -6,8 +6,6 @@
  */
 package ihm;
 
-import ihm.vues.planIt.PlanItIHM;
-
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
