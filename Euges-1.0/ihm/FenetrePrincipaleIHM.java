@@ -71,7 +71,6 @@ public class FenetrePrincipaleIHM {
 		public static MenuItem menuItemEquipe;
 		public static MenuItem menuItemAffichage;
 		public static MenuItem menuItemBarreOutils;
-		public static MenuItem menuItemArbre;
 		public static MenuItem menuItemPreferences;
 		public static MenuItem menuItemAide;
 		public static MenuItem menuItemOuvrirAide;
@@ -289,14 +288,6 @@ public class FenetrePrincipaleIHM {
 						coolBar.setLocked(false);
 					}
 					
-				}
-			});
-		
-			menuItemArbre = new MenuItem(menuAffichage,SWT.PUSH);
-			menuItemArbre.setText(message.getString("menu.affichage.arbre"));
-			menuItemArbre.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					System.out.println("Arbre");
 				}
 			});
 		
