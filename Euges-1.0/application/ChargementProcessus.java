@@ -83,8 +83,8 @@ public class ChargementProcessus {
 
 				// associer le rôle à l'activité
 				auxRole = (EugesRole) roleHashMap.get(auxNodeActivite.getChildNodes().item(5).getChildNodes().item(0).toString());
-				if (!auxActivite.contientRole(auxRole))
-					auxActivite.ajouterRole(auxRole);
+				if (auxActivite.getRole()==null)
+					auxActivite.setRole(auxRole);
 				
 				EugesElements.listeActivites.addElement(auxActivite);
 			}

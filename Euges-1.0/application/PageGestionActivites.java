@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import org.eclipse.swt.widgets.Shell;
 
+import donnees.Iteration;
+import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesRole;
 
@@ -43,8 +45,8 @@ public class PageGestionActivites {
 	 * @return 1 si le lien a été ajouté, 0 s'il existait déjà
 	 */
 	public static int ajoutLienActiviteRole(EugesActivite act, EugesRole role) {
-		if (!act.contientRole(role)) { 
-			act.ajouterRole(role);
+		if (act.getRole()==null) { 
+			act.setRole(role);
 			return 1;
 		}
 		else
@@ -57,7 +59,7 @@ public class PageGestionActivites {
 	 * @param role
 	 */
 	public static void supprLienActiviteRole(EugesActivite act, EugesRole role) {
-		act.supprimerRole(role);
+		act.setRole(null);
 	}
 	
 	/**
@@ -66,6 +68,11 @@ public class PageGestionActivites {
 	 * @param vectRoles le vecteur contenant les rôles associés à l'activité
 	 */
 	public static void supprActivite(EugesActivite act, Vector vectRoles) {
+		for (int i = 0; i<EugesElements._projet._listeIteration.size();i++) {
+			Iteration it = EugesElements._projet.getIteration(i);
+			for (int j=0; j< it.getActiviteCount(); j++)
+				it.supprimerActivite((EugesActRealise)it.getActivite(i));
+		}			
 		EugesElements.listeActivites.remove(act);
 	}
 

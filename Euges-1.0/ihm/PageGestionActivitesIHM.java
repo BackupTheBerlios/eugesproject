@@ -143,7 +143,7 @@ public class PageGestionActivitesIHM implements SelectionListener {
 		delRole.setLayoutData(dataRole);
 
 		// liste des rôles
-		listRoles = new List(shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER);
+		listRoles = new List(shell,SWT.SINGLE|SWT.H_SCROLL|SWT.BORDER|SWT.V_SCROLL);
 
 
 		aide = new Button(shell,SWT.PUSH);
@@ -165,14 +165,12 @@ public class PageGestionActivitesIHM implements SelectionListener {
 					item.setImage(GestionImage._activite);
 					item.setText(temp.toString());
 					//ajout dans l'arbre des liens entre l'activite courante et ses roles associés
-					for (int i=0; i < temp.getRoleCount(); i++) {
-						EugesRole role = (EugesRole)temp.getRole(i);
-						if (role != null) {
-							TreeItem itemRole = new TreeItem(item,SWT.NONE);
-							itemRole.setData(role);
-							itemRole.setImage(GestionImage._role);
-							itemRole.setText(role.toString());
-						}
+					EugesRole role = (EugesRole)temp.getRole();
+					if (role != null) {
+						TreeItem itemRole = new TreeItem(item,SWT.NONE);
+						itemRole.setData(role);
+						itemRole.setImage(GestionImage._role);
+						itemRole.setText(role.toString());
 					}
 				}
 			}
@@ -257,14 +255,12 @@ public class PageGestionActivitesIHM implements SelectionListener {
 						item.setImage(GestionImage._activite);
 						item.setText(temp.toString());
 						//ajout dans l'arbre des liens entre l'activite courante et ses roles associés
-						for (int i=0; i < temp.getRoleCount(); i++) {
-							EugesRole role = (EugesRole)temp.getRole(i);
-							if (role != null) {
-								TreeItem itemRole = new TreeItem(item,SWT.NONE);
-								itemRole.setData(role);
-								itemRole.setImage(GestionImage._role);
-								itemRole.setText(role.toString());
-							}
+						EugesRole role = (EugesRole)temp.getRole();
+						if (role != null) {
+							TreeItem itemRole = new TreeItem(item,SWT.NONE);
+							itemRole.setData(role);
+							itemRole.setImage(GestionImage._role);
+							itemRole.setText(role.toString());
 						}
 					}
 				}
@@ -289,6 +285,13 @@ public class PageGestionActivitesIHM implements SelectionListener {
 					msgErreur.setText(message.getString("msgbox1Title"));
 					msgErreur.open();
 				}
+				else if (actSelected[0].getItemCount()>0) {
+					//on ne peut ajouter qu'un seul role
+					MessageBox msgErreur = new MessageBox(shell,SWT.ICON_ERROR);
+					msgErreur.setMessage(message.getString("msgbox6Msg"));
+					msgErreur.setText(message.getString("msgbox1Title"));
+					msgErreur.open();
+				}				
 				else {
 					//cas normal
 					//ajouter le lien dans le spem s'il n'existe pas deja
@@ -342,14 +345,12 @@ public class PageGestionActivitesIHM implements SelectionListener {
 							item.setImage(GestionImage._activite);
 							item.setText(temp.toString());
 							//ajout dans l'arbre des liens entre l'activite courante et ses roles associés
-							for (int i=0; i < temp.getRoleCount(); i++) {
-							EugesRole role = (EugesRole)temp.getRole(i);
+							EugesRole role = (EugesRole)temp.getRole();
 							if (role != null) {
 									TreeItem itemRole = new TreeItem(item,SWT.NONE);
 									itemRole.setData(role);
 									itemRole.setImage(GestionImage._role);
 									itemRole.setText(role.toString());
-								}
 							}
 						}
 					}
@@ -390,14 +391,12 @@ public class PageGestionActivitesIHM implements SelectionListener {
 							item.setImage(GestionImage._activite);
 							item.setText(temp.toString());
 							//ajout dans l'arbre des liens entre l'activite courante et ses roles associés
-							for (int i=0; i < temp.getRoleCount(); i++) {
-							EugesRole role = (EugesRole)temp.getRole(i);
-								if (role != null) {
-									TreeItem itemRole = new TreeItem(item,SWT.NONE);
-									itemRole.setData(role);
-									itemRole.setImage(GestionImage._role);
-									itemRole.setText(role.toString());
-								}
+							EugesRole role = (EugesRole)temp.getRole();
+							if (role != null) {
+								TreeItem itemRole = new TreeItem(item,SWT.NONE);
+								itemRole.setData(role);
+								itemRole.setImage(GestionImage._role);
+								itemRole.setText(role.toString());
 							}
 						}
 					}
@@ -406,14 +405,13 @@ public class PageGestionActivitesIHM implements SelectionListener {
 				}
 			}
 			else if (button == fermer) {
-				//rafraichissement de la fenetre principale (plantIt)
-				//((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 				shell.close();
 			}
 			//idem pour les produits
 		}
 		
 	}
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
 	 */

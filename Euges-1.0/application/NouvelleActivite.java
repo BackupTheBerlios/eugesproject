@@ -39,6 +39,8 @@ public class NouvelleActivite {
 	public static boolean saisieValide(String nom, String description) {
 		if (nom.equals(""))
 			return false;
+		else if (EugesElements.getActivite(nom) != null)
+			return false;
 		else
 			return true;
 	}

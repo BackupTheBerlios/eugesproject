@@ -401,12 +401,10 @@ public class EugesElements {
 		Iterator it2 = EugesElements.listeActivites.iterator();
 		while(!appartient && it2.hasNext()){
 			auxActivite = (EugesActivite) it2.next();
-			for (int n=0; n<auxActivite.getRoleCount(); n++) {
-				if(auxActivite.getRole(n).getName().equals(r.getName()) && !appartient) {
-					appartient = true;
-					resultat.add(auxActivite);	
-				}
-			}	
+			if(auxActivite.getRole().getName().equals(r.getName()) && !appartient) {
+				appartient = true;
+				resultat.add(auxActivite);	
+			}				
 			appartient = false;
 		}
 		return resultat;

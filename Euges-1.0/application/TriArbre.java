@@ -333,12 +333,10 @@ public class TriArbre {
 			// Récupération des rôles pour l'activité
 			TreeItem itemAuxRole;
 			EugesRole auxRole;
-			for (int j=0; j<auxActivite.getRoleCount(); j++) {
-				auxRole = auxActivite.getRole(j);
-				itemAuxRole = new TreeItem(itemRoles, SWT.NONE);
-				itemAuxRole.setText(auxRole.getName());
-				itemAuxRole.setData(auxRole);
-			}
+			auxRole = auxActivite.getRole();
+			itemAuxRole = new TreeItem(itemRoles, SWT.NONE);
+			itemAuxRole.setText(auxRole.getName());
+			itemAuxRole.setData(auxRole);
 			itemRoles.setExpanded(true);
 			
 			
