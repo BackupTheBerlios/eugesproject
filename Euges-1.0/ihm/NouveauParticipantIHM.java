@@ -122,13 +122,16 @@ public class NouveauParticipantIHM extends Dialog {
 		// liste des personnes disponibles
 		_persDispo = new List(_shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER);
 		// on rempli la liste avec seulement les personne qui peuvent intervenir pour cette activité
-		EugesRole r = act.get_activiteParent().getRole(0);
-		for (Iterator iter = EugesElements._projet.getIteration(numIt).getAssociation(r).iterator(); iter.hasNext();) {
-			EugesPersonne e = (EugesPersonne) iter.next();
-			String s = e.toString();
-			if (!_vParticipants.contains(s)) {
-				_vPersDispo.add(s);
-				_persDispo.add(s);
+		int role = act.get_activiteParent().getRoleCount();
+		if (role > 0) {
+			EugesRole r = act.get_activiteParent().getRole(0);
+			for (Iterator iter = EugesElements._projet.getIteration(numIt).getAssociation(r).iterator(); iter.hasNext();) {
+				EugesPersonne e = (EugesPersonne) iter.next();
+				String s = e.toString();
+				if (!_vParticipants.contains(s)) {
+					_vPersDispo.add(s);
+					_persDispo.add(s);
+				}
 			}
 		}
 
