@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 import utilitaires.CopierFichier;
 import utilitaires.GestionImage;
+import application.EugesElements;
 import application.preferences.IconesAPP;
 import configuration.Config;
 
@@ -191,6 +192,7 @@ public class PreferencesIHM implements SelectionListener {
 			if (button == valider) {
 				AutoMailIHM.saveMail();
 				if (modifie || langueIHM.getListe().getSelectionIndex() != -1){
+					EugesElements.processusEnregistre = true;
 					MessageBox messageBox = new MessageBox(shell,SWT.ICON_INFORMATION|SWT.OK);
 					messageBox.setMessage(message.getString("messageBox.message"));
 					messageBox.setText(message.getString("messageBox.text"));

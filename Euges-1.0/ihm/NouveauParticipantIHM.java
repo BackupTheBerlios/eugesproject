@@ -112,6 +112,8 @@ public class NouveauParticipantIHM extends Dialog {
 							_vPersDispo.remove(persSelected[i]);
 						}
 					}
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					_persDispo.deselectAll();
 				}
 			}
@@ -150,6 +152,8 @@ public class NouveauParticipantIHM extends Dialog {
 							_vParticipants.remove(persSelected[i]);
 						}
 					}
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					_participants.deselectAll();
 				}
 			}

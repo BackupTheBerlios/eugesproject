@@ -111,6 +111,8 @@ public class PageAttributionProduitIHM {
 					boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.texte"), message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.titre"));
 				}
 				else {
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					// une personne sélectionnée
 					
 					String nomPersonne = listePersProjet.getSelection()[0];
@@ -132,7 +134,6 @@ public class PageAttributionProduitIHM {
 					}
 					else {
 						   // il n'y a pas encore de responsable
-						   // on doit changer le responsable, mais on teste si il est acteur quand même
 						changerResponsable = SWT.YES;
 					}
 					
@@ -184,6 +185,8 @@ public class PageAttributionProduitIHM {
 							
 							   // on l'insére dans la liste des acteurs de la version
 							version.ajouterModifieur(personne);
+							//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+							EugesElements.processusEnregistre = true;
 						}
 						   // on rafraichit l'affichage de l'arbre
 						chargementElementList(shell, version);

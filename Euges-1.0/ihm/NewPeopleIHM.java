@@ -159,6 +159,9 @@ public class NewPeopleIHM {
 					// initialisation de l'objet à insérer
 					EugesPersonne p = new EugesPersonne(_nextID,nom.getText(),prenom.getText(),email.getText());
 					EugesElements.ajouterElement(p);
+					
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					// Identifiant
 					TreeItem temp = new TreeItem(arbreNew,SWT.NONE);
 					temp.setText(message.getString("NewPeopleIHM.personne") + " " + _nextID);
@@ -193,6 +196,9 @@ public class NewPeopleIHM {
 				if (persSelected.length == 0)
 					return ;
 				else {
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
+					
 					persCur = persSelected[0];
 					if (persSelected[0].getParentItem() != null) {
 						persCur = persSelected[0].getParentItem();

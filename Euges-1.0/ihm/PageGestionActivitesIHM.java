@@ -306,6 +306,8 @@ public class PageGestionActivitesIHM implements SelectionListener {
 						msgErreur.setText(message.getString("msgbox1Title"));
 						msgErreur.open();
 					}
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 				}
 			}
 			//Suppression d'un lien entre un role et une activite
@@ -328,6 +330,8 @@ public class PageGestionActivitesIHM implements SelectionListener {
 				}
 				else {
 					PageGestionActivites.supprLienActiviteRole((EugesActivite)roleSelected[0].getParentItem().getData(),(EugesRole)roleSelected[0].getData());
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					//redessiner l'arbre
 					activites.removeAll();
 					for(Iterator it = EugesElements.listeActivites.iterator();it.hasNext();) {
@@ -397,7 +401,8 @@ public class PageGestionActivitesIHM implements SelectionListener {
 							}
 						}
 					}
-					
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 				}
 			}
 			else if (button == fermer) {

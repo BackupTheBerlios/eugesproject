@@ -106,6 +106,9 @@ public class NewRoleIHM {
 							if (!_liste.contains(newRole.getText())) {
 								EugesRole role = new EugesRole(newRole.getText());
 								EugesElements.ajouterElement(role);
+								
+								//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+								EugesElements.processusEnregistre = true;
 								_liste = NewRole.roleToVector();
 								String[] temp = new String[_liste.size()];
 								_liste.copyInto(temp);
@@ -138,6 +141,9 @@ public class NewRoleIHM {
 					if (!_liste.contains(newRole.getText())) {
 						EugesRole role = new EugesRole(newRole.getText());
 						EugesElements.ajouterElement(role);
+						
+						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+						EugesElements.processusEnregistre = true;
 						_liste = NewRole.roleToVector();
 						String[] temp = new String[_liste.size()];
 						_liste.copyInto(temp);
@@ -167,6 +173,9 @@ public class NewRoleIHM {
 				for (int i = 0; i < temp.length; i++) {
 					NewRole.supprimerRole(temp[i]);
 				}
+				
+				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+				EugesElements.processusEnregistre = true;
 				_liste = NewRole.roleToVector();
 				temp = new String[_liste.size()];
 				_liste.copyInto(temp);

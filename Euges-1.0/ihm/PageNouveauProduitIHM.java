@@ -102,6 +102,8 @@ public class PageNouveauProduitIHM {
 				for (int i = 0; i < temp.length; i++) {
 					EugesElements.supprimeProduit(temp[i]);
 				}
+				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+				EugesElements.processusEnregistre = true;
 				chargerListP();
 			}
 		});
@@ -219,6 +221,8 @@ public class PageNouveauProduitIHM {
 			else{
 				   // on peut ajouter l'élément
 				EugesElements.ajouteEugesProduit(newProduit.getText(), " 1.0");
+				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+				EugesElements.processusEnregistre = true;
 				   // on rempli la liste es produits
 				chargerListP();
 				

@@ -221,6 +221,8 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 									it.ajouterAssociation(p,PageAttributionRoles.getRole(rolesSelected[i]));
 								}
 							}
+							//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+							EugesElements.processusEnregistre = true;
 							persSelected[0].setExpanded(true);
 							listRoles.deselectAll();
 						}
@@ -254,6 +256,8 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 						it.supprimerAssociation(p,PageAttributionRoles.getRole(persSelected[0].getText()));
 						persSelected[0].dispose();
 					}
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 				}
 			}
 		});

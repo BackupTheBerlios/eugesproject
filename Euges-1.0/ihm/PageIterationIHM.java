@@ -109,6 +109,8 @@ public class PageIterationIHM extends PageAssistantIHM{
 						dateFin.clear();
 						//activation du bouton reinitialiser
 						boutonReinitialiser.setEnabled(true);
+						//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+						EugesElements.processusEnregistre = true;
 					}else{
 						MessageBox msg = new MessageBox(shellCourant, SWT.ICON_ERROR);
 						msg.setText(message.getString("pageIterationIHM.erreur"));
@@ -149,6 +151,8 @@ public class PageIterationIHM extends PageAssistantIHM{
 		boutonModifier.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				modifierIteration(_tableauIteration.getSelectionIndex());
+				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+				EugesElements.processusEnregistre = true;
 				}
 		});
 		//bouton supprimer itération
@@ -157,6 +161,8 @@ public class PageIterationIHM extends PageAssistantIHM{
 		boutonSupprimer.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				supprimerIteration(_tableauIteration.getSelectionIndex());
+				//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+				EugesElements.processusEnregistre = true;
 			}
 		});
 		//bouton supprimer reinitialiser
@@ -168,7 +174,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 				MessageBox msg = new MessageBox(shell, SWT.YES|SWT.NO|SWT.ICON_ERROR);
 				msg.setText(message.getString("pageIterationIHM.reinitialiser"));
 				msg.setMessage(message.getString("pageIterationIHM.reinitialiserTout"));
-				//si la reponse est oui, on supprime toute les iterations et o remet l'iteration precedente
+				//si la reponse est oui, on supprime toute les iterations et on remet l'iteration precedente
 				if (msg.open()==SWT.YES){
 					//reinitialisation des iterations
 					EugesElements._projet.reinitialiserIterations();
@@ -176,6 +182,8 @@ public class PageIterationIHM extends PageAssistantIHM{
 					loadData();
 					//desactivation du bouton reinitialiser
 					boutonReinitialiser.setEnabled(false);
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 				}
 			}
 		});

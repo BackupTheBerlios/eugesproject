@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
+import application.EugesElements;
 import application.NouvelleActivite;
 import configuration.Config;
 
@@ -168,6 +169,8 @@ public class NouvelleActiviteIHM implements SelectionListener {
 					//Creer la nouvelle activite
 //					NouvelleActivite.creerActivite(textNom.getText(),textChargeEst.getText(),textDesc.getText());
 					NouvelleActivite.creerActivite(textNom.getText(),textDesc.getText());
+					//le processus est modifie, on change la variable qui permet de savoir que des modifications ont été faites
+					EugesElements.processusEnregistre = true;
 					shell.close();
 				}
 				else {

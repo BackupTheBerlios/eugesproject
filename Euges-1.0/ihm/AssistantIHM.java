@@ -126,6 +126,7 @@ public class AssistantIHM extends Dialog {
 			 boutonTerminer.setBounds(370, 430, 100, 30);
 			 boutonTerminer.addSelectionListener(new SelectionAdapter() {
 			 	public void widgetSelected(SelectionEvent e) {
+			 		EugesElements.processusEnregistre = true;
 			 		FenetrePrincipaleIHM.menuItemFermer.setEnabled(true);
 			 		FenetrePrincipaleIHM.menuItemEnregistrer.setEnabled(true);
 			 		FenetrePrincipaleIHM.menuItemEnregistrerSous.setEnabled(true);
