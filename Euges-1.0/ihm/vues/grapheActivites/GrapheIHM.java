@@ -24,15 +24,15 @@ public class GrapheIHM extends PageVuesIHM{
 	final GrapheHautIHM _haut;
 	final GrapheBasIHM _bas;
 	
-	public GrapheIHM(Composite compoShell) {
-		super(compoShell, SWT.NONE);
-		_sashForm = new SashForm(compoShell, SWT.VERTICAL);
+	public GrapheIHM(Composite compo) {
+		super(compo, SWT.NONE);
+		_sashForm = new SashForm(compo, SWT.VERTICAL);
 		_haut = new GrapheHautIHM(_sashForm);
 		_bas = new GrapheBasIHM(_sashForm);
 		_sashForm.setWeights(new int [] {75,25});
 
 		//redimensionnement du sashForm
-		compoShell.addListener(SWT.Resize, new Listener() {
+		compo.addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
 				_sashForm.setBounds(getClientArea());
 			}

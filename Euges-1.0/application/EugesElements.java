@@ -288,6 +288,42 @@ public class EugesElements {
 			}
 		}
 		return null;
-	}	
+	}
+	public static int getActivitesCount() {
+		return listeActivites.size();
+	}
+	/**
+	 * Fonction qui renvoi la charge maximum des charges estimees des activités
+	 * Méthode utilisé pour la création des graphes
+	 * @return la charge max
+	 */
+	public static int getChargeEstimeeMax() {
+		int max = 0;
+		for (Iterator it = listeActivites.iterator(); it.hasNext();) {
+			EugesActivite actTemp = (EugesActivite)it.next();
+			for (int i = 0 ; i < actTemp.getActRealiseCount(); i++) {
+				if (actTemp.getActRealise(i).get_chargeEstimee() > max)
+					max = actTemp.getActRealise(i).get_chargeEstimee();
+			}
+		}
+		return max;
+	}
+	
 
+	/**
+	 * Fonction qui renvoi la charge maximum des charges reelles des activités
+	 * Méthode utilisé pour la création des graphes
+	 * @return la charge max
+	 */
+	public static int getChargeReelleMax() {
+		int max = 0;
+		for (Iterator it = listeActivites.iterator(); it.hasNext();) {
+			EugesActivite actTemp = (EugesActivite)it.next();
+			for (int i = 0 ; i < actTemp.getActRealiseCount(); i++) {
+				if (actTemp.getActRealise(i).get_chargeReelle() > max)
+					max = actTemp.getActRealise(i).get_chargeReelle();
+			}
+		}
+		return max;
+	}
 }

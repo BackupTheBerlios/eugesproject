@@ -6,9 +6,9 @@
  */
 package ihm.vues;
 
-import ihm.vues.grapheActivites.GrapheIHM;
-import ihm.vues.grapheCharges.*;
-import ihm.vues.planIt.*;
+import ihm.vues.grapheActivites.GrapheHautIHM;
+import ihm.vues.grapheCharges.GrapheChargesIHM;
+import ihm.vues.planIt.PlanItIHM;
 
 import java.util.Vector;
 
@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Listener;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class VuesIHM extends ViewForm{
-
+	
 	//vecteur de vues
 	private Vector _vues;
 	private int pageCourante=0;
@@ -42,8 +42,8 @@ public class VuesIHM extends ViewForm{
 		final Composite c = new Composite(this, SWT.NONE);
 		//ajout des vues dans la liste des vues
 		_vues.add(new PlanItIHM(c, 0));
+		_vues.add(new GrapheHautIHM(c));
 		_vues.add(new GrapheChargesIHM(c));
-		_vues.add(new GrapheIHM(c));
 		
 		((PageVuesIHM)_vues.elementAt(0)).setVisible(true);
 		((PageVuesIHM)_vues.elementAt(1)).setVisible(false);
@@ -52,9 +52,8 @@ public class VuesIHM extends ViewForm{
 		addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
 				c.setBounds(getClientArea());
-				((PageVuesIHM)_vues.elementAt(0)).setBounds(c.getClientArea());
-				((PageVuesIHM)_vues.elementAt(1)).setBounds(c.getClientArea());
-				((PageVuesIHM)_vues.elementAt(2)).setBounds(c.getClientArea());
+				for (int i=0; i<_vues.size(); i++)
+					((PageVuesIHM)_vues.elementAt(i)).setBounds(c.getClientArea());
 			}
 		});
 	}
@@ -62,21 +61,19 @@ public class VuesIHM extends ViewForm{
 	 * affiche la page dont le numero est passé en parametre
 	 * @param numPage numero de la page a afficher
 	 */
-	public void setVisible(int numPage){
-		System.out.println("page courante="+pageCourante);
-		System.out.println("nouvelle page="+numPage);
-		
+	public void setVisible(int numPage){		
 		((PageVuesIHM)_vues.elementAt(numPage)).setVisible(true);
 		((PageVuesIHM)_vues.elementAt(numPage)).loadData();
-		((PageVuesIHM)_vues.elementAt(pageCourante)).setVisible(false);
-		
-		pageCourante=numPage;
+		if (pageCourante!=numPage){
+			((PageVuesIHM)_vues.elementAt(pageCourante)).setVisible(false);
+			pageCourante=numPage;
+		}
 	}
 	/**
 	 * @param i indice du composite a retourner
 	 * @return composite voulu
 	 */
 	public Composite elementAt(int i){
-		return (Composite)_vues.elementAt(i);
+		return (PageVuesIHM)_vues.elementAt(i);
 	}
 }

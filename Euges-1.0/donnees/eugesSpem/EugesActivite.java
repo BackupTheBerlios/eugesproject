@@ -183,4 +183,10 @@ public class EugesActivite extends Activity{
 	public EugesProduit getProduitOut(int i) {
 		return (EugesProduit) _produitsOut.get(i);
 	}
+	/**
+	 * @return Returns the _activites.
+	 */
+	public Vector get_activitesRealisees() {
+		return _activites;
+	}
 }

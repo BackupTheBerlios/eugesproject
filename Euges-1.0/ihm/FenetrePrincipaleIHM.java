@@ -8,8 +8,10 @@ package ihm;
 
 
 import ihm.preferences.PreferencesIHM;
-import ihm.vues.Vues;
+import ihm.vues.VuesIHM;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
@@ -32,6 +34,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import utilitaires.EugesAide;
 import utilitaires.GestionImage;
+import utilitaires.MyDate;
 import configuration.Config;
 
 
@@ -86,10 +89,23 @@ public class FenetrePrincipaleIHM {
 		public static ArbrePrincipalIHM tree;
 		
 		//liste des vues de l'application
-		public static Vues _vues; 
+		public static VuesIHM _vues; 
+		//date du jour
+		public static MyDate dateDuJour;
 		
 		public FenetrePrincipaleIHM(){
 			final Display display = new Display();
+			
+			/**récuperation de la date du jour*/
+			//on crée l'objet en passant en paramétre une chaîne representant le format
+			SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yyyy");
+			//récupération de la date courante
+			Date currentTime = new Date();
+			//on crée la chaîne à partir de la date  
+			String dateString = formatter.format(currentTime);
+			dateDuJour=new MyDate(dateString);
+			
+			//initialisation de la bibliotheque d'images
 			GestionImage images = new GestionImage(display);
 			shell = new Shell(display);
 			//fenetre de progression
@@ -390,7 +406,7 @@ public class FenetrePrincipaleIHM {
 			itemToolIt.setToolTipText(message.getString("toolbar.itemToolIt.tooltiptext"));
 			itemToolIt.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					if (itemToolGraph.getSelection()){
+					if (itemToolIt.getSelection()){
 						_vues.setVisible(0);
 					}
 				}
@@ -412,7 +428,7 @@ public class FenetrePrincipaleIHM {
 			itemToolLine.setToolTipText(message.getString("toolbar.itemToolLine.tooltiptext"));
 			itemToolLine.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					if (itemToolGraph.getSelection()){
+					if (itemToolLine.getSelection()){
 						_vues.setVisible(2);
 					}
 				}
@@ -434,7 +450,7 @@ public class FenetrePrincipaleIHM {
 			// Arbre
 			tree = new ArbrePrincipalIHM(sashForm);
 			//creation du vecteur de vues
-			_vues = new Vues(sashForm);
+			_vues = new VuesIHM(sashForm);
 			
 			sashForm.setWeights(new int [] {25,75});		
 			

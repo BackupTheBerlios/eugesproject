@@ -13,6 +13,7 @@ import java.util.Vector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -213,7 +214,11 @@ public class PageGestionActivitesIHM implements SelectionListener {
 		fermer.setLayoutData(data3);
 		
 		
-		
+		Rectangle bounds = parent.getBounds ();
+		Rectangle rect = shell.getBounds ();
+		int x = bounds.x + (bounds.width - rect.width) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+		shell.setLocation (x, y);
 		//	Boucle d'évènements
 		shell.open();
 		while (!shell.isDisposed()){
