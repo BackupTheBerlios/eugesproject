@@ -7,12 +7,10 @@
 
 package utilitaires;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
 import application.EugesElements;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.*;
+
 import donnees.Iteration;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesActivite;
@@ -43,7 +41,7 @@ public class MySAXApp extends DefaultHandler{
 	private String personne = new String();
 	private String produit = new String();
 	private String activite = new String();
-	// Variable qui vaut 1 si on ajoute un rôle a une activité, et 0 si on ajoute un rôle à une personne
+    // Variable qui vaut 1 si on ajoute un rôle a une activité, et 0 si on ajoute un rôle à une personne
 	private int ajoutRoleAct = 1;
 	
 	/**
@@ -113,6 +111,9 @@ public class MySAXApp extends DefaultHandler{
 	 * @see org.xml.sax.ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
 	public void startElement(String nameSpaceURI, String localName, String rawName, Attributes attributs) throws SAXException {  
+		
+	  //System.out.println(localName);
+	  
 	  if(creationAssociation == 0)
 	  {
 		// Sauvegarde d'un nouveau projet
@@ -201,26 +202,30 @@ public class MySAXApp extends DefaultHandler{
 	  		EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).ajouterPersonne(EugesElements.getPersonneDansListePersonnes(personne));
 	  		nbPersAct = EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonneCount();
 	  		ajoutRoleAct = 0;
-	  	}
+		}
 	  	
-	  	// Si on ajoute un role a une activité
-	  	if(ajoutRoleAct == 1)
+	  	// Ajout d'un rôle à une personne de l'activité
+	  	if(localName.equals("_roles"))
 	  	{
-	  		// lien entre l'activité et le rôle dans le vecteur activite  
-	  		EugesElements.getActivite(activite).ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  		// Si on ajoute un role a une activité
+	  		if(ajoutRoleAct == 1)
+	  		{
+	  			// lien entre l'activité et le rôle dans le vecteur activite  
+	  			EugesElements.getActivite(activite).ajouterRole(EugesElements.getRole(attributs.getValue(0)));
 
-	  		// ajout du role dans l'activité réalisé de l'IT
-	  		EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).get_activiteParent().ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  			// ajout du role dans l'activité réalisé de l'IT
+	  			EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).get_activiteParent().ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  		}
+	  		// Si on ajoute un role à une personne
+	  		else {
+	  			// ajout du role à la personne dans l'activité réalisée
+	  			//EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1).ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  			EugesElements._projet.getIteration(numIt).ajouterAssociation(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1), EugesElements.getRole(attributs.getValue(0)));
+	  			
+	  			// ajout du rôle à la personne dans le vecteur global
+	  			//EugesElements.getPersonneDansListePersonnes(personne).ajouterRole(EugesElements.getRole(attributs.getValue(0)));	  		
+	  		}
 	  	}
-	  	// Si on ajoute un role à une personne
-	  	else {
-	  		// ajout du role à la personne dans l'activité réalisée
-	  		//EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1).ajouterRole(EugesElements.getRole(attributs.getValue(0)));
-	  		EugesElements._projet.getIteration(numIt).ajouterAssociation(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1), EugesElements.getRole(attributs.getValue(0)));
-	  		
-	  		// ajout du rôle à la personne dans le vecteur global
-	  		//EugesElements.getPersonneDansListePersonnes(personne).ajouterRole(EugesElements.getRole(attributs.getValue(0)));	  		
-	  	}	  
 
 		// On va ajouter un produit en entrée
 	  	if(localName.equals("ProduitsIn"))
@@ -250,26 +255,26 @@ public class MySAXApp extends DefaultHandler{
 			// Ajout d'un produit en entrée
 			EugesVersion ev = new EugesVersion(nom, etat, realisation, responsable, produitParent);
 			
+			// On ajoute la version dans le vecteur de produit
+			EugesElements.getProduitDansListeProduits(attributs.getValue(4)).ajouterVersion(ev);
+
+			// Ajout d'un produit en entrée
 			if(produit == "in")
 			{
 				// ajout du produit en entrée de l'activité
 				EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).ajouterProduitIn(ev);
-				
 				// et dans le vecteur d'activités
 				EugesElements.getActivite(activite).ajouterProduitIn(EugesElements.getProduitDansListeProduits(attributs.getValue(4)));
-				
+
 				// Nombre de produits de l'activité et de versions du dernier produit
 				nbProAct = EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getProduitInCount();
 			}
-			// Ajout d'un produit en entrée			
+
+			// Ajout d'un produit en sortie			
 			if(produit == "out")
 			{
-				// On ajoute la version dans le vecteur de produit
-				EugesElements.getProduitDansListeProduits(attributs.getValue(4)).ajouterVersion(ev);
-				
 				// ajout du produit en sortie de l'activité
 				EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).ajouterProduitOut(ev);
-				
 				// et dans le vecteur d'activités
 				EugesElements.getActivite(activite).ajouterProduitOut(EugesElements.getProduitDansListeProduits(attributs.getValue(4)));
 				
