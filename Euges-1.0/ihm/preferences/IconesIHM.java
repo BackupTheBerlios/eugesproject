@@ -56,14 +56,10 @@ public class IconesIHM extends Composite implements SelectionListener {
 				File file = new File(dir + "\\" + name);
 				boolean accept = false;
 				String extension = name.substring(name.lastIndexOf('.')+1);
-				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
+				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("xpm") || extension.equals("png") || extension.equals("gif");
 				return (file.isFile() && accept);
 			}
 		});
-		
-		for (int i=0; i<tabIcones.length; i++){
-				tabIcones[i] = tabIcones[i].substring(0, tabIcones[i].length()-4);
-		}
 		
 		shell = sh;
 			// le layout
@@ -83,9 +79,9 @@ public class IconesIHM extends Composite implements SelectionListener {
 			// affichage des icônes actuelles
 		for (int cpt=0; cpt<tabIcones.length; cpt++){
 			tabToolItem[cpt] = new ToolItem(toolIcones,SWT.NONE);
-			Image imageIcone = new Image(shell.getDisplay(), Config.config.getProperty("cheminIcone") + tabIcones[cpt] + ".ico");
+			Image imageIcone = new Image(shell.getDisplay(), Config.config.getProperty("cheminIcone") + tabIcones[cpt]);
 			tabToolItem[cpt].setImage(imageIcone);
-			tabToolItem[cpt].setToolTipText(message.getString("toolItemIcone." + tabIcones[cpt] + ".infobulle"));
+			tabToolItem[cpt].setToolTipText(message.getString("toolItemIcone." + tabIcones[cpt].substring(0, tabIcones[cpt].lastIndexOf('.')) + ".infobulle"));
 			
 				// sert à savoir sur quelle icône on est en train de travailler
 			final int numIcone = cpt;
@@ -93,7 +89,7 @@ public class IconesIHM extends Composite implements SelectionListener {
 				// si on clique sur une icône -> fenêtre de choix d'une nouvelle icône
 			tabToolItem[cpt].addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					String nouveauChemin = ouvrir(message.getString("toolItemIcone." + tabIcones[numIcone] + ".changer"));
+					String nouveauChemin = ouvrir(message.getString("toolItemIcone." + tabIcones[numIcone].substring(0, tabIcones[numIcone].lastIndexOf('.')) + ".changer"));
 					if (nouveauChemin != null){
 						tabNouveauxChemins[numIcone] = nouveauChemin;
 						tabToolItem[numIcone].setImage(new Image(shell.getDisplay(),nouveauChemin));
@@ -134,7 +130,7 @@ public class IconesIHM extends Composite implements SelectionListener {
 	public String ouvrir(String text){
 		FileDialog fileDialog = new FileDialog(shell);
 		fileDialog.setText(text);
-		String [] tab = {"*.ico"};
+		String [] tab = {"*.ico", "*.gif", "*.xpm", "*.jpg", "*.png"};
 		fileDialog.setFilterExtensions(tab);
 		return fileDialog.open();
 	}

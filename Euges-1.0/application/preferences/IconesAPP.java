@@ -9,8 +9,8 @@ package application.preferences;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import utilitaires.CopierFichier;
 import configuration.Config;
+import utilitaires.*;
 
 /**
  * @author Nicolas
@@ -44,7 +44,7 @@ public class IconesAPP {
 				File file = new File(dir + "\\" + name);
 				boolean accept = false;
 				String extension = name.substring(name.lastIndexOf('.')+1);
-				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
+				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("xpm") || extension.equals("png") || extension.equals("gif");
 				return (file.isFile() && accept);
 			}
 		});
@@ -64,7 +64,7 @@ public class IconesAPP {
 				File nouveauIcone = new File(tabNouveauxChemins[i]);
 				
 					// fichier ancien icône
-				File ancienIcone = new File(Config.config.getProperty("cheminIcone") + tabIcones[i] + ".ico");
+				File ancienIcone = new File(Config.config.getProperty("cheminIcone") + tabIcones[i]);
 				
 					// Les changements
 				
@@ -74,12 +74,12 @@ public class IconesAPP {
 					if (cheminIcone.getAbsolutePath().equals(nouveauIcone.getParent())){
 							 // on copie l'icône depuis le répertoire de sauvegarde
 						CopierFichier.copyFile(repertoireSauvegardeIcones + "//" + nouveauIcone.getName(),
-								Config.config.getProperty("cheminIcone") + tabIcones[i] + ".ico");
+								Config.config.getProperty("cheminIcone") + tabIcones[i]);
 					}
 					else { 
 							// sinon copie du fichier du nouvel icône dans le répertoire des icônes
 						CopierFichier.copyFile(tabNouveauxChemins[i],
-								Config.config.getProperty("cheminIcone") + tabIcones[i] + ".ico");
+								Config.config.getProperty("cheminIcone") + tabIcones[i]);
 					}
 				}
 			}

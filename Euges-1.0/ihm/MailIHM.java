@@ -25,8 +25,10 @@ import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
 import utilitaires.MailElements;
-import application.EugesElements;
+
 import configuration.Config;
+
+import application.EugesElements;
 /**
  * @author Jude
  * 
