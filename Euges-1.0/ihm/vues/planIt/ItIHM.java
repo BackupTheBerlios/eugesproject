@@ -744,7 +744,7 @@ public class ItIHM extends Composite {
 								editor2.getItem().setText(_EDITABLECOLUMN2, combo.getText());
 								EugesVersion v = (EugesVersion) item.getData();
 								// on insère les nouvelles données
-								v.set_etat(item.getText(_EDITABLECOLUMN));
+								v.set_etat(item.getText(_EDITABLECOLUMN2));
 							}
 						});
 						newEditor.addKeyListener(new KeyListener() {
@@ -922,7 +922,10 @@ public class ItIHM extends Composite {
 			itemV = new TableTreeItem(_produitsOutTABLE,SWT.NONE);
 			itemV.setText(0, v.get_produitParent().toString() + It.getOutAct(v.get_produitParent()) + file);
 			itemV.setText(1, v.get_nom()); // rechercher la nouvelle version
-			itemV.setText(2, v.get_etat()); // rechercher l'état
+			if (!v.get_etat().equals(""))
+				itemV.setText(2, v.get_etat()); // rechercher l'état
+			else
+				itemV.setText(2, "" + v.get_realisation());
 			itemV.setData(v);
 
 			TableTreeItem pers;
