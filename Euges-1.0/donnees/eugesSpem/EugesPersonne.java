@@ -80,7 +80,9 @@ public class EugesPersonne {
 	 */
 	public void setNom(String nom) {
 		this._nom = nom;
-	}	public boolean ajouterRole(EugesRole a) {
+	}	
+	
+	public boolean ajouterRole(EugesRole a) {
 		if (!contientRole(a)) {
 			_roles.add(a);
 			return true;
