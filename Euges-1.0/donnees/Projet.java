@@ -328,7 +328,7 @@ public class Projet {
 			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet());
 			buffer.write("</title>\n</head>\n<frameset frameborder='yes' border='1' rows='15%,85%'>\n<frame src='titre.htm' scrolling='no' noresize>\n");
 			buffer.write("<frameset  frameborder='yes' border='1' cols='18%,82%'>\n<frame src='menu.htm' scrolling='auto'>\n");
-			buffer.write("<frame src='principale.htm' scrolling='no' noresize name='dyn'>\n</frameset>\n</html>\n");
+			buffer.write("<frame src='principale.htm' scrolling='yes' noresize name='dyn'>\n</frameset>\n</html>\n");
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
