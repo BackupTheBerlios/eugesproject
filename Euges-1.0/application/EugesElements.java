@@ -401,12 +401,15 @@ public class EugesElements {
 		Iterator it2 = EugesElements.listeActivites.iterator();
 		while(!appartient && it2.hasNext()){
 			auxActivite = (EugesActivite) it2.next();
-			if(auxActivite.getRole().getName().equals(r.getName()) && !appartient) {
-				appartient = true;
-				resultat.add(auxActivite);	
-			}				
+			if (auxActivite.getRole()!=null){
+				if(auxActivite.getRole().getName().equals(r.getName()) && !appartient) {
+					appartient = true;
+					resultat.add(auxActivite);	
+				}				
+			}
 			appartient = false;
 		}
+		
 		return resultat;
 	}
 	
@@ -502,12 +505,13 @@ public class EugesElements {
 	//fonction qui sauvegarde
 	public static void sauvegarde ()
 	{
-		sauvegarde (_projet.get_repDestination()+_projet.get_nomProjet()+".egs");		
+		sauvegarde (_projet.get_repDestination()+"\\"+_projet.get_nomProjet()+".egs");		
 	}
 	/**
 	 * @param chemin
 	 */
 	public static void sauvegarde(String chemin) {
+		
 		File fichier = new File (chemin);
 		try {
 			FileWriter fichierEcriture = new FileWriter (fichier);

@@ -2,71 +2,63 @@
 
 <Euges>
 	<comment_utiliser_Euges>
+		<demarrage_de_l_application/>
 		<creer_un_nouveau_projet/>		
 		<ouvrir_un_projet_existant/>
-		<fermer_projet/>
-		<sauvegarder_projet/>
+		<fermer_le_projet/>
+		<sauvegarder_le_projet/>
 		<charger_un_processus/>
-		<utiliser_l_arbre_de_navigation/>
 	</comment_utiliser_Euges>
 		
 	<comment_gerer_les_donnees_du_processus>
-		<gerer_les_iterations>
-			<creer_une_nouvelle_iteration/>
-			<supprimer_une_iteration/>
+		<iterations>
+			<gerer_les_iterations/>
 			<associer_une_activite_a_une_iteration/>
-		</gerer_les_iterations>
-		<gerer_les_personnes>
-			<creer_une_nouvelle_personne/>
-			<modifier_une_personne/>
-			<supprimer_une_personne/>
+		</iterations>
+		<personnes>
+			<gerer_les_personnes/>
 			<associer_un_role_a_une_personne/>
 			<associer_un_produit_a_une_personne/>
-			<visualiser_les_proprietes_de_la_personne/>
-		</gerer_les_personnes>
-
-		<gerer_les_roles>
-			<creer_un_nouveau_role/>
-			<modifier_un_role/>
-			<supprimer_un_role/>
+			<!-- visualiser_les_proprietes_de_la_personne/-->
+		</personnes>
+		<roles>
+			<gerer_les_roles/>
 			<associer_un_role_a_une_activite/>
 			<associer_un_role_a_une_personne/>
-			<visualiser_les_proprietes_du_role/>
-		</gerer_les_roles>
-
-		<gerer_les_activites>
-			<creer_une_nouvelle_activite/>
-			<modifier_une_activite/>
-			<supprimer_une_activite/>
+			<!--visualiser_les_proprietes_du_role/-->
+		</roles>
+		<activites>
+			<gerer_les_activites/>
 			<associer_un_role_a_une_activite/>
-			<associer_une_iteration_a_une_activite/>
+			<associer_une_activite_a_une_iteration/>
 			<associer_un_produit_en_entree_d_une_activite/>
 			<associer_un_produit_en_sortie_d_une_activite/>
-			<visualiser_les_proprietes_de_l_activite/>
-		</gerer_les_activites>
-
-		<gerer_les_produits>
-			<creer_un_nouveau_produit/>
-			<modifier_un_produit/>
-			<supprimer_un_produit/>
+			<!--visualiser_les_proprietes_de_l_activite/-->
+		</activites>
+		<produits>
+			<gerer_les_produits/>
 			<associer_un_produit_a_une_iteration/>
 			<associer_une_personne_a_un_produit/>
 			<associer_un_produit_en_entree_d_une_activite/>
 			<associer_un_produit_en_sortie_d_une_activite/>
-			<visualiser_les_proprietes_du_produit/>
-		</gerer_les_produits>
-
-		<visualiser_les_statistiques>
+			<!--visualiser_les_proprietes_du_produit/-->
+		</produits>
+		<recapitulatif_des_donnees>
+			<arbre_de_navigation>
+				<tri_par_defaut/>
+				<tri_par_rapport_aux_iterations/>
+				<tri_par_rapport_aux_activites/>
+				<tri_par_rapport_aux_roles/>
+				<tri_par_rapport_aux_personnes/>
+			</arbre_de_navigation>
 			<diagramme_des_activites/>
 			<diagramme_des_efforts/>
-		</visualiser_les_statistiques>
-
-		<generer_site/>
+			<generer_site/>
+		</recapitulatif_des_donnees>
 	</comment_gerer_les_donnees_du_processus>
 
 	<comment_configurer_euges>
 		<configurer_la_langue/>
-		<configurer_l_aide/>
 		<configurer_les_icones/>
 	</comment_configurer_euges>
 

@@ -335,9 +335,16 @@ public class TriArbre {
 			EugesRole auxRole;
 			auxRole = auxActivite.getRole();
 			itemAuxRole = new TreeItem(itemRoles, SWT.NONE);
-			itemAuxRole.setText(auxRole.getName());
-			itemAuxRole.setData(auxRole);
-			itemRoles.setExpanded(true);
+			
+			try{
+				itemAuxRole.setText(auxRole.getName());
+				itemAuxRole.setData(auxRole);
+				itemRoles.setExpanded(true);
+			}
+			catch (Exception e)
+			{
+				
+			}
 			
 			
 			// Noeuds fixes 'Produits', 'Produits In' et 'Produits Out'

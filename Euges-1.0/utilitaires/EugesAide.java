@@ -123,7 +123,7 @@ public class EugesAide {
 		tree.setBounds(0, 0, 100, 100);
 		
 			// Parser le fichier XML
-		readXML("configuration/help/" + Config.locale.getLanguage() +  "/help.xml", tree);
+		readXML("configuration/help/fr/help.xml", tree);
 		
 		
 		// Browser
@@ -209,7 +209,7 @@ public class EugesAide {
 		tree.addListener(SWT.MouseDown, new Listener() {
 			public void handleEvent(Event e) {
 				String nom = remplacementCaractere(tree.getSelection()[0].getText(), " ", "_");
-				String fichier = "configuration\\help\\" + Config.locale.getLanguage() + "\\" + nom + ".xml";
+				String fichier = "configuration\\help\\fr\\" + nom + ".xml";
 				
 				File file = new File(fichier);
 				if (file.exists()) {
