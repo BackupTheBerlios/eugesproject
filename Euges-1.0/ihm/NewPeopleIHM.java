@@ -91,7 +91,7 @@ public class NewPeopleIHM {
 			int IDPers = e.getId();
 			// Identifiant
 			TreeItem temp = new TreeItem(arbreNew,SWT.NONE);
-			temp.setText("Personne " + IDPers);
+			temp.setText(message.getString("NewPeopleIHM.personne") + " " + IDPers);
 			if (IDPers > _nextID)
 				_nextID = IDPers;
 			// Nom Prenom Email
