@@ -14,11 +14,12 @@
 		<iterations>
 			<gerer_les_iterations/>
 			<associer_une_activite_a_une_iteration/>
+			<associer_un_produit_a_une_iteration/>
 		</iterations>
 		<personnes>
 			<gerer_les_personnes/>
 			<associer_un_role_a_une_personne/>
-			<associer_un_produit_a_une_personne/>
+			<associer_une_personne_a_un_produit/>
 			<!-- visualiser_les_proprietes_de_la_personne/-->
 		</personnes>
 		<roles>
@@ -31,16 +32,16 @@
 			<gerer_les_activites/>
 			<associer_un_role_a_une_activite/>
 			<associer_une_activite_a_une_iteration/>
-			<associer_un_produit_en_entree_d_une_activite/>
-			<associer_un_produit_en_sortie_d_une_activite/>
+			<!--associer_un_produit_en_entree_d_une_activite/-->
+			<associer_un_produit_a_une_activite/>
 			<!--visualiser_les_proprietes_de_l_activite/-->
 		</activites>
 		<produits>
 			<gerer_les_produits/>
 			<associer_un_produit_a_une_iteration/>
 			<associer_une_personne_a_un_produit/>
-			<associer_un_produit_en_entree_d_une_activite/>
-			<associer_un_produit_en_sortie_d_une_activite/>
+			<!--associer_un_produit_en_entree_d_une_activite/-->
+			<associer_un_produit_a_une_activite/>
 			<!--visualiser_les_proprietes_du_produit/-->
 		</produits>
 		<recapitulatif_des_donnees>
@@ -60,6 +61,7 @@
 	<comment_configurer_euges>
 		<configurer_la_langue/>
 		<configurer_les_icones/>
+		<configurer_les_mails/>
 	</comment_configurer_euges>
 
 </Euges>
