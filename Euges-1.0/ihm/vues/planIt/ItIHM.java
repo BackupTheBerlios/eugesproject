@@ -540,7 +540,7 @@ public class ItIHM extends Composite {
 						item = item.getParentItem();
 					}
 					EugesVersion v = (EugesVersion)item.getData();
-					FenetreAttacherFichierIHM page = new FenetreAttacherFichierIHM(parent.getShell(), v);
+					FenetreAttacherFichierIHM page = new FenetreAttacherFichierIHM(parent.getShell(), v, v.get_produitParent());
 					page.open();
 					majProd();
 				}

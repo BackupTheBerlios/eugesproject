@@ -20,6 +20,7 @@ public class EugesVersion {
 	private EugesProduit _produitParent;
 	private Vector _acteurs = new Vector();
 	private String file = "";
+	private String fileSansPath;
 
 	public EugesVersion () {
 	
@@ -213,27 +214,33 @@ public class EugesVersion {
 	public String getFile() {
 		return file;
 	}
+	
+	/**
+	 * @return Returns the file without path.
+	 */
+	public String getFileSansPath() {
+		return fileSansPath;
+	}
+	
 
 	/**
 	 * @param file The file to set.
 	 */
 	public void setFile(String file) {
 		this.file = file;
+		//String fileArray[] = file.split("\\",1);
+		//fileSansPath = fileArray[fileArray.length-1];
 	}
 
 	
-	public void genereTabProduitIn(BufferedWriter buffer, String activite) {
-		try {
-			buffer.write("<tr bgcolor='white'><td>"+this.get_nom()+"(Act: "+activite+")</td></tr>");
-		} catch (IOException e) {
-			System.out.println (e);
-			e.printStackTrace();
-		}	
-	}
-	
 	public void genereTabProduitOut(BufferedWriter buffer,String activite) {
 		try {
-			buffer.write("<tr bgcolor='white'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			if (this.getFile() != null){
+				buffer.write("<tr bgcolor='white'><td>"+this.getFileSansPath()+" "+this.getFile()+" "+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			} else {
+				buffer.write("<tr bgcolor='white'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			}
+			
 			if (this.get_responsable() != null){
 				buffer.write("<tr bgcolor='white'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.get_responsable()+"(Resp)</td><td> </td><td> </td></tr>");
 			}

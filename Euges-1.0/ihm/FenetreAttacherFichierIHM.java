@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import configuration.Config;
+import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesVersion;
 
 /**
@@ -32,16 +33,19 @@ public class FenetreAttacherFichierIHM {
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	private Shell _shell;
 	private EugesVersion _v;
+	private EugesProduit _p;
 	private String _oldFile = "";
 	private Display _display;
 	
-	public FenetreAttacherFichierIHM (Shell shell, EugesVersion v) {
+	public FenetreAttacherFichierIHM (Shell shell, EugesVersion v, EugesProduit p) {
 		_shell = new Shell(shell, SWT.CLOSE|SWT.APPLICATION_MODAL|SWT.RESIZE);
 		_v = v;
+		_p = p;
 		_oldFile = _v.getFile();
 		_display = shell.getDisplay();
 		_shell.setText(message.getString("titreFenetre"));
 	}
+	
 	
 	public void open() {
 		GridLayout layout = new GridLayout();
@@ -73,6 +77,7 @@ public class FenetreAttacherFichierIHM {
 					// ecrire le nom du fichier dans le champ texte
 					fichier.setText(chemin);
 					_v.setFile(chemin);
+					_p.set_cheminProduit(chemin);
 					_oldFile = chemin;
 				}
 			}
@@ -86,6 +91,7 @@ public class FenetreAttacherFichierIHM {
 			public void widgetSelected(SelectionEvent e) {
 				fichier.setText("");
 				_v.setFile("");
+				_p.set_cheminProduit("");
 				_oldFile = "";
 			}
 		});
