@@ -504,63 +504,7 @@ public class EugesElements {
 	//fonction qui sauvegarde
 	public static void sauvegarde ()
 	{
-		sauvegarde (_projet.get_repDestination()+_projet.get_nomProjet()+".egs");/*
-		File fichier = new File (_projet.get_repDestination(), _projet.get_nomProjet()+".egs");
-		try {
-			FileWriter fichierEcriture = new FileWriter (fichier);
-			BufferedWriter ecriture = new BufferedWriter (fichierEcriture);
-			//ecriture des informations sur xml
-			ecriture.write("<?xml version =\"1.0\" encoding=\"ISO-8859-1\"?>\n");
-			//crétaion de la racine
-			ecriture.write("<unProjet>\n");
-			//enregistrement des caractéristiques de l'attribut projet
-			ecriture.write("<_projet>\n");
-			_projet.sauvegardePartielle(ecriture);
-			//enregistrement des roles
-			ecriture.write("<_listeRoles>\n");
-			for (int i = 0; i<listeRoles.size();i++)
-			{
-				((EugesRole)listeRoles.get(i)).sauvegarder(ecriture);
-			}
-			ecriture.write("</_listeRoles>\n");
-			//enregistrement des personnes
-			ecriture.write("<_listePersonnes>\n");
-			for (int i = 0; i<listePersonnes.size();i++)
-			{
-				((EugesPersonne)listePersonnes.get(i)).sauvegardePartielle(ecriture);
-			}
-			ecriture.write("</_listePersonnes>\n");
-			//enregistrement des produits
-			ecriture.write("<_listeProduits>\n");
-			for (int i = 0; i<listeProduits.size();i++)
-			{
-				((EugesProduit)listeProduits.get(i)).sauvegarder(ecriture);
-			}
-			ecriture.write("</_listeProduits>\n");
-			//enregistrement des activités
-			ecriture.write("<_listeActivites>\n");
-			for (int i = 0; i<listeActivites.size();i++)
-			{
-				((EugesActivite)listeActivites.get(i)).sauvegardePartielle(ecriture);
-			}
-			ecriture.write("</_listeActivites>\n");
-			//enregistrement des itérations
-			ecriture.write("<_listeIteration>\n");
-			_projet.sauvegardeIterations(ecriture);
-			ecriture.write("</_listeIteration>\n");
-			//sauvegarde des associations
-			ecriture.write("<_listeAssociations>\n");
-			_projet.sauvegarderAssociations(ecriture);
-			ecriture.write("</_listeAssociations>\n");
-			ecriture.write("</_projet>\n");
-			ecriture.write("</unProjet>\n");
-			ecriture.close();
-			EugesElements.processusEnregistre = true;
-		} catch (IOException e) {
-			System.out.println (e);
-			e.printStackTrace();
-		}*/
-		
+		sauvegarde (_projet.get_repDestination()+_projet.get_nomProjet()+".egs");		
 	}
 	/**
 	 * @param chemin
