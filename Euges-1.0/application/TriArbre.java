@@ -7,7 +7,6 @@
 package application;
 
 import ihm.ArbrePrincipalIHM;
-import ihm.vues.planIt.PlanItIHM;
 
 import java.util.Iterator;
 import java.util.ResourceBundle;
@@ -15,8 +14,6 @@ import java.util.SortedSet;
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.TreeEvent;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;

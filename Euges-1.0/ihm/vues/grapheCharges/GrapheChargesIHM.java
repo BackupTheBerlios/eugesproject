@@ -49,7 +49,7 @@ public class GrapheChargesIHM extends PageVuesIHM {
 	private final Composite parent;
 	
 	public GrapheChargesIHM(final Composite parent){
-		super(parent,SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL);
+		super(parent,SWT.NONE|SWT.H_SCROLL|SWT.V_SCROLL);
 		this.parent= parent;
 		//this.setLayout(new FillLayout(SWT.VERTICAL));
 		this.setSize(parent.getParent().getSize());

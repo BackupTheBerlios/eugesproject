@@ -158,13 +158,13 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "navigatorGif/stop.gif");
 			_navStop = new Image(display,url.openStream());
 	
-			url = getClass().getResource(_basePath + "icones/tabIt.ico");
+			url = getClass().getResource(_basePath + "icones/tabIt.png");
 			_toolTabIt = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/graphIt.png");
 			_toolGraphIt = new Image(display,url.openStream());
 			
-			url = getClass().getResource(_basePath + "icones/graphLine.ico");
+			url = getClass().getResource(_basePath + "icones/graphLine.png");
 			_toolGraphLine = new Image(display,url.openStream());
 			
 		} catch (IOException e) {

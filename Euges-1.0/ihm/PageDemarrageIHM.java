@@ -48,7 +48,7 @@ public class PageDemarrageIHM extends Dialog{
 		
 		shellDemarrage.setText(message.getString("PageDemarrageIHM.titre"));
 		//bouton nouveau projet
-		Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.ico");
+		Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.png");
 		Button nouveauProjet=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		nouveauProjet.setCursor(curseurMain);
 		nouveauProjet.setImage(imageNouveau);
@@ -66,7 +66,7 @@ public class PageDemarrageIHM extends Dialog{
 		Label sep1 = new Label(shellDemarrage, SWT.SEPARATOR | SWT.HORIZONTAL);
 		
 		//bouton projet existant
-		Image imageOuvrir = new Image(Display.getCurrent(), Config.config.getProperty("cheminIcone")+"ouvrir.ico");
+		Image imageOuvrir = new Image(Display.getCurrent(), Config.config.getProperty("cheminIcone")+"ouvrir.png");
 		Button projetExistant=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		projetExistant.setCursor(curseurMain);
 		projetExistant.setImage(imageOuvrir);

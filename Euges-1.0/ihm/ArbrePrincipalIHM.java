@@ -9,10 +9,6 @@ import ihm.vues.planIt.PlanItIHM;
 
 import java.util.ResourceBundle;
 
-import application.TriArbre;
-import configuration.Config;
-
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Point;
@@ -31,7 +27,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;
-
+import application.TriArbre;
+import configuration.Config;
 import donnees.Iteration;
 import donnees.Projet;
 import donnees.eugesSpem.EugesActRealise;

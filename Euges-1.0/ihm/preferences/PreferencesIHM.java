@@ -24,11 +24,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
-import application.preferences.IconesAPP;
-
 import utilitaires.CopierFichier;
 import utilitaires.GestionImage;
-import configuration.*;
+import application.preferences.IconesAPP;
+import configuration.Config;
 
 /**
  * Classe permettznt de créer la fenêtre préférences

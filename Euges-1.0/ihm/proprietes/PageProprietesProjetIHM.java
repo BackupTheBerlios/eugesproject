@@ -6,6 +6,8 @@
  */
 package ihm.proprietes;
 
+import ihm.PageAssistantIHM;
+
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
@@ -20,8 +22,6 @@ import org.eclipse.swt.widgets.Text;
 
 import configuration.Config;
 import donnees.Projet;
-
-import ihm.PageAssistantIHM;
 
 
 /**

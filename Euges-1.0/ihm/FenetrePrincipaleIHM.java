@@ -306,7 +306,7 @@ public class FenetrePrincipaleIHM {
 			
 
 			ToolBar toolBar1 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.ico");
+			Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.png");
 			itemNouveau = new ToolItem(toolBar1, SWT.NONE);
 			itemNouveau.setImage(imageNouveau);
 			itemNouveau.setToolTipText(message.getString("toolbar.nouveau.tooltiptext"));
@@ -316,7 +316,7 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 					
-			Image imageOuvrir = new Image(display, Config.config.getProperty("cheminIcone")+"ouvrir.ico");
+			Image imageOuvrir = new Image(display, Config.config.getProperty("cheminIcone")+"ouvrir.png");
 			itemOuvrir = new ToolItem(toolBar1, SWT.NONE);
 			itemOuvrir.setImage(imageOuvrir);
 			itemOuvrir.setToolTipText(message.getString("toolbar.ouvrir.tooltiptext"));
@@ -326,7 +326,7 @@ public class FenetrePrincipaleIHM {
 				}
 			});	
 		
-			Image imageFermer = new Image(display, Config.config.getProperty("cheminIcone")+"fermer.ico");
+			Image imageFermer = new Image(display, Config.config.getProperty("cheminIcone")+"fermer.png");
 			itemFermer = new ToolItem(toolBar1, SWT.NONE);
 			itemFermer.setEnabled(false);
 			itemFermer.setImage(imageFermer);
@@ -346,7 +346,7 @@ public class FenetrePrincipaleIHM {
 		
 			ToolBar toolBar2 = new ToolBar(coolBar, SWT.FLAT);
 
-			Image imageEnregistrer = new Image(display, Config.config.getProperty("cheminIcone")+"enregistrer.ico");
+			Image imageEnregistrer = new Image(display, Config.config.getProperty("cheminIcone")+"enregistrer.png");
 			itemEnregistrer = new ToolItem(toolBar2, SWT.NONE);
 			itemEnregistrer.setImage(imageEnregistrer);
 			itemEnregistrer.setToolTipText(message.getString("toolbar.enregistrer.tooltiptext"));
@@ -365,7 +365,7 @@ public class FenetrePrincipaleIHM {
 
 		
 			ToolBar toolBar3 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageMail = new Image(display, Config.config.getProperty("cheminIcone")+"mail.ico");
+			Image imageMail = new Image(display, Config.config.getProperty("cheminIcone")+"mail.png");
 			itemMail = new ToolItem(toolBar3, SWT.NONE);
 			itemMail.setImage(imageMail);
 			itemMail.setToolTipText(message.getString("toolbar.mail.tooltiptext"));
@@ -383,7 +383,7 @@ public class FenetrePrincipaleIHM {
 		
 
 			ToolBar toolBar4 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageAide = new Image(display, Config.config.getProperty("cheminIcone")+"aide.ico");
+			Image imageAide = new Image(display, Config.config.getProperty("cheminIcone")+"aide.png");
 			itemAide = new ToolItem(toolBar4, SWT.NONE);
 			itemAide.setImage(imageAide);
 			itemAide.setToolTipText(message.getString("toolbar.aide.tooltiptext"));
