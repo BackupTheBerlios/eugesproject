@@ -45,7 +45,7 @@ public class PageAttributionProduitIHM {
 		//	gestion multi-langue
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	private List listePersVersion; // liste des personnes associées à cette version du produit
-	private List listePersProjet; // liste des personnes associées à l'activité
+	private List listePersProjet; // liste des personnes du projet
 	private final Shell shell;
 	
 	public PageAttributionProduitIHM(final Display display, final EugesVersion version) {
@@ -196,12 +196,64 @@ public class PageAttributionProduitIHM {
 				}
 			}
 		});
-
+		
+		//bouton de suppression d'un acteur ou d'un responsable à un produit
+		Button boutonSupprActeurProduit = new Button(compositeBoutons,SWT.PUSH);
+		boutonSupprActeurProduit.setText(message.getString("PageAttributionProduitIHM.boutonSupprActeurProduit.texte"));
+		boutonSupprActeurProduit.setToolTipText(message.getString("PageAttributionProduitIHM.boutonSupprActeurProduit.infobulle"));
+		
+		// contrôle de l'évènement du bouton supprimer un acteur ou un responsable au produit
+		boutonSupprActeurProduit.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected (SelectionEvent e) {
+				//si pas de personne sélectionnée
+				if (listePersVersion.getSelectionCount() == 0){
+					boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.PasDePersonneSelectionnePourSuppression.texte"), message.getString("PageAttributionProduitIHM.PasDePersonneSelectionnePourSuppression.titre"));
+				} else {
+					String [] persSelectionnee = listePersVersion.getSelection();
+					//on parcours les sélections
+					for (int i=0; i<persSelectionnee.length; i++){
+						EugesPersonne personne = null;
+						//si le dernier caractere de la chaine de cette personne est ), alors il est responsable
+						if (persSelectionnee[i].charAt(persSelectionnee[i].length()-1)==')'){
+							//il faut enlever la fin de la chaine ou il est écrit (responsable)
+							persSelectionnee[i] = persSelectionnee[i].substring(0, persSelectionnee[i].lastIndexOf('(')-2);
+							
+							   // on recupere l'objet EugesPersonne correspondant à la personne sélectionnée
+							personne = EugesElements.getPersonneDansListePersonnes(persSelectionnee[i]);
+							version.set_responsable(null);
+						} else {
+							   // on recupere l'objet EugesPersonne correspondant à la personne sélectionnée
+							personne = EugesElements.getPersonneDansListePersonnes(persSelectionnee[i]);
+							version.get_acteurs().remove(personne);
+						}
+					}
+				}
+				   // on rafraichit l'affichage de l'arbre
+				chargementElementList(shell, version);
+			}
+		});
+		
+		//bouton de fermeture de la fenêtre
+		Button boutonFermer = new Button(compositeBoutons,SWT.PUSH);
+		boutonFermer.setText(message.getString("PageAttributionProduitIHM.boutonFermer.texte"));
+		boutonFermer.setToolTipText(message.getString("PageAttributionProduitIHM.boutonFermer.infobulle"));
+		
+//		 contrôle de l'évènement du bouton supprimer un acteur ou un responsable au produit
+		boutonFermer.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected (SelectionEvent e) {
+				shell.dispose();
+			}
+		});
+			
+		//ajout des boutons au composite
 		GridData dataComposite = new GridData(SWT.CENTER);
 		boutonResponsableProduit.setLayoutData(dataComposite);
-		
 		dataComposite = new GridData(SWT.CENTER);
 		boutonActeurProduit.setLayoutData(dataComposite);
+		dataComposite = new GridData(SWT.CENTER);
+		boutonSupprActeurProduit.setLayoutData(dataComposite);
+		dataComposite = new GridData(SWT.CENTER);
+		boutonFermer.setLayoutData(dataComposite);
 		
 		compositeBoutons.pack();
 		
@@ -209,8 +261,7 @@ public class PageAttributionProduitIHM {
 		listePersProjet = new List(shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER); 
 		String[] listeEugesPersonnes = EugesElements.getTableauListePersonne();
 		   // on charge dans la liste des personnes, celles qui travaillent sur l'activité
-		chargerListePersonne(version);
-		;if (listeEugesPersonnes != null){
+		if (listeEugesPersonnes != null){
 			listePersProjet.setItems(listeEugesPersonnes);
 		}
 		 
@@ -317,37 +368,4 @@ public class PageAttributionProduitIHM {
 		}
 		return dejaActeur;
 	}
-	
-	private void chargerListePersonne(EugesVersion version){
-		Vector listePersonnesPossibles = new Vector();
-		   // on parcours la liste des activités pour savoir les personnes possibles sur cette version de produit
-			if (EugesElements.listeActivites != null){
-				for (Iterator itActivite = EugesElements.listeActivites.iterator(); itActivite.hasNext();) {
-					EugesActivite activite = (EugesActivite) itActivite.next();
-					
-					int nbActRealisées = activite.getActRealiseCount();
-					//on parcours la liste des activités réalisées pour savoir les personnes possibles sur cette version de produit
-					for (int i=0; i<nbActRealisées; i++) {
-						EugesActRealise actRealise = activite.getActRealise(i);
-						   // si la liste des versions de cette activité contient la version en cours
-						if (actRealise.get_produitsOut() != null) {
-							if (actRealise.get_produitsOut().contains(version)){
-								   // rajouter les personnes de l'activité réalisée dans la liste si elles n'y sont pas déjà
-								if (actRealise.get_personnes() != null) {
-									for (Iterator itPersonnes = actRealise.get_personnes().iterator();itPersonnes.hasNext(); ) {
-										   // on récupère les personnes
-										EugesPersonne personne = (EugesPersonne) itPersonnes.next();
-										   // si la personne n'est pas déjà citée, on l'insère
-										if (!listePersonnesPossibles.contains(personne)){
-											listePersonnesPossibles.add(personne);
-										}		
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-	}
-	
 }
