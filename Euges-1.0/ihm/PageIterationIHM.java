@@ -87,27 +87,34 @@ public class PageIterationIHM extends PageAssistantIHM{
 		ajouter.setText(message.getString("pageIterationIHM.ajouter"));
 		ajouter.addSelectionListener(new SelectionAdapter() {
 												public void widgetSelected(SelectionEvent e) {
-													int selection = _tableauIteration.getSelectionIndex();
-													//récupération de la nouvelle date
-													MyDate nouvelleDate = new MyDate(dateFin.toString());
-													//récupération des dates de début et fin
-													MyDate debutDate = new MyDate(_tableauIteration.getItem(selection).getText(1));
-													MyDate finDate = new MyDate(_tableauIteration.getItem(selection).getText(2));
-													//vérification que la nouvelle date soit comprise entre la date de début et la date de fin 
-													if (nouvelleDate.compare(debutDate)>0 && nouvelleDate.compare(finDate)<0) {
-														//ajout dela nouvelle it
-														EugesElements._projet.ajouterIteration((Iteration)_tableauIteration.getItem(selection).getData(), nouvelleDate);
-														//rechargement des données
-														loadData();
-														//effacement des champs
-														dateFin.clear();
-														//activation du bouton reinitaialiser
-														boutonReinitialiser.setEnabled(true);
-													}else{
+													if (dateFin.isEmpty()){
 														MessageBox msg = new MessageBox(shellCourant, SWT.ICON_ERROR);
 														msg.setText(message.getString("pageIterationIHM.erreur"));
-														msg.setMessage(message.getString("pageIterationIHM.erreurAjout"));
+														msg.setMessage(message.getString("pageIterationIHM.erreurChampDateVide"));
 														msg.open();
+													}else{
+														int selection = _tableauIteration.getSelectionIndex();
+														//récupération de la nouvelle date
+														MyDate nouvelleDate = new MyDate(dateFin.toString());
+														//récupération des dates de début et fin
+														MyDate debutDate = new MyDate(_tableauIteration.getItem(selection).getText(1));
+														MyDate finDate = new MyDate(_tableauIteration.getItem(selection).getText(2));
+														//vérification que la nouvelle date soit comprise entre la date de début et la date de fin 
+														if (nouvelleDate.compare(debutDate)>0 && nouvelleDate.compare(finDate)<0) {
+															//ajout dela nouvelle it
+															EugesElements._projet.ajouterIteration((Iteration)_tableauIteration.getItem(selection).getData(), nouvelleDate);
+															//rechargement des données
+															loadData();
+															//effacement des champs
+															dateFin.clear();
+															//activation du bouton reinitaialiser
+															boutonReinitialiser.setEnabled(true);
+														}else{
+															MessageBox msg = new MessageBox(shellCourant, SWT.ICON_ERROR);
+															msg.setText(message.getString("pageIterationIHM.erreur"));
+															msg.setMessage(message.getString("pageIterationIHM.erreurAjout"));
+															msg.open();
+														}
 													}
 												}
 											});

@@ -41,7 +41,10 @@ public class ChampDate extends Composite implements SelectionListener{
 	private Button _calendrier;
 	
 	private Shell shellDate;
-	
+	/**
+	 * constructeur de la classe
+	 * @param compo composite ou s'affiche le champ date
+	 */
 	public ChampDate(Composite compo){
 		//construction du composite
 		super(compo, SWT.NONE);
@@ -75,8 +78,9 @@ public class ChampDate extends Composite implements SelectionListener{
 		_calendrier.addSelectionListener(this);
 
 	}
-	/*
+	/**
 	 * permet de verifier que les donnees saisis dans les champs textes sont des chiffres
+	 * @param txt champ texte a verifier
 	 */
 	private void verifCaracteres(Text txt){
 		txt.addListener (SWT.Verify, new Listener () {
@@ -93,8 +97,9 @@ public class ChampDate extends Composite implements SelectionListener{
 				}
 		});
 	}
-	/*
+	/**
 	 * permet de mettre a jour les champs jour et mois si le chiffre est iferieur a 9 (ajout d'un 0 dans la case)
+	 * @param txt chqmp texte a completer
 	 */
 	private void completeDonnees(final Text txt){
 		txt.addFocusListener(new FocusAdapter() {
@@ -105,14 +110,16 @@ public class ChampDate extends Composite implements SelectionListener{
 			}
 		});
 	}
-	/*
+	/**
 	 * convertir un champ date dans le format mydate
+	 * 
 	 */
 	public MyDate toMyDate(){
 		return (new MyDate(Integer.parseInt(_jour.getText()), Integer.parseInt(_mois.getText()), Integer.parseInt(_annee.getText())));
 	}
-	/*
+	/**
 	 * verifie si un champ est valide
+	 * 
 	 */
 	public boolean estValide(){
 		return toMyDate().estValide();
@@ -127,6 +134,7 @@ public class ChampDate extends Composite implements SelectionListener{
 	}
 	/**
 	 * retourne si le champ est vide
+	 * 
 	 */
 	public boolean isEmpty(){
 		if (_jour.getText().length()==0 || _mois.getText().length()==0 || _annee.getText().length()==0){
