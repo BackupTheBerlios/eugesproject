@@ -120,7 +120,7 @@ public class EugesAide {
 		// Arbre
 		final Tree tree = new Tree(sashForm, SWT.MULTI | SWT.BORDER);
 		//final Tree tree = new Tree(left, SWT.NONE);
-		tree.setBounds(0,0,100,100);
+		tree.setBounds(0, 0, 100, 100);
 		
 			// Parser le fichier XML
 		readXML("configuration/help/" + Config.locale.getLanguage() +  "/help.xml", tree);
@@ -215,28 +215,29 @@ public class EugesAide {
 					browser.setUrl(file.getAbsolutePath());
 				}
 				else {
-//					browser.setText("Page introuvable");
+					browser.setText("Page introuvable");
 				}
-				
 			}
 		});
 		
+		tree.addListener(SWT.MouseDown, new Listener() {
+			public void handleEvent(Event e) {
+				if (tree.getSelectionCount() > 0) {
+					if (tree.getSelection()[0].getExpanded()) {
+						tree.getSelection()[0].setImage(GestionImage._bookOuvertAide);
+					}
+					else {
+						if (((String) tree.getSelection()[0].getData()).equals("Noeud")) {
+							tree.getSelection()[0].setImage(GestionImage._bookFermeAide);
+						}
+					}
+				}
+			}
+		});
 		itemAfficher.addListener(SWT.Selection, listener);
 		itemPrécédent.addListener(SWT.Selection, listener);
 		itemSuivant.addListener(SWT.Selection, listener);
 
-/*
-		left.addListener(SWT.Resize, new Listener () {
-			public void handleEvent(Event e) {
-				tree.setBounds(sashForm.getLeft().getClientArea());
-			}
-		});
-		right.addListener(SWT.Resize, new Listener () {
-			public void handleEvent(Event e) {
-				browser.setBounds(right.getClientArea());
-			}
-		});
-*/
 		
 		browser.setUrl(url);
 		shellAide.open ();
@@ -254,16 +255,17 @@ public class EugesAide {
 			Element root = document.getDocumentElement();
 			tree.removeAll();
 			TreeItem ti = new TreeItem(tree, SWT.NULL);
-			//ti.setImage(imgElem);
+			ti.setImage(GestionImage._bookOuvertAide);
 			ti.setText(remplacementCaractere(root.getNodeName(), "_", " "));
-	
+			ti.setData("Noeud");
+			
 			NodeList childList = root.getChildNodes();
 			readXML2(childList, ti);
+			ti.setExpanded(true);
 		}
 		catch (Exception e) {
 
 		}
-		
 	}
 
 	// Pour afficher les fils
@@ -274,9 +276,9 @@ public class EugesAide {
 			switch (node.getNodeType()) {
 				case Node.ELEMENT_NODE:
 					ti = new TreeItem(pTree, SWT.NULL);
-					//ti.setImage(imgElem);
 					ti.setText(remplacementCaractere(node.getNodeName(), "_", " "));
 					
+						
 					// Pour afficher les attributs dans l'arbre
 					/*
 					 NamedNodeMap attrList = node.getAttributes();
@@ -288,8 +290,14 @@ public class EugesAide {
 					}
 					*/
 					if (node.hasChildNodes()) {
+						ti.setImage(GestionImage._bookFermeAide);
+						ti.setData("Noeud");
 						NodeList childList = node.getChildNodes();
 						readXML2(childList, ti);
+					}
+					else {
+						ti.setImage(GestionImage._bookFeuilleAide);
+						ti.setData("Feuille");
 					}
 					break;
 				default:

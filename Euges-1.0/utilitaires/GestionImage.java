@@ -34,6 +34,9 @@ public class GestionImage {
 	public static Image _masquerAide;
 	public static Image _precedentAide;
 	public static Image _suivantAide;
+	public static Image _bookOuvertAide;
+	public static Image _bookFermeAide;
+	public static Image _bookFeuilleAide;
 	public static Image _plus;
 	public static Image _moins;
 	public static Image _start;
@@ -120,6 +123,18 @@ public class GestionImage {
 			
 			url = getClass().getResource(_basePath + "iconesAide/précédent.ico");
 			_precedentAide = new Image(display,url.openStream());
+
+			url = getClass().getResource(_basePath + "iconesAide/suivant.ico");
+			_suivantAide = new Image(display,url.openStream());
+
+			url = getClass().getResource(_basePath + "iconesAide/book_ouvert.gif");
+			_bookOuvertAide = new Image(display,url.openStream());
+
+			url = getClass().getResource(_basePath + "iconesAide/book_ferme.gif");
+			_bookFermeAide = new Image(display,url.openStream());
+
+			url = getClass().getResource(_basePath + "iconesAide/book_feuille.gif");
+			_bookFeuilleAide = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "produit.gif");
 			_produit = new Image(display,url.openStream());
@@ -127,9 +142,6 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "role.gif");
 			_role = new Image(display,url.openStream());
 			
-			url = getClass().getResource(_basePath + "iconesAide/suivant.ico");
-			_suivantAide = new Image(display,url.openStream());
-
 			url = getClass().getResource(_basePath + "plus.gif");
 			_plus = new Image(display,url.openStream());
 
