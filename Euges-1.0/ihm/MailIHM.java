@@ -188,7 +188,10 @@ public class MailIHM extends Dialog{
 	 *
 	 */
 	public void choose(){
-		this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+";");
+		try {
+			this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+";");
+		} catch (Exception e) {}
+		
 		
 	}
 	
