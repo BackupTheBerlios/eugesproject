@@ -18,6 +18,7 @@ import ihm.ArbrePrincipalIHM;
 import ihm.FenetrePrincipaleIHM;
 import ihm.vues.planIt.PlanItIHM;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -42,27 +43,38 @@ public class OuvertureProjet {
 	 * Contructeur.
 	 */
 	public OuvertureProjet(String uri) throws SAXException, IOException {
-		try{
-		XMLReader xr = XMLReaderFactory.createXMLReader("org.apache.crimson.parser.XMLReaderImpl");
-		MySAXApp handler = new MySAXApp();
-		xr.setContentHandler(handler);
-		xr.setErrorHandler(handler);
+		try
+		{
+			XMLReader xr = XMLReaderFactory.createXMLReader("org.apache.crimson.parser.XMLReaderImpl");
+			MySAXApp handler = new MySAXApp();
+			xr.setContentHandler(handler);
+			xr.setErrorHandler(handler);
 
-
-		FileReader r = new FileReader(uri);
-		xr.parse(new InputSource(r));
+			try
+			{
+				FileReader r = new FileReader(uri);
+				xr.parse(new InputSource(r));
 		
-		// mise à jour des boutons et de l'arbre
-		FenetrePrincipaleIHM.menuItemFermer.setEnabled(true);
-		FenetrePrincipaleIHM.menuItemEnregistrer.setEnabled(true);
-		FenetrePrincipaleIHM.menuItemEnregistrerSous.setEnabled(true);
-		FenetrePrincipaleIHM.menuItemEdition.setEnabled(true);
-		FenetrePrincipaleIHM.itemFermer.setEnabled(true);
-		FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
-		((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
-		FenetrePrincipaleIHM._vues.setVisible(0);
-		PlanItIHM.majContenuWidgets();
-		ArbrePrincipalIHM._tri.actualiser();
+				// mise à jour des boutons et de l'arbre
+				FenetrePrincipaleIHM.menuItemFermer.setEnabled(true);
+				FenetrePrincipaleIHM.menuItemEnregistrer.setEnabled(true);
+				FenetrePrincipaleIHM.menuItemEnregistrerSous.setEnabled(true);
+				FenetrePrincipaleIHM.menuItemEdition.setEnabled(true);
+				FenetrePrincipaleIHM.itemFermer.setEnabled(true);
+				FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
+				((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
+				FenetrePrincipaleIHM._vues.setVisible(0);
+				PlanItIHM.majContenuWidgets();
+				ArbrePrincipalIHM._tri.actualiser();
+			}
+			catch (FileNotFoundException f)
+			{
+				Shell shell = new Shell();
+				MessageBox msgErreur = new MessageBox(shell,SWT.ICON_ERROR); 
+				msgErreur.setMessage(message.getString("texte")); 
+				msgErreur.setText(message.getString("titre")); 
+				msgErreur.open();
+			}
 		}
 		catch(SAXException e){
 			Shell shell = new Shell();
