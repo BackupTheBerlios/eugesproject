@@ -1,30 +1,27 @@
 /*
- * Created on 30 janv. 2004
+ * Created on 15 janv. 2004
  *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package ihm.graphe;
 
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Shell;
+
+import utilitaires.SashPersoH;
+
 
 /**
- * @author will
+ * @author Mathieu GAYRAUD
  *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class GrapheIHM extends Composite{
 	
-	//tableau représentant le graphe
-	private Table _graphe;
-	
-	
-	public GrapheIHM(final Composite parent){
-		super(parent, SWT.NONE|SWT.V_SCROLL);
-		_graphe = new Table(parent, SWT.NONE);
-		
+	public GrapheIHM(Shell compoShell) {
+		super(compoShell, SWT.NONE);
+		//Shell compoShell = new Shell(compo.getShell(), SWT.APPLICATION_MODAL | SWT.CLOSE);
+		SashPersoH sash = new SashPersoH(compoShell, 75, new GrapheHautIHM(compoShell), null);
+
 	}
 }
