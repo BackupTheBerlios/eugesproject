@@ -211,11 +211,13 @@ public class EugesActRealise {
 			//sauvegarde de l'activité elle meme
 			ecriture.write("<EugesActRealise _chargeEstimee=\""+this.get_chargeEstimee()+"\" _chargeReelle=\""+this.get_chargeReelle()+"\" _activiteParent=\""+this.get_activiteParent()+"\"/>\n");
 			//sauvegarde des personnes participant à l'acivié
+			System.out.println("nb personnes :"+getPersonneCount());
 			for (int i = 0; i<getPersonneCount();i++)
 			{
 				getPersonne(i).sauvegardeAssociation(ecriture);
 			}
 			//sauvegarde des produitsIn
+			System.out.println("nb produits in :"+getProduitInCount());
 			for (int i = 0; i<getProduitInCount();i++)
 			{
 				getProduitIn(i).sauvegarderProduitIn(ecriture);
