@@ -6,15 +6,9 @@
  */
 package application;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import utilitaires.CopierFichier;
-import utilitaires.EugesNavigateur;
 import utilitaires.MyDate;
 import donnees.Iteration;
 import donnees.Projet;
@@ -174,7 +168,7 @@ public class EugesElements {
 	
 	/*fonction d'ajout d'un nouveau produit avec une version dans la liste globale des produits */
 	public static void ajouteEugesProduit(String name, String version){
-
+		
 		// on crée le produit sans sa version
 		EugesProduit produit = new EugesProduit(name);
 		
@@ -184,7 +178,7 @@ public class EugesElements {
 		
 		// on ajoute dans le vecteur la version du produit
 //		vers.add(new EugesVersion(version, "en cours", 20, null, produit ));
-
+		
 		// on ajoute cette version dans le produit
 //		produit.set_versions(vers);
 		
@@ -214,7 +208,7 @@ public class EugesElements {
 		}
 	}
 	
-// fonction qui renvoie un tableau de String des EugesProduit de la liste globale listeProduits
+//	fonction qui renvoie un tableau de String des EugesProduit de la liste globale listeProduits
 	public static String[] getTableauListePersonne(){
 		// si la liste est non vide
 		if (listePersonnes.size() != 0){
@@ -235,7 +229,7 @@ public class EugesElements {
 			return null;
 		}
 	}
-
+	
 	
 	/**
 	 * fonction qui renvoie l'objet EugesPersonne qui est passé en paramètres
@@ -294,7 +288,7 @@ public class EugesElements {
 		}
 		return null;
 	}
-
+	
 	public static EugesActivite getActivite (String act) {
 		for (Iterator iter = listeActivites.iterator(); iter.hasNext();) {
 			EugesActivite e = (EugesActivite) iter.next();
@@ -324,7 +318,7 @@ public class EugesElements {
 		return max;
 	}
 	
-
+	
 	/**
 	 * Fonction qui renvoi la charge maximum des charges reelles des activités
 	 * Méthode utilisé pour la création des graphes
@@ -341,7 +335,7 @@ public class EugesElements {
 		}
 		return max;
 	}
-
+	
 	public static int getActivitesRealiseesCount() {
 		int nb=0;
 		for (Iterator it = listeActivites.iterator(); it.hasNext();) {
@@ -393,7 +387,7 @@ public class EugesElements {
 		
 		return resultat;
 	}
-
+	
 	
 	// Retourne toutes les activites associées au role : r
 	public static Vector getActivitesRole(EugesRole r) {
@@ -415,7 +409,7 @@ public class EugesElements {
 		return resultat;
 	}
 	
-
+	
 	// Retourne tous les produits associées à la personne : pers
 	public static Vector getProduitsPersonne(EugesPersonne pers) {
 		Vector resultat = new Vector();
@@ -460,7 +454,7 @@ public class EugesElements {
 		}
 		return resultat;
 	}
-
+	
 	
 	// Retourne toutes les activités qui ont en sortie le produit : prod
 	/**
@@ -502,72 +496,6 @@ public class EugesElements {
 		
 		return resultat;
 	}
-	//fonction qui sauvegarde
-	public static void sauvegarde ()
-	{
-		sauvegarde (_projet.get_repDestination()+"\\"+_projet.get_nomProjet()+".egs");		
-	}
-	/**
-	 * @param chemin
-	 */
-	public static void sauvegarde(String chemin) {
-		
-		File fichier = new File (chemin);
-		try {
-			FileWriter fichierEcriture = new FileWriter (fichier);
-			BufferedWriter ecriture = new BufferedWriter (fichierEcriture);
-			//ecriture des informations sur xml
-			ecriture.write("<?xml version =\"1.0\" encoding=\"ISO-8859-1\"?>\n");
-			//crétaion de la racine
-			ecriture.write("<unProjet>\n");
-			//enregistrement des caractéristiques de l'attribut projet
-			ecriture.write("<_projet>\n");
-			_projet.sauvegardePartielle(ecriture);
-			//enregistrement des roles
-			ecriture.write("<_listeRoles>\n");
-			for (int i = 0; i<listeRoles.size();i++)
-			{
-				((EugesRole)listeRoles.get(i)).sauvegarder(ecriture);
-			}
-			ecriture.write("</_listeRoles>\n");
-			//enregistrement des personnes
-			ecriture.write("<_listePersonnes>\n");
-			for (int i = 0; i<listePersonnes.size();i++)
-			{
-				((EugesPersonne)listePersonnes.get(i)).sauvegardePartielle(ecriture);
-			}
-			ecriture.write("</_listePersonnes>\n");
-			//enregistrement des produits
-			ecriture.write("<_listeProduits>\n");
-			for (int i = 0; i<listeProduits.size();i++)
-			{
-				((EugesProduit)listeProduits.get(i)).sauvegarder(ecriture);
-			}
-			ecriture.write("</_listeProduits>\n");
-			//enregistrement des activités
-			ecriture.write("<_listeActivites>\n");
-			for (int i = 0; i<listeActivites.size();i++)
-			{
-				((EugesActivite)listeActivites.get(i)).sauvegardePartielle(ecriture);
-			}
-			ecriture.write("</_listeActivites>\n");
-			//enregistrement des itérations
-			ecriture.write("<_listeIteration>\n");
-			_projet.sauvegardeIterations(ecriture);
-			ecriture.write("</_listeIteration>\n");
-			//sauvegarde des associations
-			ecriture.write("<_listeAssociations>\n");
-			_projet.sauvegarderAssociations(ecriture);
-			ecriture.write("</_listeAssociations>\n");
-			ecriture.write("</_projet>\n");
-			ecriture.write("</unProjet>\n");
-			ecriture.close();
-			EugesElements.processusEnregistre = true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void clearAllElements(){
 		//le pointeur vers le projet est mis a null
 		//le garbage collector se charge de supprimer tous les elements
@@ -579,152 +507,6 @@ public class EugesElements {
 		listeRoles.removeAllElements();
 		listeProduits.removeAllElements();
 		listePersonnes.removeAllElements();
-	}
-	
-	public static void genereMenu(BufferedWriter buffer) {
-		try {
-			buffer.write("<div class='menu'>\n<table>\n<tr>\n<td><img src='images/it.gif'><b>Itérations</b></td>\n</tr>\n");
-			
-			_projet.genereMenuIt(buffer);
-			
-			/*buffer.write("<tr><td><img src='images/activite.gif'>Activités</b></td>\n</tr>");
-			for (int i = 0; i<listeActivites.size();i++)
-			{
-				((EugesActivite)listeActivites.get(i)).genereMenu(buffer);
-			}
-			buffer.write("<tr><td><img src='images/produit.gif'>Produits</tr>");
-			for (int i = 0; i<listeProduits.size();i++)
-			{
-				((EugesProduit)listeProduits.get(i)).genereMenu(buffer);
-			}
-			buffer.write("<tr><td><img src='images/role.gif'>Roles</td></tr>");
-			for (int i = 0; i<listeRoles.size();i++)
-			{
-				((EugesRole)listeRoles.get(i)).genereMenu(buffer);
-			}*/
-			buffer.write("<tr><td><img src='images/actor.gif'>Personnes</td></tr>");
-			for (int i = 0; i<listePersonnes.size();i++)
-			{
-				((EugesPersonne)listePersonnes.get(i)).genereMenu(buffer);
-			}
-			buffer.write("</table>\n</div>");
-			
-		} catch (IOException e) {
-			System.out.println (e);
-			e.printStackTrace();
-		}
-	}
-	
-	public static void genereMenu2(BufferedWriter buffer,String chemin) {
-		try {
-			buffer.write("<div class='menu'>\n<table>\n<tr>\n<td><img src='../images/it.gif'><b>Itérations</b></td>\n</tr>\n");
-			
-			_projet.genereMenuIt2(buffer);
-			
-			/*buffer.write("<tr><td><img src='../images/activite.gif'>Activités</b></td>\n</tr>");
-			for (int i = 0; i<listeActivites.size();i++)
-			{
-				((EugesActivite)listeActivites.get(i)).genereMenu(buffer);
-			}
-			buffer.write("<tr><td><img src='../images/produit.gif'>Produits</tr>");
-			for (int i = 0; i<listeProduits.size();i++)
-			{
-				((EugesProduit)listeProduits.get(i)).genereMenu(buffer);
-			}
-			buffer.write("<tr><td><img src='../images/role.gif'>Roles</td></tr>");
-			for (int i = 0; i<listeRoles.size();i++)
-			{
-				((EugesRole)listeRoles.get(i)).genereMenu(buffer);
-			}*/
-			buffer.write("<tr><td><img src='../images/actor.gif'>Personnes</td></tr>");
-			for (int i = 0; i<listePersonnes.size();i++)
-			{
-				((EugesPersonne)listePersonnes.get(i)).genereMenu(buffer);
-			}
-			buffer.write("</table>\n</div>");
-			
-		} catch (IOException e) {
-			System.out.println (e);
-			e.printStackTrace();
-		}
-	}
-	
-	public static void genereSite(String chemin,String check){
-		File FileIndex = new File (chemin + "/index.htm");
-		/*File FileMenu  = new File (chemin+"/menu.htm");
-		File FilePrincipale  = new File (chemin+"/principale.htm");
-		File FileTitre  = new File (chemin+"/titre.htm");*/
-		
-		//Creation du repertoire au cas ou l'utilisateur 
-		//l'aurait supprimé durant l'execution du programme
-		File rep = new File(chemin);
-		rep.mkdir();
-		
-		try {
-			
-			
-			
-			
-			//Génération de l'index : 
-			FileWriter fichierIndex = new FileWriter (FileIndex);
-			BufferedWriter index = new BufferedWriter (fichierIndex);
-			_projet.genereIndex(index);
-			_projet.genereTitre(index);
-			
-
-			genereMenu(index);
-
-			_projet.generePrincipale(index);
-			
-			index.close();
-			
-			
-//			Création du repertoire contenant les produits :
-			File repProduits = new File(chemin+"/produits");
-			repProduits.mkdir();
-			
-			//Génération des pages d'itérations : 
-			File repIterations = new File(chemin+"/iterations");
-			repIterations.mkdir();
-			
-			_projet.genereIterations(chemin);
-			
-			//Création du repertoire contenant les images :
-			File repImages = new File(chemin+"/images");
-			repImages.mkdir();
-			
-			
-			
-
-			
-			//Copie des images :
-			CopierFichier.copyFile("configuration/images/actor.gif",chemin+"/images/actor.gif");
-			CopierFichier.copyFile("configuration/images/activite.gif",chemin+"/images/activite.gif");
-			CopierFichier.copyFile("configuration/images/role.gif",chemin+"/images/role.gif");
-			CopierFichier.copyFile("configuration/images/produit.gif",chemin+"/images/produit.gif");
-			CopierFichier.copyFile("configuration/images/it.gif",chemin+"/images/it.gif");
-			CopierFichier.copyFile("configuration/images/logo2.png",chemin+"/images/logo2.png");
-			CopierFichier.copyFile("configuration/images/iconeAngle.gif",chemin+"/images/iconeAngle.gif");
-			
-			
-			
-			if (check.equals("1")){
-			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/style.css");
-			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/iterations/style.css");
-			}
-			else
-			{
-				CopierFichier.copyFile("configuration/images/style_blue.css",chemin+"/style.css");
-				CopierFichier.copyFile("configuration/images/style_blue.css",chemin+"/iterations/style.css");
-			}
-			
-			//Ouverture du site dans le navigateur d'Euges :
-			new EugesNavigateur(chemin+"/index.htm");
-			
-		} catch (IOException e) {
-			System.out.println (e);
-			
-		}
 	}
 	
 }
