@@ -133,7 +133,7 @@ public class GrapheHautIHM extends PageVuesIHM {
 				if (i==0)
 					tmp.setText(message.getString("grapheHautIHM.activite"));
 				else
-					tmp.setText(message.getString("grapheHautIHM.iteration")+" "+i);
+					tmp.setText(message.getString("grapheHautIHM.iteration")+" "+(i-1));
 				_tableColonnes.add(tmp);
 			}
 			
