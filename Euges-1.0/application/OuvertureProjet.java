@@ -15,24 +15,30 @@ package application;
  */
 
 import ihm.ArbrePrincipalIHM;
-import ihm.FenetreErreurChargement;
 import ihm.FenetrePrincipaleIHM;
 import ihm.vues.planIt.PlanItIHM;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import configuration.Config;
+
 import utilitaires.MySAXApp;
 
 
 public class OuvertureProjet {
 
+	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
+	
 	/**
 	 * Contructeur.
 	 */
@@ -60,7 +66,10 @@ public class OuvertureProjet {
 		}
 		catch(SAXException e){
 			Shell shell = new Shell();
-			FenetreErreurChargement fenetreErreur = new FenetreErreurChargement(shell);
+			MessageBox msgErreur = new MessageBox(shell,SWT.ICON_ERROR); 
+			msgErreur.setMessage(message.getString("texte")); 
+			msgErreur.setText(message.getString("titre")); 
+			msgErreur.open();
 		}
 	}
 }
