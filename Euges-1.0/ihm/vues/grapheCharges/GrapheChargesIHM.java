@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
@@ -54,11 +55,11 @@ public class GrapheChargesIHM extends PageVuesIHM {
 	
 	private final Vector rectActivites = new Vector();
 	
-	public GrapheChargesIHM(final Composite parent){
-		super(parent,SWT.NONE|SWT.H_SCROLL|SWT.V_SCROLL);
+	public GrapheChargesIHM(final ViewForm parent){
+		super(parent, SWT.H_SCROLL|SWT.V_SCROLL);
 		this.parent= parent;
 		//this.setLayout(new FillLayout(SWT.VERTICAL));
-		this.setSize(parent.getParent().getSize());
+		this.setSize(parent.getSize());
 		canvas = new Canvas(this,SWT.NONE);
 		reglerTaille();
 		Menu menu = new Menu(parent.getShell(), SWT.POP_UP);
@@ -295,19 +296,13 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				}
 			}
 		});
-		
-		
 		canvas.redraw();
-		
-
-
 	}
 
 	/* (non-Javadoc)
 	 * @see ihm.vues.PageVuesIHM#loadData()
 	 */
 	public void loadData() {
-		// TODO Auto-generated method stub
 		reglerTaille();
 		canvas.redraw();
 		
@@ -341,5 +336,12 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				return act;
 		}
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see ihm.vues.PageVuesIHM#setVisible(boolean)
+	 */
+	public void setVisible(boolean visible) {
+		canvas.setVisible(visible);
 	}
 }

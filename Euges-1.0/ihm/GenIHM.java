@@ -12,13 +12,16 @@ import java.util.ResourceBundle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -44,6 +47,9 @@ public class GenIHM extends Dialog{
 	private static Text text4;
 	private static Button styl1;
 	private static Button styl2;
+	private static Button styl3;
+	private static Button styl4;
+	
 	private static String check;
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
@@ -53,17 +59,18 @@ public class GenIHM extends Dialog{
 		
 		//nouveau shell
 		shellGen = new Shell(shell, SWT.APPLICATION_MODAL | SWT.CLOSE);
-		
+		//titre		
+		Font font = new Font(shell.getDisplay(), "Arial", 15, 15);
+		Label titre = new Label(shellGen, SWT.NONE);
+		titre.setFont(font);
+		titre.setText(message.getString("GenIHM.titre"));
+		titre.pack();
+		  
 		
 		shellGen.setText(message.getString("GenIHM.titre"));
-		shellGen.setSize(190,150);
-		
 		shellGen.setImage(GestionImage._euges);
 		
-		
-			
 		//Création des élements de la fenêtre
-		
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
 		shellGen.setLayout(gridLayout);
@@ -78,11 +85,8 @@ public class GenIHM extends Dialog{
 		text4.setEditable(false);
 		
 		
-		
 		//bouton parcourir
-		
 		Button parc=new Button(shellGen, SWT.PUSH );
-		
 		parc.setText(message.getString("GenIHM.parc"));
 		parc.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -90,32 +94,89 @@ public class GenIHM extends Dialog{
 			}
 		});
 		
-		
 		Label label6 = new Label(shellGen, SWT.NONE);
 		label6.setText(message.getString("GenIHM.styl"));
 		Label label7 = new Label(shellGen, SWT.NONE);
 		label7.setText("");
 		
+		//Mise en place des éléments
+		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
+		data2.horizontalSpan=2;
+		titre.setLayoutData(data2);
 		
-		//bouton de style 1
+		data2 = new GridData();
+		label4.setLayoutData(data2);
+		data2 = new GridData();
+		label5.setLayoutData(data2);
+		GridData data = new GridData();
+		text4.setLayoutData(data);
+		data = new GridData();
+		parc.setLayoutData(data);
 		
-		styl1=new Button(shellGen, SWT.RADIO );
+		GridData data3 = new GridData();
+		label6.setLayoutData(data3);
+		data3 = new GridData();
+		label7.setLayoutData(data3);
+		//style de generartion
+		data3 = new GridData(GridData.FILL_HORIZONTAL);
+		data3.horizontalSpan=2;
+		genererStyles().setLayoutData(data3);
+		//boutons
+		data3 = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		data3.horizontalSpan=2;
+		genererBoutons(shellGen).setLayoutData(data3);
+		
+		//ouvrir la fenêtre au centre de l'écran
+		Rectangle bounds = shell.getBounds ();
+		Rectangle rect = shellGen.getBounds ();
+		int x = bounds.x + (bounds.width - rect.width) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+		shellGen.setLocation (x, y);
+		
+		shellGen.pack();
+		//ouverture du shell
+		shellGen.open();
+	}
+	
+	private Group genererStyles(){
+		//groupe de selection du style
+		Group styles = new Group(shellGen, SWT.NONE);
+		styles.setText(message.getString("GenIHM.styles"));
+
+		//bouton de style 1 (html gris)
+		styl1=new Button(styles, SWT.RADIO );
 		styl1.setSelection(true);
-		styl1.setText(message.getString("GenIHM.stylg"));
+		styl1.setText(message.getString("GenIHM.htmlGris"));
+		//bouton de style 2 (html bleu)
+		styl2=new Button(styles, SWT.RADIO );
+		styl2.setText(message.getString("GenIHM.htmlBleu"));
+		//bouton de style 2 (html bleu)
+		styl3=new Button(styles, SWT.RADIO );
+		styl3.setText(message.getString("GenIHM.xml"));
+		//bouton de style 2 (html bleu)
+		styl4=new Button(styles, SWT.RADIO );
+		styl4.setText(message.getString("GenIHM.flash"));
 		
+		//Création des élements de la fenêtre
+		GridLayout gridLayout = new GridLayout(2, true);
+		styles.setLayout(gridLayout);
+		//placement des elements
+		GridData gridData = new GridData();
+		styl1.setLayoutData(gridData);
+		gridData = new GridData();
+		styl2.setLayoutData(gridData);
+		gridData = new GridData();
+		styl3.setLayoutData(gridData);
+		gridData = new GridData();
+		styl4.setLayoutData(gridData);
 		
-		
-		//bouton de style 2
-		
-		styl2=new Button(shellGen, SWT.RADIO );
-		styl2.setText(message.getString("GenIHM.stylb"));
-		
-		
-		
+		return styles;
+	}
+	
+	private Composite genererBoutons(final Shell s){
+		Composite boutons = new Composite(s, SWT.NONE);
 		//bouton ok
-		
-		Button ok=new Button(shellGen, SWT.PUSH );
-		
+		Button ok=new Button(boutons, SWT.PUSH );
 		ok.setText(message.getString("GenIHM.ok"));
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -123,20 +184,14 @@ public class GenIHM extends Dialog{
 					saveGen();
 					getCheck();
 					try {
-						
 						new GenererSite(text4.getText(),check);
-						
 					} catch (Exception e1) {}{
-						
 					}
 					
 					try {
 						shellGen.dispose();
-					}
-					catch (Exception e2)
-					
-					{
-						MessageBox msg = new MessageBox(shell, SWT.ICON_ERROR|SWT.YES);
+					}catch (Exception e2){
+						MessageBox msg = new MessageBox(s, SWT.ICON_ERROR|SWT.YES);
 						msg.setText(message.getString("GenIHM.err"));
 						msg.setMessage(message.getString("GenIHM.errgen"));
 						msg.open();
@@ -148,68 +203,23 @@ public class GenIHM extends Dialog{
 		
 		
 		//bouton annuler
-		
-		Button ann=new Button(shellGen, SWT.PUSH );
-		
+		Button ann=new Button(boutons, SWT.PUSH );
 		ann.setText(message.getString("GenIHM.ann"));
 		ann.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				shellGen.dispose();
 			}
 		});
+		//Création des élements de la fenêtre
+		GridLayout gridLayout = new GridLayout(2, true);
+		boutons.setLayout(gridLayout);
+		//placement des elements
+		GridData gridData = new GridData();
+		ok.setLayoutData(gridData);
+		gridData = new GridData();
+		ann.setLayoutData(gridData);
 		
-		
-		
-		//Mise en place des éléments
-		GridData data2 = new GridData();
-		data2.widthHint = 50;
-		label4.setLayoutData(data2);
-		data2 = new GridData();
-		data2.widthHint = 50;
-		label5.setLayoutData(data2);
-		GridData data = new GridData();
-		data.widthHint = 100;
-		text4.setLayoutData(data);
-		data = new GridData();
-		data.widthHint = 25;
-		parc.setLayoutData(data);
-		
-		GridData data3 = new GridData();
-		data3.widthHint = 80;
-		label6.setLayoutData(data3);
-		data3 = new GridData();
-		data3.widthHint = 50;
-		label7.setLayoutData(data3);
-		
-		
-		/*GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
-		text4.setLayoutData(data2);
-		GridData data3 = new GridData();
-		data3.horizontalSpan = 2;
-		parc.setLayoutData(data3);*/
-		
-				
-		
-		
-		
-		
-		// ouvrir la fenêtre au centre de l'écran
-		Rectangle bounds = shell.getBounds ();
-		Rectangle rect = shellGen.getBounds ();
-		int x = bounds.x + (bounds.width - rect.width) / 2;
-		int y = bounds.y + (bounds.height - rect.height) / 2;
-		shellGen.setLocation (x, y);
-		
-		
-		
-		
-		
-		
-		//ouverture du shell
-		shellGen.open();
-		
-		
-		
+		return boutons;
 	}
 	private String ouvrir(){
 		DirectoryDialog directoryDialog = new DirectoryDialog(shellGen);
@@ -225,25 +235,18 @@ public class GenIHM extends Dialog{
 	}
 	
 	public static void saveGen() {
-		
 		try {
 			Config.config.setProperty("gen",text4.getText());
 			Config.config.store(new FileOutputStream(Config.fichierConfig),"");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	public static void getCheck(){
-		if (styl1.getSelection())
-		{
-			
+		if (styl1.getSelection()){
 			check = "1";
-						
-		}
-		else{
+		}else{
 			check = "0";
 		}
 	}

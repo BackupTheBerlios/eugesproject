@@ -7,11 +7,14 @@
 package ihm.vues.grapheActivites;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 
 /**
  * @author will
@@ -19,26 +22,40 @@ import org.eclipse.swt.widgets.Label;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class GrapheBasIHM extends Composite{
+public class GrapheBasIHM extends ViewForm{
 	//private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
-
+	final private Composite composite;
 	
 	public GrapheBasIHM(final Composite comp) {
-		super(comp, SWT.NONE);
+		super(comp, SWT.BORDER);
+		composite = new Composite(this, SWT.NONE);
 		// titre
 		Font font = new Font(comp.getDisplay(), "Arial", 15, 15);
-		Label titre = new Label(this, SWT.NONE|SWT.CENTER);
+		Label titre = new Label(composite, SWT.NONE|SWT.CENTER);
 		titre.setFont(font);
 		titre.setText("en cours de développement");
 		
 		//mise en place du layout
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
-		setLayout(layout);
+		composite.setLayout(layout);
 		//layout
 		//titre
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.heightHint =titre.computeSize(SWT.DEFAULT,SWT.DEFAULT).y;
-		titre.setLayoutData(data);		
+		titre.setLayoutData(data);
+		
+		//redimensionnement du composite
+		this.addListener(SWT.Resize, new Listener() {
+			public void handleEvent(Event event) {
+				composite.setBounds(getClientArea());
+			}
+		});
+	}
+	/**
+	 * @return Returns the composite.
+	 */
+	public Composite getComposite() {
+		return composite;
 	}
 }

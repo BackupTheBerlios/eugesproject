@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
@@ -34,7 +34,7 @@ public class PlanItIHM extends PageVuesIHM {
 	 * @param parent
 	 * @param nbIt
 	 */
-	public PlanItIHM(final Composite parent, int nbIt) {
+	public PlanItIHM(final ViewForm parent, int nbIt) {
 		super(parent, SWT.NONE);
 		_tabFolder = new CTabFolder(this,SWT.NONE);
 		_tabFolder.setSelectionBackground(new Color[] {
@@ -104,5 +104,12 @@ public class PlanItIHM extends PageVuesIHM {
 	 */
 	public static CTabFolder get_tabFolder() {
 		return _tabFolder;
+	}
+
+	/* (non-Javadoc)
+	 * @see ihm.vues.PageVuesIHM#setVisible(boolean)
+	 */
+	public void setVisible(boolean visible) {
+		_tabFolder.setVisible(visible);
 	}
 }

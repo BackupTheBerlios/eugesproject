@@ -6,13 +6,13 @@ package ihm.vues.grapheActivites;
 
 
 import ihm.FenetrePrincipaleIHM;
-import ihm.vues.PageVuesIHM;
 
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
@@ -34,10 +34,10 @@ import donnees.eugesSpem.EugesActivite;
 
 
 /**
- * @author Mathieu GAYRAUD
+ * @author Will
  *
  */
-public class GrapheHautIHM extends PageVuesIHM {
+public class GrapheHautIHM extends ViewForm {
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
 	private Table _graphe;
@@ -50,40 +50,43 @@ public class GrapheHautIHM extends PageVuesIHM {
 	Color activitesFondFutur = new Color(Display.getCurrent(), 160, 255, 160);
 	Color activitesTexte = new Color(Display.getCurrent(), 0,0,0);
 	
-	public GrapheHautIHM(final Composite comp) {
-		super(comp, SWT.NONE);
+	public GrapheHautIHM(final Composite parent) {
+		super(parent, SWT.BORDER);
+		//composite permettant de de presenter les elements
+		final Composite compoPage = new Composite(this, SWT.NONE);
+		
 		// titre
-		Font font = new Font(comp.getDisplay(), "Arial", 15, 15);
-		Label titre = new Label(this, SWT.NONE|SWT.CENTER);
+		Font font = new Font(parent.getDisplay(), "Arial", 15, 15);
+		Label titre = new Label(compoPage, SWT.NONE|SWT.CENTER);
 		titre.setFont(font);
 		titre.setText(message.getString("grapheHautIHM.titre"));
 		
 		//tableau des activités en fonction des iterations
-		_graphe=new Table(this, SWT.BORDER);
+		_graphe=new Table(compoPage, SWT.BORDER);
 		_graphe.setHeaderVisible(true);
 		//chargement des donnees du tableau
 		loadData();
 		
 		//legende
-		Label legende = new Label(this, SWT.NONE);
+		Label legende = new Label(compoPage, SWT.NONE);
 		legende.setText(message.getString("grapheHautIHM.legende"));
 		//activité passée
-		Label activitePasse = new Label(this, SWT.NONE);
+		Label activitePasse = new Label(compoPage, SWT.NONE);
 		activitePasse.setText(message.getString("grapheHautIHM.activitePasse"));
 		activitePasse.setBackground(new Color(Display.getCurrent(), activitesFondPasse.getRGB()));
 		//activité passée
-		Label activiteEnCours = new Label(this, SWT.NONE);
+		Label activiteEnCours = new Label(compoPage, SWT.NONE);
 		activiteEnCours.setText(message.getString("grapheHautIHM.activiteEnCours"));
 		activiteEnCours.setBackground(new Color(Display.getCurrent(), activitesFondEnCours.getRGB()));
 		//activité passée
-		Label activiteFuture = new Label(this, SWT.NONE);
+		Label activiteFuture = new Label(compoPage, SWT.NONE);
 		activiteFuture.setText(message.getString("grapheHautIHM.activiteFuture"));
 		activiteFuture.setBackground(new Color(Display.getCurrent(), activitesFondFutur.getRGB()));
 		
 		
 		//mise en place du layout
 		GridLayout layout = new GridLayout(3, true);
-		setLayout(layout);
+		compoPage.setLayout(layout);
 		//layout
 		//titre
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -106,6 +109,12 @@ public class GrapheHautIHM extends PageVuesIHM {
 		data = new GridData();
 		activiteFuture.setLayoutData(data);
 		
+		//redimensionnement du composite
+		this.addListener(SWT.Resize, new Listener() {
+			public void handleEvent(Event event) {
+				compoPage.setBounds(getClientArea());
+			}
+		});
 	}
 	/**
 	 * chargement des donnees du tableau

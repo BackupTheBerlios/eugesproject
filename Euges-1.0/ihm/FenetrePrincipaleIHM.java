@@ -498,10 +498,10 @@ public class FenetrePrincipaleIHM {
 			
 			// Arbre
 			_tree = new ArbrePrincipalIHM(sashForm);
-			//creation du vecteur de vues
+			//creation des vues
 			_vues = new VuesIHM(sashForm);
 			
-			sashForm.setWeights(new int [] {25,75});		
+			sashForm.setWeights(new int [] {25,75});
 			
 			// redessiner la coolbar et le sashform si la coolbar est redimensionnée
 			coolBar.addListener(SWT.Resize, new Listener () {
@@ -626,7 +626,7 @@ public class FenetrePrincipaleIHM {
 			int reponse=SWT.YES;
 			if (EugesElements.processusEnregistre==true){
 				EugesElements.clearAllElements();
-				_vues.disposePages();
+				_vues.reloadPages();
 				ArbrePrincipalIHM._tri.actualiser();
 			}else{
 				MessageBox msg = new MessageBox(shell, SWT.ICON_QUESTION|SWT.YES|SWT.NO|SWT.CANCEL);
@@ -636,11 +636,11 @@ public class FenetrePrincipaleIHM {
 				if (reponse==SWT.YES){
 					Sauvegarde.sauvegarde();
 					EugesElements.clearAllElements();
-					_vues.disposePages();
+					_vues.reloadPages();
 					ArbrePrincipalIHM._tri.actualiser();
 				}else if(reponse==SWT.NO){
 					EugesElements.clearAllElements();
-					_vues.disposePages();
+					_vues.reloadPages();
 					ArbrePrincipalIHM._tri.actualiser();
 				}
 			}

@@ -9,13 +9,13 @@ import ihm.vues.PageVuesIHM;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 
 /**
- * @author Mathieu GAYRAUD
+ * @author Will
  *
  */
 public class GrapheIHM extends PageVuesIHM{
@@ -24,17 +24,18 @@ public class GrapheIHM extends PageVuesIHM{
 	final GrapheHautIHM _haut;
 	final GrapheBasIHM _bas;
 	
-	public GrapheIHM(Composite compo) {
-		super(compo, SWT.NONE);
-		_sashForm = new SashForm(compo, SWT.VERTICAL);
+	public GrapheIHM(final ViewForm parent) {
+		super(parent, SWT.NONE);
+		_sashForm = new SashForm(this, SWT.VERTICAL);
 		_haut = new GrapheHautIHM(_sashForm);
 		_bas = new GrapheBasIHM(_sashForm);
 		_sashForm.setWeights(new int [] {75,25});
 
+		_sashForm.setBounds(parent.getClientArea());
 		//redimensionnement du sashForm
-		compo.addListener(SWT.Resize, new Listener() {
+		parent.addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
-				_sashForm.setBounds(getClientArea());
+				_sashForm.setBounds(parent.getClientArea());
 			}
 		});
 	}
@@ -43,7 +44,13 @@ public class GrapheIHM extends PageVuesIHM{
 	 * @see ihm.vues.PageVuesIHM#loadData()
 	 */
 	public void loadData() {
-		// TODO Auto-generated method stub
 		_haut.loadData();
+	}
+
+	/* (non-Javadoc)
+	 * @see ihm.vues.PageVuesIHM#setVisible(boolean)
+	 */
+	public void setVisible(boolean visible) {
+		_sashForm.setVisible(visible);
 	}
 }
