@@ -77,7 +77,6 @@ public class OuvertureProjet {
 			}
 		}
 		catch(SAXException e){
-			e.printStackTrace();
 			Shell shell = new Shell();
 			MessageBox msgErreur = new MessageBox(shell,SWT.ICON_ERROR); 
 			msgErreur.setMessage(message.getString("texte")); 
