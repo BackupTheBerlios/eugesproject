@@ -37,7 +37,7 @@ public class EugesElements {
 	public static Vector listeProduits = new Vector(); // liste des produits
 	public static Vector listePersonnes = new Vector(); // liste des personnes
 	//booleen qui permet de savoir si le processus est enregistré
-	public static boolean processusEnregistre = false;
+	public static boolean processusEnregistre = true;
 	
 	/**
 	 * constructeur nouveau projet en cours
@@ -617,6 +617,18 @@ public class EugesElements {
 			System.out.println (e);
 			e.printStackTrace();
 		}
+	}
+	
+	public static void clearAllElements(){
+		//le pointeur vers le projet est mis a null
+		//le garbage collector se charge de supprimer tous les elements
+		//qui ne st plus referencés
+		_projet=null;
 		
+		//suppression de tous les elements dans les listes globales
+		listeActivites.removeAllElements();
+		listeRoles.removeAllElements();
+		listeProduits.removeAllElements();
+		listePersonnes.removeAllElements();
 	}
 }
