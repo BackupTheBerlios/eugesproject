@@ -232,4 +232,11 @@ public class Projet {
 		//ajout de l'iteration de depart
 		_listeIteration.add(new Iteration(debut, fin));
 	}
+	/**
+	 * getNombreIteration
+	 * @return le nombre d'itération dans la projet
+	 */
+	public int getNombreIteration(){
+		return _listeIteration.size();
+	}
 }
