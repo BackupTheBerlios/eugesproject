@@ -112,7 +112,7 @@ public class MySAXApp extends DefaultHandler{
 	 */
 	public void startElement(String nameSpaceURI, String localName, String rawName, Attributes attributs) throws SAXException {  
 		
-	  System.out.println(localName);
+	  //System.out.println(localName);
 	  
 	  if(creationAssociation == 0)
 	  {
