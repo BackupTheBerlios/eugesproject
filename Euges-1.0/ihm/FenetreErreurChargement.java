@@ -9,6 +9,8 @@ package ihm;
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -61,9 +63,18 @@ public class FenetreErreurChargement extends Dialog{
 		// titre de la fenêtre
 		shellFenetreErreurChargement.setText(message.getString("titre"));
 		
-		//label nouveau projet
+		// message d'erreur
 		Label fenetreErreurChargementLabel = new Label(fenetreErreur, SWT.NONE);
 		fenetreErreurChargementLabel.setText(message.getString("texte"));
+		
+		//création du bouton pour fermer le calendrier
+		Button fermer = new Button (_shell, SWT.PUSH);
+		fermer.setText(message.getString("fermer"));
+		fermer.addSelectionListener(new SelectionAdapter(){
+			public void widgetSelected  (SelectionEvent e){
+				_shell.dispose();
+			}
+		});
 		
 		//mise en place du layout
 		GridLayout gridLayout = new GridLayout();
