@@ -616,26 +616,26 @@ public class EugesElements {
 	
 	public static void genereMenu2(BufferedWriter buffer,String chemin) {
 		try {
-			buffer.write("<div class='menu'>\n<table>\n<tr>\n<td><img src='"+chemin+"/iterations/images/it.gif'><b>Itérations</b></td>\n</tr>\n");
+			buffer.write("<div class='menu'>\n<table>\n<tr>\n<td><img src='../images/it.gif'><b>Itérations</b></td>\n</tr>\n");
 			
 			_projet.genereMenuIt2(buffer);
 			
-			buffer.write("<tr><td><img src='images/activite.gif'>Activités</b></td>\n</tr>");
+			buffer.write("<tr><td><img src='../images/activite.gif'>Activités</b></td>\n</tr>");
 			for (int i = 0; i<listeActivites.size();i++)
 			{
 				((EugesActivite)listeActivites.get(i)).genereMenu(buffer);
 			}
-			buffer.write("<tr><td><img src='images/produit.gif'>Produits</tr>");
+			buffer.write("<tr><td><img src='../images/produit.gif'>Produits</tr>");
 			for (int i = 0; i<listeProduits.size();i++)
 			{
 				((EugesProduit)listeProduits.get(i)).genereMenu(buffer);
 			}
-			buffer.write("<tr><td><img src='images/role.gif'>Roles</td></tr>");
+			buffer.write("<tr><td><img src='../images/role.gif'>Roles</td></tr>");
 			for (int i = 0; i<listeRoles.size();i++)
 			{
 				((EugesRole)listeRoles.get(i)).genereMenu(buffer);
 			}
-			buffer.write("<tr><td><img src='images/actor.gif'>Personnes</td></tr>");
+			buffer.write("<tr><td><img src='../images/actor.gif'>Personnes</td></tr>");
 			for (int i = 0; i<listePersonnes.size();i++)
 			{
 				((EugesPersonne)listePersonnes.get(i)).genereMenu(buffer);
@@ -680,9 +680,7 @@ public class EugesElements {
 			File repImages = new File(chemin+"/images");
 			repImages.mkdir();
 			
-//Création du repertoire contenant les images :
-			File repImages2 = new File(chemin+"/iterations/images");
-			repImages2.mkdir();
+
 			
 			//Copie des images :
 			CopierFichier.copyFile("configuration/images/actor.gif",chemin+"/images/actor.gif");
@@ -693,13 +691,7 @@ public class EugesElements {
 			CopierFichier.copyFile("configuration/images/logo2.png",chemin+"/images/logo2.png");
 			CopierFichier.copyFile("configuration/images/iconeAngle.gif",chemin+"/images/iconeAngle.gif");
 			
-			CopierFichier.copyFile("configuration/images/actor.gif",chemin+"/iterations/images/actor.gif");
-			CopierFichier.copyFile("configuration/images/activite.gif",chemin+"/iterations/images/activite.gif");
-			CopierFichier.copyFile("configuration/images/role.gif",chemin+"/iterations/images/role.gif");
-			CopierFichier.copyFile("configuration/images/produit.gif",chemin+"/iterations/images/produit.gif");
-			CopierFichier.copyFile("configuration/images/it.gif",chemin+"/iterations/images/it.gif");
-			CopierFichier.copyFile("configuration/images/logo2.png",chemin+"/iterations/images/logo2.png");
-			CopierFichier.copyFile("configuration/images/iconeAngle.gif",chemin+"/iterations/images/iconeAngle.gif");
+			
 			
 			if (check=="1"){
 			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/style.css");

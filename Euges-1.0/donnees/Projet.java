@@ -330,9 +330,6 @@ public class Projet {
 		try {
 			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet() + "</title>\n");
 			buffer.write("<META HTTP-EQUIV= 'Content-Style-Type' CONTENT='text/css'>\n<LINK rel='stylesheet' type='text/css' href='style.css'>\n</head>");
-			/*buffer.write("</title>\n</head>\n<frameset frameborder='yes' border='1' rows='15%,85%'>\n<frame src='titre.htm' scrolling='no' noresize>\n");
-			buffer.write("<frameset  frameborder='yes' border='1' cols='22%,78%'>\n<frame src='menu.htm' scrolling='auto'>\n");
-			buffer.write("<frame src='principale.htm' scrolling='yes' noresize name='dyn'>\n</frameset>\n</html>\n");*/
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
@@ -365,6 +362,20 @@ public class Projet {
 			buffer.write("<table border='0' width='100%' height='100%'>\n<tr width='100%' height='100%'>\n<td width='18%' height='100%' >\n<img src='images/logo2.png' width='50%' height='20%'>\n</td>\n<td width='82%' height='100%'>\n<div align='center'><b><a href='principale.htm' target='dyn'><h2>"+this.get_nomProjet()+"</h2></a></b></div>\n</td>\n</tr>");
 			buffer.write("</body></html>");*/
 			} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void genereTitre2(BufferedWriter buffer) {
+		try {
+			
+			buffer.write("<div>\n<table>\n<tr>\n<td width='18%'>\n<img src='../images/logo2.png'>\n</td>\n");
+			buffer.write("<td width='82%'>\n<b><a class='titre' href='../index.htm'><center>Euges</center></a></b>\n");
+			buffer.write("</td>\n</tr>\n</table>\n</div>\n<br>\n");
+			
+			
+		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
 		}

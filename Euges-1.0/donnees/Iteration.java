@@ -334,7 +334,7 @@ public class Iteration {
 			BufferedWriter iteration = new BufferedWriter (fichierIteration);
 			
 			_eug._projet.genereIndex(iteration);
-			_eug._projet.genereTitre(iteration);
+			_eug._projet.genereTitre2(iteration);
 			_eug.genereMenu2(iteration,chemin);		
 			
 			
@@ -344,7 +344,7 @@ public class Iteration {
 			iteration.write("<h2>Du "+this.get_dateDebut()+" au "+this.get_dateFin()+"</h2>\n</center>\n<br>");
 			
 			// 1er tableau : Roles & Personnes :
-			iteration.write("<h2 class='right'><img src='images/role.gif'><b>Roles & Personnes</b></h2>\n<hr>");
+			iteration.write("<h2 class='right'><img src='../images/role.gif'><b>Roles & Personnes</b></h2>\n<hr>");
 			
 			Vector listePersonne = new Vector();
 			for (int i = 0; i<_activitesRealisees.size();i++)
@@ -359,7 +359,7 @@ public class Iteration {
 			iteration.write("</table><br>");
 			
 			// 2eme tableau : Activités :
-			iteration.write("<h2 class='right'><img src='images/activite.gif'><b>Activités</b></h2>\n<hr>\n<table class='it'>\n<tr class='ititle'>\n<td><b>Activit&eacute;</b></td>\n<td><b>Charges pr&eacute;vue (h)</b></td>\n<td><b>Charges r&eacute;elle (h)</b></td>\n</tr>\n");
+			iteration.write("<h2 class='right'><img src='../images/activite.gif'><b>Activités</b></h2>\n<hr>\n<table class='it'>\n<tr class='ititle'>\n<td><b>Activit&eacute;</b></td>\n<td><b>Charges pr&eacute;vue (h)</b></td>\n<td><b>Charges r&eacute;elle (h)</b></td>\n</tr>\n");
 			for (int i = 0; i<_activitesRealisees.size();i++)
 			{
 				((EugesActRealise)_activitesRealisees.get(i)).genereTabActivite(iteration);
@@ -367,7 +367,7 @@ public class Iteration {
 			iteration.write("</table><br>");
 			
 			// 3eme tableau : Produits : 
-			iteration.write("<h2 class='right'><img src='images/produit.gif'><B>Produits</B></h2>\n<hr>\n<table class='it'>\n<tr class='ititle'>\n<td><b>Produit en sortie</b></td>\n<td><b>Version</b></td>\n<td><b>Etat / R&eacute;alisation</b></td>\n</tr>");
+			iteration.write("<h2 class='right'><img src='../images/produit.gif'><B>Produits</B></h2>\n<hr>\n<table class='it'>\n<tr class='ititle'>\n<td><b>Produit en sortie</b></td>\n<td><b>Version</b></td>\n<td><b>Etat / R&eacute;alisation</b></td>\n</tr>");
 			for (int i = 0; i<_activitesRealisees.size();i++)
 			{
 				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitOut(iteration);
