@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 
 import application.EugesElements;
 import configuration.Config;
+import donnees.ActiviteGraphique;
 import donnees.Iteration;
 import donnees.eugesSpem.EugesActRealise;
 

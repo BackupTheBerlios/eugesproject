@@ -226,10 +226,10 @@ public class MySAXApp extends DefaultHandler{
 	  		if(ajoutRoleAct == 1)
 	  		{
 	  			// lien entre l'activité et le rôle dans le vecteur activite  
-	  			EugesElements.getActivite(activite).ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  			EugesElements.getActivite(activite).setRole(EugesElements.getRole(attributs.getValue(0)));
 
 	  			// ajout du role dans l'activité réalisé de l'IT
-	  			EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).get_activiteParent().ajouterRole(EugesElements.getRole(attributs.getValue(0)));
+	  			EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).get_activiteParent().setRole(EugesElements.getRole(attributs.getValue(0)));
 	  		}
 	  		// Si on ajoute un role à une personne
 	  		else {

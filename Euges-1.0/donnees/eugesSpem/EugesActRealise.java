@@ -212,11 +212,8 @@ public class EugesActRealise {
 			ecriture.write("<EugesActRealise _chargeEstimee=\""+this.get_chargeEstimee()+"\" _chargeReelle=\""+this.get_chargeReelle()+"\" _activiteParent=\""+this.get_activiteParent()+"\"/>\n");
 			//sauvegarde des roles avec les personnes associées
 			EugesActivite actiTemp = get_activiteParent();
-			for (int i = 0; i<actiTemp.getRoleCount();i++)
-			{
-				ecriture.write("<_roles name =\""+actiTemp.getRole(i)+"\"/>\n");
-				
-			}
+			ecriture.write("<_roles name =\""+actiTemp.getRole()+"\"/>\n");
+			
 			//sauvegarde des personnes participant à l'acivité
 			for (int i = 0; i<getPersonneCount();i++)
 			{

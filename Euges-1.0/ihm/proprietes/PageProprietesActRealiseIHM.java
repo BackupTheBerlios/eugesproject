@@ -99,11 +99,11 @@ public class PageProprietesActRealiseIHM extends PageAssistantIHM {
 		vide.setText("");
 		
 		// Rôle associé
-		if(actRea.get_activiteParent().getRoleCount()!=0){
+		if(actRea.get_activiteParent().getRole()!=null){
 			CLabel lblRole = new CLabel(this,SWT.WRAP);
 			lblRole.setText(message.getString("PageProprietesActRealiseIHM.role.lblRole"));
 			Text role = new Text(this,SWT.WRAP);
-			role.setText(actRea.get_activiteParent().getRole(0).getName());
+			role.setText(actRea.get_activiteParent().getRole().getName());
 			role.setEditable(false);
 		}
 		// Vide pour la présentation
