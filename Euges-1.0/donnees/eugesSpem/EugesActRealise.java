@@ -230,7 +230,6 @@ public class EugesActRealise {
 				getProduitOut(i).sauvegarderProduitOut(ecriture);
 			}
 		} catch (IOException e) {
-			System.out.println (e);
 			e.printStackTrace();
 		}
 		

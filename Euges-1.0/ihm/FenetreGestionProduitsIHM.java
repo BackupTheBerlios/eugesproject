@@ -409,7 +409,6 @@ public class FenetreGestionProduitsIHM {
 			for (int i = 0; i < e.getProduitInCount(); i++) {
 				TreeItem temp3 = new TreeItem(temp2,SWT.NONE);
 				EugesProduit p = e.getProduitIn(i);
-				System.out.println(p);
 				temp3.setText(e.getProduitIn(i).toString());
 				temp3.setImage(GestionImage._produit);
 				temp3.setData(e.getProduitIn(i));

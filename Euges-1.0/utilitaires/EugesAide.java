@@ -165,7 +165,6 @@ public class EugesAide {
 					item.setToolTipText(message.getString("eugesAide.MasquerToolTipText"));
 					item.setImage(GestionImage._masquerAide);
 					item.setText(message.getString("eugesAide.BoutonMasquer"));
-					System.out.println("Afficher");
 					sashForm.setWeights(new int [] {20,80});	
 				}
 				else if (string.equals(message.getString("eugesAide.BoutonMasquer"))) {

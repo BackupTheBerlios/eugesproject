@@ -136,7 +136,6 @@ public class EugesPersonne {
 			}
 			ecriture.write("</_roles>\n");
 		} catch (IOException e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		

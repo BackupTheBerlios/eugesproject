@@ -186,7 +186,6 @@ public class EugesVersion {
 				((EugesPersonne)_acteurs.get(i)).sauvegardeActeur(ecriture);
 			}
 		} catch (IOException e) {
-			System.out.println (e);
 			e.printStackTrace();
 		}
 		

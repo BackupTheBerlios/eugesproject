@@ -128,9 +128,8 @@ public class MailIHM extends Dialog{
 					erreur=true;
 					
 				}
-				if(erreur=false)
-					System.out.println("");
-					shellMail.dispose();
+				
+				shellMail.dispose();
 			}
 		});
 		//bouton annuler

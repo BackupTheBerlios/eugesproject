@@ -568,7 +568,6 @@ public class EugesElements {
 			ecriture.close();
 			EugesElements.processusEnregistre = true;
 		} catch (IOException e) {
-			System.out.println (e);
 			e.printStackTrace();
 		}
 	}

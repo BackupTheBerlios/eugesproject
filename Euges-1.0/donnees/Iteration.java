@@ -279,7 +279,6 @@ public class Iteration {
 				((EugesActRealise)_activitesRealisees.get(i)).sauvegarder(ecriture);
 			}
 		} catch (IOException e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		

@@ -64,15 +64,6 @@ public class MySAXApp extends DefaultHandler{
 		locator =  value;
 	}
 
-	/**
-	 * Evenement envoye au demarrage du parse du flux xml.
-	 * @throws SAXException en cas de probleme quelquonque ne permettant pas de
-	 * se lancer dans l'analyse du document.
-	 * @see org.xml.sax.ContentHandler#startDocument()
-	 */
-	public void startDocument() throws SAXException {
-		//System.out.println("Debut de l'analyse du document");
-	}
 
 	/**
 	 * Evenement envoye a la fin de l'analyse du flux xml.

@@ -57,7 +57,6 @@ public class EugesRole extends ProcessRole {
 		try {
 			ecriture.write("<EugesRole  _id=\""+this.getID()+"\" _name=\""+this.getName()+"\" _parent=\""+this.getParent()+"\"/>\n");
 		} catch (IOException e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		

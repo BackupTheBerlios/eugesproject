@@ -213,7 +213,6 @@ public class PreferencesIHM implements SelectionListener {
 			}
 			//Traitement si clic sur le bouton aide
 			else if (button == aide) {		
-				System.out.println("Aide");
 			}
 			//Traitement si clic sur le bouton restaurer défauts
 			else if (button == restaurerDefauts) {

@@ -205,7 +205,6 @@ public class EugesActivite extends Activity{
 			_role.sauvegarder(ecriture);
 			ecriture.write("</EugesActivite>\n");
 		} catch (IOException e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		

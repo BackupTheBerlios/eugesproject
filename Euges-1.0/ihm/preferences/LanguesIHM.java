@@ -159,14 +159,6 @@ public class LanguesIHM extends Composite implements SelectionListener {
 		// Traitement si clic sur un bouton
 		if (arg0.getSource() instanceof Button) {
 			Button button = (Button)arg0.getSource();
-			//Traitement si clic sur le bouton créer
-		/*	if (button == creer) {
-				CreerTraductionIHM creerTraduction = new CreerTraductionIHM(_shell);				
-			}
-			//Traitement si clic sur le bouton supprimer
-			else if (button == supprimer) {
-				System.out.println("Supprimer traduction");				
-			}*/
 		}
 		
 	}

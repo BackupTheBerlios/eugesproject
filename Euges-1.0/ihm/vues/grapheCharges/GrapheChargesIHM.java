@@ -136,7 +136,6 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				ActiviteGraphique actGraph = getAct(e.x,e.y);
 				if (actGraph != null) {
 					EugesActRealise act = actGraph.getActiviteRealise();
-					System.out.println(act.get_activiteParent().getName());
 				}
 			}
 		

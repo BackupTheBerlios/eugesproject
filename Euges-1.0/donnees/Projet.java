@@ -299,7 +299,6 @@ public class Projet {
 				ecriture.write("</_association>\n");
 			}
 		} catch (IOException e) {
-			System.out.println (e);
 			e.printStackTrace();
 		}
 		

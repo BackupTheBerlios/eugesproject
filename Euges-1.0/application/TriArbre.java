@@ -119,7 +119,6 @@ public class TriArbre {
 		
 		// Les iterations
 		if (EugesElements._projet == null) {
-			System.out.println("NULL");
 		}
 		else {			
 			SortedSet vectIteration = EugesElements._projet.get_listeIteration();

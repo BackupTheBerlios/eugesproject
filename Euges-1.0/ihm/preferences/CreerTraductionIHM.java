@@ -154,7 +154,6 @@ public class CreerTraductionIHM implements SelectionListener {
 			Button button = (Button)arg0.getSource();
 			//Traitement si clic sur le bouton valider
 			if (button == ok) {
-				System.out.println("Ok");
 			}
 			//Traitement si clic sur le bouton annuler
 			else if (button == annuler) {

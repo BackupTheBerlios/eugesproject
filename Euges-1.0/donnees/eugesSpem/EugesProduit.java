@@ -142,7 +142,6 @@ public class EugesProduit extends WorkProduct{
 		try {
 			ecriture.write("<EugesProduit name=\""+this.getName()+"\"/>\n");
 		} catch (IOException e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		

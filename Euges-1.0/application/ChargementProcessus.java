@@ -140,7 +140,6 @@ public class ChargementProcessus {
 				msg.setText(message.getString("ChargementProcessus.erreur"));
 				msg.setMessage(message.getString("ChargementProcessus.erreurChamps"));
 				msg.open();
-				System.out.println("Erreur");
 		}
 	}
 }

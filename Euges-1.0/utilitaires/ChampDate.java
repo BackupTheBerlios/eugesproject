@@ -174,16 +174,7 @@ public class ChampDate extends Composite implements SelectionListener{
 			_annee.setEnabled(false);
 		}
 	}
-	/**
-	 * 
-	 * @param s
-	 */
-	public void remplirJour (String s)
-	{
-		System.out.println (" valeur de la chaine ds ChampDate "+s);
-		//this._jour.setText(s);
-		System.out.println (" valeur du text "+this._jour.getText());
-	}
+	
 	/**
 	 * 
 	 * @param j

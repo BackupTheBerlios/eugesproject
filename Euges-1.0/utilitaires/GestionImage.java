@@ -188,7 +188,6 @@ public class GestionImage {
 			_attach_file = new Image(display,url.openStream());
 			
 		} catch (IOException e) {
-			System.out.println("Erreur au chargement d'une image");
 			e.printStackTrace();
 		}
 	}

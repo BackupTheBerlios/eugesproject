@@ -309,7 +309,6 @@ public class FenetrePrincipaleIHM {
 			menuItemAPropos.setText(message.getString("menu.aide.aPropos"));
 			menuItemAPropos.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("A propos");
 					ProgressStart progressStart = new ProgressStart(display, false);
 				}
 			});
