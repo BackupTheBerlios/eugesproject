@@ -258,7 +258,6 @@ public class Iteration {
 			EugesPersonne persCour = new EugesPersonne();
 			Vector role = new Vector ();
 			EugesRole roleCour = new EugesRole();
-			//System.out.println ("numéro de l'it : "+get_numIt());
 			for (int i =0;i< pers.size();i++)
 			{
 				persCour = (EugesPersonne)pers.elementAt(i);
@@ -266,11 +265,9 @@ public class Iteration {
 				{
 					persCour.sauvegardePartielle(ecriture);
 					role = getAssociation(persCour);
-					//System.out.println ("personne (nb roles): "+persCour.getNom()+" "+role.size());
 					for (int j = 0;j<role.size();j++)
 					{
 						roleCour = (EugesRole)role.elementAt(j);
-						//System.out.println ("role : "+roleCour.getName());
 						persCour.ajouterRole(roleCour);
 					}
 				}
@@ -347,10 +344,22 @@ public class Iteration {
 				listePersonne = ((EugesActRealise)_activitesRealisees.get(i)).genereTabPersonne(listePersonne);
 			}
 			iteration.write("<table border=0>");
-			
+			EugesPersonne persCour = new EugesPersonne();
 			for (int i = 0; i<listePersonne.size();i++)
 			{
-				iteration.write("<tr><td><a href='mailto:"+((EugesPersonne)listePersonne.get(i)).getMail()+"'>"+((EugesPersonne)listePersonne.get(i)).getPrenom()+" "+((EugesPersonne)listePersonne.get(i)).getNom()+"</a></td></tr>");
+				persCour = (EugesPersonne)listePersonne.elementAt(i);
+				iteration.write("<tr><td><a href='mailto:"+persCour.getMail()+"'>"+persCour.getPrenom()+" "+persCour.getNom()+"</a></td></tr>");
+				Vector role = new Vector ();
+				EugesRole roleCour = new EugesRole();				
+				if (persCour != null)
+				{
+					role = getAssociation(persCour);
+					for (int j = 0;j<role.size();j++)
+					{
+						roleCour = (EugesRole)role.elementAt(j);
+						iteration.write("<tr><td>"+roleCour.getName()+"</td></tr>");
+					}
+				}
 			}
 			iteration.write("</table><br>");
 			
