@@ -236,13 +236,13 @@ public class EugesVersion {
 		try {
 			if (this.getFile() != ""){
 				CopierFichier.copyFile(this.getFile(),dirProduitIt+this.getFileSansPath());
-				buffer.write("<tr bgcolor='white'><td><a href='"+dirProduitIt+this.getFileSansPath()+"'> "+this.get_produitParent().getName()+"</a>(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+				buffer.write("<tr class='it'><td><a href='"+dirProduitIt+this.getFileSansPath()+"'> "+this.get_produitParent().getName()+"</a>(Act: "+activite+")</td><td>"+this.get_nom()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
 			} else {
-				buffer.write("<tr bgcolor='white'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
-			}
+				buffer.write("<tr class='it'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_nom()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			}																											
 			
 			if (this.get_responsable() != null){
-				buffer.write("<tr bgcolor='white'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.get_responsable()+"(Resp)</td><td> </td><td> </td></tr>");
+				buffer.write("<tr class='it'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.get_responsable().getPrenom()+" "+this.get_responsable().getNom()+" (Resp.)</td><td> </td><td> </td></tr>");
 			}
 			for (int i = 0; i<_acteurs.size();i++)
 			{

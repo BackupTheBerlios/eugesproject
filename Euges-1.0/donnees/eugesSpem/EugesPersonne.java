@@ -197,7 +197,7 @@ public class EugesPersonne {
 
 	public void genereTabProduitOutActeur(BufferedWriter buffer) {
 		try {
-			buffer.write("<tr bgcolor='white'><td>"+this.getId()+" "+this.getNom()+" "+this.getPrenom()+"</td><td> </td><td> </td></tr>");
+			buffer.write("<tr class='it'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.getPrenom()+" "+this.getNom()+"</td><td> </td><td> </td></tr>");
 } catch (IOException e) {
 			System.out.println(e);
 			e.printStackTrace();

@@ -238,7 +238,11 @@ public class EugesActRealise {
 	
 	public void genereTabActivite(BufferedWriter buffer) {
 		try {
-			buffer.write("<tr bgcolor='white'><td>"+this.get_activiteParent()+"</td><td>"+this.get_chargeEstimee()+"</td><td>"+this.get_chargeReelle()+"</td></tr>");
+			buffer.write("<tr class='it'><td><b>"+this.get_activiteParent()+"</b></td><td>"+this.get_chargeEstimee()+"</td><td>"+this.get_chargeReelle()+"</td></tr>");
+			for (int i = 0; i<getPersonneCount();i++)
+			{
+				buffer.write("<tr class='it'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.getPersonne(i).getPrenom()+" "+this.getPersonne(i).getNom()+"</td><td> </td><td> </td></tr>");
+			}
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
