@@ -59,7 +59,7 @@ public class GenIHM extends Dialog{
 		
 		
 		shellGen.setText(message.getString("GenIHM.titre"));
-		shellGen.setSize(200,150);
+		shellGen.setSize(190,150);
 		
 		shellGen.setImage(GestionImage._euges);
 		
@@ -74,6 +74,8 @@ public class GenIHM extends Dialog{
 		//Destinataire
 		Label label4 = new Label(shellGen, SWT.NONE);
 		label4.setText(message.getString("GenIHM.path"));
+		Label label5 = new Label(shellGen, SWT.NONE);
+		label5.setText("");
 		text4 = new Text(shellGen, SWT.BORDER);
 		text4.setText(Config.config.getProperty("gen"));
 		text4.setEditable(false);
@@ -90,6 +92,13 @@ public class GenIHM extends Dialog{
 				ouvrir();
 			}
 		});
+		
+		
+		Label label6 = new Label(shellGen, SWT.NONE);
+		label6.setText("Choix du style :");
+		Label label7 = new Label(shellGen, SWT.NONE);
+		label7.setText("");
+		
 		
 		//bouton de style 1
 		
@@ -140,14 +149,32 @@ public class GenIHM extends Dialog{
 		
 		
 		//Mise en place des éléments
+		GridData data2 = new GridData();
+		data2.widthHint = 50;
+		label4.setLayoutData(data2);
+		data2 = new GridData();
+		data2.widthHint = 50;
+		label5.setLayoutData(data2);
 		GridData data = new GridData();
-		data.widthHint = 60;
-		label4.setLayoutData(data);
-		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = 100;
+		text4.setLayoutData(data);
+		data = new GridData();
+		data.widthHint = 25;
+		parc.setLayoutData(data);
+		
+		GridData data3 = new GridData();
+		data3.widthHint = 80;
+		label6.setLayoutData(data3);
+		data3 = new GridData();
+		data3.widthHint = 50;
+		label7.setLayoutData(data3);
+		
+		
+		/*GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
 		text4.setLayoutData(data2);
 		GridData data3 = new GridData();
 		data3.horizontalSpan = 2;
-		parc.setLayoutData(data3);
+		parc.setLayoutData(data3);*/
 		
 				
 		
