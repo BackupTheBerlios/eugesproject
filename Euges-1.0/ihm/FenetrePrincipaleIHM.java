@@ -139,7 +139,7 @@ public class FenetrePrincipaleIHM {
 			menuItemFichier.setMenu(menuFichier);
 		
 			menuItemCreer = new MenuItem(menuFichier,SWT.PUSH);
-			menuItemCreer.setImage(GestionImage._nouveauBar);
+			menuItemCreer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\nouveau.png"));
 			menuItemCreer.setText(message.getString("menu.fichier.nouveau"));
 			menuItemCreer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -150,7 +150,7 @@ public class FenetrePrincipaleIHM {
 			});
 		
 			menuItemOuvrir = new MenuItem(menuFichier,SWT.PUSH);
-			menuItemOuvrir.setImage(GestionImage._ouvrirBar);
+			menuItemOuvrir.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\ouvrir.png"));
 			menuItemOuvrir.setText(message.getString("menu.fichier.ouvrir"));
 			menuItemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -170,7 +170,7 @@ public class FenetrePrincipaleIHM {
 			});
 		
 			menuItemFermer = new MenuItem(menuFichier,SWT.PUSH);
-			menuItemFermer.setImage(GestionImage._fermerBar);
+			menuItemFermer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\fermer.png"));
 			menuItemFermer.setText(message.getString("menu.fichier.fermer"));
 			menuItemFermer.setEnabled(false);
 			menuItemFermer.addListener(SWT.Selection, new Listener(){
@@ -182,7 +182,7 @@ public class FenetrePrincipaleIHM {
 			MenuItem menuItemFichierSep1 = new MenuItem(menuFichier,SWT.SEPARATOR);
 		
 			menuItemEnregistrer = new MenuItem(menuFichier,SWT.PUSH);
-			menuItemEnregistrer.setImage(GestionImage._enregistrerBar);
+			menuItemEnregistrer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\enregistrer.png"));
 			menuItemEnregistrer.setText(message.getString("menu.fichier.enregistrer"));
 			menuItemEnregistrer.setEnabled(false);
 			menuItemEnregistrer.addListener(SWT.Selection, new Listener(){
@@ -192,7 +192,7 @@ public class FenetrePrincipaleIHM {
 			});
 		
 			menuItemEnregistrerSous = new MenuItem(menuFichier,SWT.PUSH);
-			menuItemEnregistrerSous.setImage(GestionImage._enregistrerSousBar);
+			menuItemEnregistrerSous.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\saveas.png"));
 			menuItemEnregistrerSous.setText(message.getString("menu.fichier.enregistrerSous"));
 			menuItemEnregistrerSous.setEnabled(false);
 			menuItemEnregistrerSous.addListener(SWT.Selection, new Listener(){
@@ -226,16 +226,6 @@ public class FenetrePrincipaleIHM {
 			 Menu menuEdition = new Menu(shell, SWT.DROP_DOWN);
 			 menuItemEdition.setMenu(menuEdition);
 			 
-	
-/*			 menuItemRoles = new MenuItem(menuEdition,SWT.PUSH);
-			 menuItemRoles.setText(message.getString("menu.gestion.roles"));
-			 menuItemRoles.addListener(SWT.Selection, new Listener(){
-				 public void handleEvent(Event e){
-					 System.out.println("Modifier rôles");
-					 //FenetreAttributionRoleIHM fenetre = new FenetreAttributionRoleIHM(parent.getShell(),EugesElements._projet.getIteration(numIt));
-					 //fenetre.open();
-				 }
-			 });*/
 		 
 			menuItemActivites = new MenuItem(menuEdition,SWT.PUSH);
 			menuItemActivites.setImage(GestionImage._activite);
@@ -267,13 +257,6 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 		
-/*			menuItemEquipe = new MenuItem(menuEdition,SWT.PUSH);
-			menuItemEquipe.setText(message.getString("menu.gestion.equipe"));
-			menuItemEquipe.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					System.out.println("Modifier équipe");
-				}
-			});*/
 		
 				//	Menu affichage
 			menuItemAffichage = new MenuItem(menu, SWT.CASCADE);
@@ -312,7 +295,7 @@ public class FenetrePrincipaleIHM {
 			menuItemAide.setMenu(menuAide);
 	
 			menuItemOuvrirAide = new MenuItem(menuAide,SWT.PUSH);
-			menuItemOuvrirAide.setImage(GestionImage._aideBar);
+			menuItemOuvrirAide.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\aide.png"));
 			menuItemOuvrirAide.setText(message.getString("menu.aide.aide"));
 			menuItemOuvrirAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -350,7 +333,7 @@ public class FenetrePrincipaleIHM {
 
 			ToolBar toolBar1 = new ToolBar(coolBar, SWT.FLAT);
 			itemNouveau = new ToolItem(toolBar1, SWT.NONE);
-			itemNouveau.setImage(GestionImage._nouveauBar);
+			itemNouveau.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\nouveau.png"));
 			itemNouveau.setToolTipText(message.getString("toolbar.nouveau.tooltiptext"));
 			itemNouveau.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -361,7 +344,7 @@ public class FenetrePrincipaleIHM {
 			});
 			
 			itemOuvrir = new ToolItem(toolBar1, SWT.NONE);
-			itemOuvrir.setImage(GestionImage._ouvrirBar);
+			itemOuvrir.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\ouvrir.png"));
 			itemOuvrir.setToolTipText(message.getString("toolbar.ouvrir.tooltiptext"));
 			itemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -382,7 +365,7 @@ public class FenetrePrincipaleIHM {
 		
 			itemFermer = new ToolItem(toolBar1, SWT.NONE);
 			itemFermer.setEnabled(false);
-			itemFermer.setImage(GestionImage._fermerBar);
+			itemFermer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\fermer.png"));
 			itemFermer.setToolTipText(message.getString("toolbar.fermer.tooltiptext"));
 			itemFermer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -400,7 +383,7 @@ public class FenetrePrincipaleIHM {
 			ToolBar toolBar2 = new ToolBar(coolBar, SWT.FLAT);
 
 			itemEnregistrer = new ToolItem(toolBar2, SWT.NONE);
-			itemEnregistrer.setImage(GestionImage._enregistrerBar);
+			itemEnregistrer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\enregistrer.png"));
 			itemEnregistrer.setToolTipText(message.getString("toolbar.enregistrer.tooltiptext"));
 			itemEnregistrer.setEnabled(false);
 			itemEnregistrer.addListener(SWT.Selection, new Listener(){
@@ -418,7 +401,7 @@ public class FenetrePrincipaleIHM {
 		
 			ToolBar toolBar3 = new ToolBar(coolBar, SWT.FLAT);
 			itemMail = new ToolItem(toolBar3, SWT.NONE);
-			itemMail.setImage(GestionImage._mailBar);
+			itemMail.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\mail.png"));
 			itemMail.setToolTipText(message.getString("toolbar.mail.tooltiptext"));
 			itemMail.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -435,7 +418,7 @@ public class FenetrePrincipaleIHM {
 
 			ToolBar toolBar4 = new ToolBar(coolBar, SWT.FLAT);
 			itemAide = new ToolItem(toolBar4, SWT.NONE);
-			itemAide.setImage(GestionImage._aideBar);
+			itemAide.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\aide.png"));
 			itemAide.setToolTipText(message.getString("toolbar.aide.tooltiptext"));
 			itemAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -452,7 +435,7 @@ public class FenetrePrincipaleIHM {
 			ToolBar toolBar5 = new ToolBar(coolBar, SWT.FLAT);
 			//outil tableau iterations
 			itemToolIt = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolIt.setImage(GestionImage._toolTabIt);
+			itemToolIt.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tabIt.png"));
 			itemToolIt.setToolTipText(message.getString("toolbar.itemToolIt.tooltiptext"));
 			itemToolIt.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -463,7 +446,7 @@ public class FenetrePrincipaleIHM {
 			});
 			//outil graphe activites
 			itemToolGraph = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolGraph.setImage(GestionImage._toolGraphIt);
+			itemToolGraph.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\graphIt.png"));
 			itemToolGraph.setToolTipText(message.getString("toolbar.itemToolGraph.tooltiptext"));
 			itemToolGraph.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -474,7 +457,7 @@ public class FenetrePrincipaleIHM {
 			});
 			//outil graphe effort
 			itemToolLine = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolLine.setImage(GestionImage._toolGraphLine);
+			itemToolLine.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\graphLine.png"));
 			itemToolLine.setToolTipText(message.getString("toolbar.itemToolLine.tooltiptext"));
 			itemToolLine.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){

@@ -12,6 +12,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -50,7 +51,7 @@ public class PageDemarrageIHM extends Dialog{
 		//bouton nouveau projet
 		Button nouveauProjet=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		nouveauProjet.setCursor(curseurMain);
-		nouveauProjet.setImage(GestionImage._nouveauBar);
+		nouveauProjet.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\nouveau.png"));
 		nouveauProjet.addSelectionListener(new SelectionAdapter() {
 										public void widgetSelected(SelectionEvent e) {
 											shellDemarrage.dispose();
@@ -67,7 +68,7 @@ public class PageDemarrageIHM extends Dialog{
 		//bouton projet existant
 		Button projetExistant=new Button(shellDemarrage, SWT.PUSH | SWT.FLAT);
 		projetExistant.setCursor(curseurMain);
-		projetExistant.setImage(GestionImage._ouvrirBar);
+		projetExistant.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\ouvrir.png"));
 		projetExistant.addSelectionListener(new SelectionAdapter() {
 												public void widgetSelected(SelectionEvent e) {
 													FileDialog fileDialog = new FileDialog(shell);

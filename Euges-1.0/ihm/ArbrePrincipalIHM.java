@@ -11,12 +11,14 @@ import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ViewForm;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -58,7 +60,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 	public ArbrePrincipalIHM(final Composite parent) {
 		
 		super(parent, SWT.BORDER | SWT.V_SCROLL);
-		
+		Display display = parent.getDisplay();
 		_tri = new TriArbre();
 		final Composite treeComposite = new Composite(this, SWT.NONE);
 		GridLayout layout = new GridLayout(1, false);
@@ -75,7 +77,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		// Icone actualiser
 		ToolItem itemActualiser = new ToolItem(treeToolBar1, SWT.NONE);
-		itemActualiser.setImage(GestionImage._triRefresh);
+		itemActualiser.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tri_refresh.ico"));
 		itemActualiser.setToolTipText(message.getString("treetoolbar.actualiser.tooltiptext"));
 		itemActualiser.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
@@ -86,7 +88,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		// Icone tri defaut
 		ToolItem itemTriDefaut = new ToolItem(treeToolBar2, SWT.PUSH);
-		itemTriDefaut.setImage(GestionImage._triDefaut);
+		itemTriDefaut.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tri_defaut.ico"));
 		itemTriDefaut.setToolTipText(message.getString("treetoolbar.triDefaut.tooltiptext"));
 		itemTriDefaut.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
@@ -97,7 +99,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		// Icone tri iteration
 		ToolItem itemTriIteration = new ToolItem(treeToolBar2, SWT.PUSH);
-		itemTriIteration.setImage(GestionImage._triIteration);
+		itemTriIteration.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tri_iteration.ico"));
 		itemTriIteration.setToolTipText(message.getString("treetoolbar.triIteration.tooltiptext"));
 		itemTriIteration.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
@@ -108,7 +110,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		// Icone tri activite
 		ToolItem itemTriActivite = new ToolItem(treeToolBar2, SWT.PUSH);
-		itemTriActivite.setImage(GestionImage._triActivite);
+		itemTriActivite.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tri_activite.ico"));
 		itemTriActivite.setToolTipText(message.getString("treetoolbar.triActivite.tooltiptext"));
 		itemTriActivite.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
@@ -119,7 +121,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		// Icone tri rôle
 		ToolItem itemTriRole = new ToolItem(treeToolBar2, SWT.PUSH);
-		itemTriRole.setImage(GestionImage._triRole);
+		itemTriRole.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\tri_role.ico"));
 		itemTriRole.setToolTipText(message.getString("treetoolbar.triRole.tooltiptext"));
 		itemTriRole.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){

@@ -14,6 +14,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -25,6 +26,7 @@ import org.eclipse.swt.widgets.Text;
 
 import utilitaires.EugesNavigateur;
 import utilitaires.GestionImage;
+import configuration.Config;
 
 /**
  * @author will
@@ -87,7 +89,7 @@ public class ProgressStart{
 				}
 			});
 			final Button fermer = new Button(shell, SWT.NONE);
-			fermer.setImage(GestionImage._fermerBar);
+			fermer.setImage(new Image(display, Config.config.getProperty("cheminIcone")+ "\\fermer.png"));
 			fermer.setSize(17,17);
 			fermer.setLocation(shell.getSize().x-30, 10);
 			fermer.addSelectionListener(new SelectionAdapter() {

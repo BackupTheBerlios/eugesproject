@@ -24,12 +24,13 @@ public class GestionImage {
 	public static Image _it_disabled;
 	public static Image _produit;
 	public static Image _role;
-	public static Image _aideBar;
-	public static Image _enregistrerBar;
-	public static Image _fermerBar;
-	public static Image _mailBar;
-	public static Image _nouveauBar;
-	public static Image _ouvrirBar;
+//	public static Image _aideBar;
+//	public static Image _enregistrerBar;
+//	public static Image _enregistrerSousBar;
+//	public static Image _fermerBar;
+//	public static Image _mailBar;
+//	public static Image _nouveauBar;
+//	public static Image _ouvrirBar;
 	public static Image _afficherAide;
 	public static Image _masquerAide;
 	public static Image _precedentAide;
@@ -40,11 +41,11 @@ public class GestionImage {
 	public static Image _plus;
 	public static Image _moins;
 	public static Image _start;
-	public static Image _triRefresh;
-	public static Image _triActivite;
-	public static Image _triDefaut;
-	public static Image _triIteration;
-	public static Image _triRole;
+//	public static Image _triRefresh;
+//	public static Image _triActivite;
+//	public static Image _triDefaut;
+//	public static Image _triIteration;
+//	public static Image _triRole;
 	public static Image _iconeCalendrier;
 	public static Image _navBack;
 	public static Image _navForward;
@@ -53,9 +54,9 @@ public class GestionImage {
 	public static Image _navGo;
 	public static Image _attach_file;
 	
-	public static Image _toolTabIt;
+	/*public static Image _toolTabIt;
 	public static Image _toolGraphIt;
-	public static Image _toolGraphLine;
+	public static Image _toolGraphLine;*/
 	private URL url;
 	
 	private String _basePath = "/configuration/images/";
@@ -86,23 +87,26 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "iconesAide/afficher.ico");
 			_afficherAide = new Image(display,url.openStream());
 			
-//			url = getClass().getResource(_basePath + "icones/enregistrer.ico");
-//			_enregistrerBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/fermer.ico");
-//			_fermerBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/nouveau.ico");
-//			_nouveauBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/ouvrir.ico");
-//			_ouvrirBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/mail.ico");
-//			_mailBar = new Image(display,url.openStream());
-//			
-//			url = getClass().getResource(_basePath + "icones/aide.ico");
-//			_aideBar = new Image(display,url.openStream());
+/*			url = getClass().getResource(_basePath + "icones/enregistrer.png");
+			_enregistrerBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/saveas.png");
+			_enregistrerSousBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/fermer.png");
+			_fermerBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/nouveau.png");
+			_nouveauBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/ouvrir.png");
+			_ouvrirBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/mail.png");
+			_mailBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/aide.png");
+			_aideBar = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/tri_refresh.ico");
 			_triRefresh = new Image(display,url.openStream());
@@ -117,7 +121,7 @@ public class GestionImage {
 			_triIteration = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/tri_role.ico");
-			_triRole = new Image(display,url.openStream());
+			_triRole = new Image(display,url.openStream());*/
 			
 			url = getClass().getResource(_basePath + "iconesAide/masquer.ico");
 			_masquerAide = new Image(display,url.openStream());
@@ -171,7 +175,7 @@ public class GestionImage {
 			url = getClass().getResource(_basePath + "navigatorGif/stop.gif");
 			_navStop = new Image(display,url.openStream());
 	
-			url = getClass().getResource(_basePath + "icones/tabIt.png");
+			/*url = getClass().getResource(_basePath + "icones/tabIt.png");
 			_toolTabIt = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/graphIt.png");
@@ -179,7 +183,7 @@ public class GestionImage {
 			
 			url = getClass().getResource(_basePath + "icones/graphLine.png");
 			_toolGraphLine = new Image(display,url.openStream());
-			
+			*/
 			url = getClass().getResource(_basePath + "attach_file.gif");
 			_attach_file = new Image(display,url.openStream());
 			
