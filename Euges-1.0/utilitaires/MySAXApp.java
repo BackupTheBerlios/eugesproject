@@ -193,6 +193,7 @@ public class MySAXApp extends DefaultHandler{
 			nbProInAct = 0;
 			nbProOutAct = 0;
 			ajoutRoleAct = 1;
+			EugesElements.getActivite(activite).ajouterActRealise(eugesActRealise);
 	  	}
 	  	
 	  	// Ajout d'une personne a la dernière activité enregistrée de l'itération
