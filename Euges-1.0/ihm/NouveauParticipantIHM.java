@@ -52,7 +52,7 @@ public class NouveauParticipantIHM extends Dialog {
 		_display = shell.getDisplay();
 		_shell = new Shell(shell,SWT.CLOSE|SWT.APPLICATION_MODAL);
 		_shell.setText(message.getString("NouveauParticipantIHM.titreShell"));
-		_shell.setImage(GestionImage._actor);
+		_shell.setImage(GestionImage._euges);
 	}
 	
 	public void open (final EugesActRealise act, int numIt) {
