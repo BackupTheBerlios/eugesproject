@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.CoolBar;
@@ -84,6 +85,7 @@ public class FenetrePrincipaleIHM {
 		public static ToolItem itemFermer;
 		public static ToolItem itemEnregistrer;
 		public static ToolItem itemMail;
+		public static ToolItem itemGen;
 		public static ToolItem itemAide;
 		//icones vues
 		public static ToolItem itemToolIt;
@@ -346,6 +348,8 @@ public class FenetrePrincipaleIHM {
 			CoolItem item4 = new CoolItem(coolBar, SWT.NONE);
 			//barre d'outil des differentes vues pour la fenetre principale
 			CoolItem item5 = new CoolItem(coolBar, SWT.NONE);
+			CoolItem item6 = new CoolItem(coolBar, SWT.NONE);
+			
 			
 
 			ToolBar toolBar1 = new ToolBar(coolBar, SWT.FLAT);
@@ -485,6 +489,24 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 			
+			
+			ToolBar toolBar6 = new ToolBar(coolBar, SWT.FLAT);
+			Image imageGen = new Image(display, Config.config.getProperty("cheminIcone")+"web.png");
+			itemGen = new ToolItem(toolBar6, SWT.NONE);
+			itemGen.setImage(imageGen);
+			itemGen.setToolTipText(message.getString("toolbar.web.tooltiptext"));
+			itemGen.addListener(SWT.Selection, new Listener(){
+				public void handleEvent(Event e){
+					GenIHM genIHM = new GenIHM(shell);
+				}
+			});	
+			toolBar6.pack();
+
+			Point size6 = toolBar6.getSize();
+			item6.setControl(toolBar6);
+			item6.setSize(toolBar6.computeSize(size6.x, size6.y));
+			item6.setMinimumSize(size6);
+			
 			//selection du premier element
 			itemToolIt.setSelection(true);
 			toolBar5.pack();
@@ -570,6 +592,16 @@ public class FenetrePrincipaleIHM {
 			FileDialog fileDialog = new FileDialog(shell);
 			fileDialog.setText(message.getString("titreFenetreOuvrir"));
 			String [] tab = {"*.egs"};
+			fileDialog.setFilterExtensions(tab);
+			String file = fileDialog.open();
+			
+			return file;
+		}
+		
+		private String rep(){
+			FileDialog fileDialog = new FileDialog(shell);
+			fileDialog.setText(message.getString("titreFenetreOuvrir"));
+			String [] tab = {"*.txt"};
 			fileDialog.setFilterExtensions(tab);
 			String file = fileDialog.open();
 			

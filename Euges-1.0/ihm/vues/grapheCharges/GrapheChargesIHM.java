@@ -10,8 +10,11 @@ import ihm.vues.PageVuesIHM;
 
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -47,6 +50,8 @@ public class GrapheChargesIHM extends PageVuesIHM {
 	private final Canvas canvas;
 	
 	private final Composite parent;
+	
+	private final Vector rectActivites = new Vector();
 	
 	public GrapheChargesIHM(final Composite parent){
 		super(parent,SWT.NONE|SWT.H_SCROLL|SWT.V_SCROLL);
@@ -125,19 +130,32 @@ public class GrapheChargesIHM extends PageVuesIHM {
 			}
 		});
 		
+		canvas.addMouseMoveListener(new MouseMoveListener() {
+			public void mouseMove(MouseEvent e) {
+				ActiviteGraphique actGraph = getAct(e.x,e.y);
+				if (actGraph != null) {
+					EugesActRealise act = actGraph.getActiviteRealise();
+					System.out.println(act.get_activiteParent().getName());
+				}
+			}
+		
+		});
+				
 		canvas.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
+				reglerTaille();
 				GC gc = e.gc;
 				Point p = canvas.getSize();
-				//Color blue = e.widget.getDisplay().getSystemColor(SWT.COLOR_BLUE);
 				//axe vertical
 				gc.drawLine(20,30,20,p.y-10);
 				//fleche
 				gc.drawLine(15,35,20,30);
 				gc.drawLine(20,30,25,35);
 				//graduations
-				for (int i=0; i<p.y-60; i+=20) 
+				for (int i=0; i<p.y-60; i+=20) {
 					gc.drawLine(15,p.y-20-i,25,p.y-20-i);
+					gc.drawString(Integer.toString(i/10),5,p.y-20-i-5);
+				}
 				
 				
 				//axe horizontal
@@ -161,6 +179,7 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				if (EugesElements._projet != null) {
 					//si la vue superposee n'est pas choisie	
 					if (!vueSuperposee) {
+						rectActivites.clear();
 						//graduations axe horizontal
 						for (int i=0; i<p.x-40; i+=100) 
 							gc.drawLine(20+i,p.y-15,20+i,p.y-25);
@@ -177,6 +196,10 @@ public class GrapheChargesIHM extends PageVuesIHM {
 								int [] cote1 = {((nbact)*100)+20,p.y-20,((nbact)*100)+20,p.y-20-(chargeEstimee*10),((nbact)*100)+35,p.y-35-(chargeEstimee*10),((nbact)*100)+35,p.y-35};
 								int [] dessus2 = {((nbact)*100)+20,p.y-20-(chargeReelle*10),((nbact)*100)+35,p.y-35-(chargeReelle*10),((nbact)*100)+85,p.y-35-(chargeReelle*10),((nbact)*100)+70,p.y-20-(chargeReelle*10)};
 								int [] cote2 = {((nbact)*100)+70,p.y-20,((nbact)*100)+70,p.y-20-(chargeReelle*10),((nbact)*100)+85,p.y-35-(chargeReelle*10),((nbact)*100)+85,p.y-35};
+								ActiviteGraphique estimee = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*100)-30,p.y-20-(chargeEstimee*10),50,chargeEstimee*10),dessus1,cote1);
+								ActiviteGraphique reelle = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*100)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10),dessus2,cote2);
+								rectActivites.add(estimee);
+								rectActivites.add(reelle);
 								//rectangle charge estimée
 								gc.setBackground(blue);
 								gc.fillRectangle(((nbact)*100)-30,p.y-20-(chargeEstimee*10),50,chargeEstimee*10);
@@ -186,6 +209,9 @@ public class GrapheChargesIHM extends PageVuesIHM {
 								gc.drawRectangle(((nbact)*100)-30,p.y-20-(chargeEstimee*10),50,chargeEstimee*10);
 								gc.drawPolygon(dessus1);
 								gc.drawPolygon(cote1);
+								gc.drawString(Integer.toString(chargeEstimee),((nbact)*100)-25,p.y-15-(chargeEstimee*10));
+								
+								
 								//rectangle charge réelle
 								gc.setBackground(red);
 								gc.fillRectangle(((nbact)*100)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10);
@@ -195,11 +221,13 @@ public class GrapheChargesIHM extends PageVuesIHM {
 								gc.drawRectangle(((nbact)*100)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10);
 								gc.drawPolygon(dessus2);
 								gc.drawPolygon(cote2);
+								gc.drawString(Integer.toString(chargeReelle),((nbact)*100)+25,p.y-15-(chargeReelle*10));
 							}
 							nbact++;
 						}
 					}
 					else {
+						rectActivites.clear();
 						//graduations axe horizontal
 						for (int i=0; i<p.x-40; i+=50) 
 							gc.drawLine(20+i,p.y-15,20+i,p.y-25);
@@ -218,6 +246,10 @@ public class GrapheChargesIHM extends PageVuesIHM {
 								if (chargeReelle > chargeEstimee) {
 									int [] dessus2 = {((nbact)*50)+20,p.y-20-(chargeReelle*10),((nbact)*50)+35,p.y-35-(chargeReelle*10),((nbact)*50)+85,p.y-35-(chargeReelle*10),((nbact)*50)+70,p.y-20-(chargeReelle*10)};
 									int [] cote2 = {((nbact)*50)+70,p.y-20,((nbact)*50)+70,p.y-20-(chargeReelle*10),((nbact)*50)+85,p.y-35-(chargeReelle*10),((nbact)*50)+85,p.y-35};
+									ActiviteGraphique estimee = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*50)+20,p.y-20-(chargeEstimee*10),50,chargeEstimee*10),dessus1,cote1);
+									ActiviteGraphique reelle = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*50)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10),dessus2,cote2);
+									rectActivites.add(estimee);
+									rectActivites.add(reelle);
 									//rectangle charge réelle
 									gc.setBackground(red);
 									gc.fillRectangle(((nbact)*50)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10);
@@ -239,6 +271,10 @@ public class GrapheChargesIHM extends PageVuesIHM {
 								}
 								else {
 									int [] dessus2 = {((nbact)*50)+20,p.y-20-(chargeReelle*10),((nbact)*50)+35,p.y-35-(chargeReelle*10),((nbact)*50)+85,p.y-35-(chargeReelle*10),((nbact)*50)+70,p.y-20-(chargeReelle*10)};
+									ActiviteGraphique estimee = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*50)+20,p.y-20-(chargeEstimee*10),50,chargeEstimee*10),dessus1,cote1);
+									ActiviteGraphique reelle = new ActiviteGraphique(actTemp,new Rectangle(((nbact)*50)+20,p.y-20-(chargeReelle*10),50,chargeReelle*10),dessus2,cote1);
+									rectActivites.add(estimee);
+									rectActivites.add(reelle);
 									//rectangle charge estimée
 									gc.setBackground(blue);
 									gc.fillRectangle(((nbact)*50)+20,p.y-20-(chargeEstimee*10),50,chargeEstimee*10);
@@ -297,5 +333,14 @@ public class GrapheChargesIHM extends PageVuesIHM {
 		else
 			canvas.setSize(nombreActivites*120+nombreIt*100, chargeMax*20);
 		
+	}
+	
+	public ActiviteGraphique getAct(int x, int y) {
+		for(Iterator it = rectActivites.iterator(); it.hasNext();) {
+			ActiviteGraphique act = (ActiviteGraphique)it.next();
+			if (act.inRect(x,y))
+				return act;
+		}
+		return null;
 	}
 }
