@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -92,6 +91,7 @@ public class ItIHM extends Composite {
 	private ToolItem _produitsPAR;
 	private Table _produitsInTABLE;
 	private TableTree _produitsOutTABLE;
+	
 	
 	/**
 	 * @param parent
@@ -286,8 +286,7 @@ public class ItIHM extends Composite {
 		_activitesMNG.setText(message.getString("ItIHM.mngAct"));
 		_activitesMNG.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
-				Shell shel = new Shell(parent.getShell());
-				PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shel);
+				PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(parent.getShell());
 				PlanItIHM.majContenuWidgets();
 //				// on règle la taille de la liste déroulante
 //				int maxSize = c.getSize().x - _activitesBAR2.getSize().x - _activitesADD.getWidth()*2;

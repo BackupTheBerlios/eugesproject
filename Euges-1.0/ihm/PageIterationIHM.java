@@ -107,7 +107,7 @@ public class PageIterationIHM extends PageAssistantIHM{
 						loadData();
 						//effacement des champs
 						dateFin.clear();
-						//activation du bouton reinitaialiser
+						//activation du bouton reinitialiser
 						boutonReinitialiser.setEnabled(true);
 					}else{
 						MessageBox msg = new MessageBox(shellCourant, SWT.ICON_ERROR);

@@ -78,7 +78,26 @@ public class VuesIHM extends ViewForm{
 	 * @param i indice du composite a retourner
 	 * @return composite voulu
 	 */
-	public Composite elementAt(int i){
+	public  PageVuesIHM elementAt(int i){
 		return (PageVuesIHM)_vues.elementAt(i);
+	}
+	/**
+	 * permet de recharger une page 
+	 * @param i numero de la page a recharger
+	 */
+	public  void rechargerPage(int i){
+		switch (i) {
+			case 0 :elementAt(i).dispose();
+					_vues.setElementAt(new PlanItIHM(c, 0), 0);
+				break;
+			case 1 :elementAt(i).dispose();
+					_vues.setElementAt(new GrapheHautIHM(c), 1);
+				break;
+			case 2 :elementAt(i).dispose();
+					_vues.setElementAt(new GrapheChargesIHM(c), 2);
+				break;
+			default :
+				break;
+		}
 	}
 }

@@ -155,20 +155,15 @@ public class CalendrierIHM extends Dialog{
 		layoutPiedDePage.verticalSpacing=10;
 		piedDePage.pack();
 		piedDePage.setLayout(layoutPiedDePage);
-				
 		
-		
-		//création du bouton pour valider la saisie de la date
-		Button valider = new Button (_shell, SWT.PUSH);
-		valider.setText(_message.getString("CalendrierIHM.valider"));
-		valider.addSelectionListener(new SelectionAdapter()
-				{
-			public void widgetSelected  (SelectionEvent e)
-			{
-				valider ();
+		//création du bouton pour fermer le calendrier
+		Button fermer = new Button (_shell, SWT.PUSH);
+		fermer.setText(_message.getString("CalendrierIHM.fermer"));
+		fermer.addSelectionListener(new SelectionAdapter(){
+			public void widgetSelected  (SelectionEvent e){
+				_shell.dispose();
 			}
-		}
-		);
+		});
 		
 		//affichage de la fenêtre
 		_shell.pack();
@@ -180,9 +175,6 @@ public class CalendrierIHM extends Dialog{
 		_shell.setLocation (x, y);
 		
 		_shell.open(); 
-
-
-		
 	}
 	
 	
@@ -278,6 +270,7 @@ public class CalendrierIHM extends Dialog{
 						{
 							Button source = (Button)e.getSource();
 							choisirJour (source);
+							valider();
 						}
 					}
 				);

@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -166,6 +167,20 @@ public class FenetrePrincipaleIHM {
 			menuItemFermer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					System.out.println("Fermer le projet");
+					if (EugesElements.processusEnregistre==true){
+						FermerProjet();
+					}else{
+						MessageBox msg = new MessageBox(shell, SWT.ICON_QUESTION|SWT.YES|SWT.NO|SWT.CANCEL);
+						msg.setText(message.getString("fenetrePrincipaleIHM.fermerProjetTitre"));
+						msg.setMessage(message.getString("fenetrePrincipaleIHM.fermerProjet"));
+						int reponse = msg.open();
+						if (reponse==SWT.YES){
+							EugesElements.sauvegarde();
+							FermerProjet();
+						}else if(reponse==SWT.NO){
+							FermerProjet();
+						}
+					}
 				}
 			});
 		
@@ -215,6 +230,8 @@ public class FenetrePrincipaleIHM {
 			 menuItemRoles.addListener(SWT.Selection, new Listener(){
 				 public void handleEvent(Event e){
 					 System.out.println("Modifier rôles");
+					 //FenetreAttributionRoleIHM fenetre = new FenetreAttributionRoleIHM(parent.getShell(),EugesElements._projet.getIteration(numIt));
+					 //fenetre.open();
 				 }
 			 });
 		 
@@ -222,7 +239,8 @@ public class FenetrePrincipaleIHM {
 			menuItemActivites.setText(message.getString("menu.gestion.activites"));
 			menuItemActivites.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier activités");
+					PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shell);
+					_vues.elementAt(0).loadData();
 				}
 			});
 				 
@@ -230,7 +248,9 @@ public class FenetrePrincipaleIHM {
 			menuItemProduits.setText(message.getString("menu.gestion.produits"));
 			menuItemProduits.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier produits");
+					FenetreGestionProduitsIHM fenetre = new FenetreGestionProduitsIHM(shell);
+					fenetre.open();
+					_vues.elementAt(0).loadData();
 				}
 			});		
 		
@@ -238,17 +258,18 @@ public class FenetrePrincipaleIHM {
 			menuItemIterations.setText(message.getString("menu.gestion.iterations"));
 			menuItemIterations.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier ITs");
+					PageGestionIterationIHM gestionIt = new PageGestionIterationIHM(shell);
+					//_vues.rechargerPage(0);
 				}
 			});
 		
-			menuItemEquipe = new MenuItem(menuEdition,SWT.PUSH);
+/*			menuItemEquipe = new MenuItem(menuEdition,SWT.PUSH);
 			menuItemEquipe.setText(message.getString("menu.gestion.equipe"));
 			menuItemEquipe.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					System.out.println("Modifier équipe");
 				}
-			});
+			});*/
 		
 				//	Menu affichage
 			menuItemAffichage = new MenuItem(menu, SWT.CASCADE);
@@ -564,6 +585,24 @@ public class FenetrePrincipaleIHM {
 			
 			return file;
 		}
-	
+		
+		/**
+		 * Fonction de fermeture d'un projet
+		 * Supprime tous les elements du modele de données
+		 */
+		public static void FermerProjet(){
+			//le pointeur vers le projet est mis a null
+			//le garbage collector se charge de supprimer tous les elements
+			//qui ne st plus referencés
+			EugesElements._projet=null;
+			
+			//suppression de tous les elements dans les listes globales
+			EugesElements.listeActivites.removeAllElements();
+			EugesElements.listeRoles.removeAllElements();
+			EugesElements.listeProduits.removeAllElements();
+			EugesElements.listePersonnes.removeAllElements();
+			_vues.dispose();
+			ArbrePrincipalIHM._tri.actualiser();
+		}
 	
 }
