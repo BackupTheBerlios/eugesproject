@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -39,6 +40,7 @@ public class CalendrierIHM extends Dialog{
 	private String _jour;
 	private ChampDate _date;
 	private Vector _vecteurButtonJour;
+	private Button boutonCourant;
 	private ResourceBundle _message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
 
@@ -152,7 +154,7 @@ public class CalendrierIHM extends Dialog{
 		layoutPiedDePage.marginWidth=10;
 		layoutPiedDePage.verticalSpacing=10;
 		piedDePage.pack();
-		piedDePage.setLayout (layoutPiedDePage);
+		piedDePage.setLayout(layoutPiedDePage);
 				
 		
 		
@@ -236,6 +238,12 @@ public class CalendrierIHM extends Dialog{
 	{
 		//on sauvegarde le jour choisi dans l'attribut jour
 		this.setJour (source.getText()) ;
+		
+		if (boutonCourant != null) {
+			boutonCourant.setFont(new Font(_shell.getDisplay(),"Arial",9,SWT.NORMAL));
+		}
+		source.setFont(new Font(_shell.getDisplay(),"Arial",9,SWT.BOLD));
+		boutonCourant = source;
 	}
 	
 	/**
@@ -256,7 +264,9 @@ public class CalendrierIHM extends Dialog{
 		for(int i=1; i<=42; i++)
 		{	
 			//création du bouton
-			Button numeroJour = new Button(tabJour, SWT.PUSH|SWT.FLAT);
+			final Button numeroJour = new Button(tabJour, SWT.PUSH|SWT.FLAT);
+			numeroJour.setFont(new Font(_shell.getDisplay(),"Arial",9,SWT.NORMAL));
+			numeroJour.setLayoutData(new GridData(GridData.FILL_BOTH));
 			//ajout du bouton dans le vecteur contenant tous les boutons
 			_vecteurButtonJour.add(numeroJour);
 			//Integer I = new Integer(i);

@@ -6,6 +6,7 @@
  */
 package utilitaires;
 
+
 /**
  * @author will
  * 
@@ -83,27 +84,59 @@ public class MyDate {
 			}
 		}
 
-	}	/**
+	}
+	/**
 	 * donne le jour de la semaine pour une date donnée
 	 * @return boolean
 	 */
 	public int donneJour(){
-		int m, a, j, s, JD, JS;
+//		int m, a, j, s, JD, JS;
+//		
+//		j = _jour;
+//		m = _mois;
+//		a = _annee;
+//		if(m<3) m += 12;
+//		else a -= 1;
+//		s = a / 100;
+//		JD = (int) (1720996.5 - s + s / 4 + (365.25*a) + (30.6001*(m+1)) + j);
+//		JD = JD - (JD/7)*7;
+//		JS = JD %7;
+//		JS += 2;
+//		if(JS == 8) JS= 1;
+
+		int[] nbJoursMois = {0,31,59,90,120,151,181,212,243,273,304,334};
+		int[] nbJoursMoisBissex = {0,31,60,91,121,152,182,213,244,274,305,335};
 		
-		j = _jour;
-		m = _mois;
-		a = _annee;
-		if(m<3) m += 12;
-		else a -= 1;
-		s = a / 100;
-		JD = (int) (1720996.5 - s + s / 4 + (365.25*a) + (30.6001*(m+1)) + j);
-		JD = JD - (JD/7)*7;
-		JS = JD %7;
-		JS += 2;
-		if(JS == 8) JS= 1;
+		int a = _annee - 2000;
+		int b = a / 4;
+		int c = a / 100;
 		
-		return JS;
+		int d = mod((a + b - c), 7);
+		int e;
+
+		if ((((_annee % 4) == 0)&&((_annee % 100) != 0)) ||
+			(((_annee % 400) == 0)&&((_annee % 100) == 0))){
+			e = mod((nbJoursMoisBissex[_mois - 1] + _jour - 1), 7);
+		}
+		else {
+			e = mod((nbJoursMois[_mois - 1] + _jour), 7);
+		}
+		
+		
+		int res = mod(d + e - 2, 7);
+		
+		return res;
 	}
+	
+	public static int mod(int val, int m) {
+		int retour = val % m;
+		
+		if (retour < 0)
+			retour = m + retour;
+		
+		return retour;
+	}
+	
 	/**
 	 * compare 2 dates
 	 * 
