@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
+
 import configuration.Config;
 
 /**

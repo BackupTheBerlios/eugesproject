@@ -21,15 +21,14 @@
 
 package donnees.spem.basic;
 
-import java.io.File;
-
 import donnees.spem.SpemVisitor;
 import donnees.spem.core.PresentationElement;
+import java.io.File;
 
 /**
  * Describe presentation elements that are external to the model
  *
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class ExternalDescription extends PresentationElement
 {

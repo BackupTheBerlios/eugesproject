@@ -14,7 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -23,16 +23,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 
-import utilitaires.GestionImage;
 import application.EugesElements;
 import configuration.Config;
+import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesPersonne;
-import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesVersion;
 
 /**
@@ -47,23 +43,23 @@ public class PageAttributionProduitIHM {
 		
 		//	gestion multi-langue
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
-	private Tree arbreProduits;
-	private List listePers;
+	private List listePersVersion; // liste des personnes associées à cette version du produit
+	private List listePersProjet; // liste des personnes associées à l'activité
 	private final Shell shell;
 	
-	public PageAttributionProduitIHM(final Display display) {
+	public PageAttributionProduitIHM(final Display display, final EugesVersion version) {
 			
 		Display myDisplay = display;
 		shell = new Shell(display, SWT.CLOSE|SWT.APPLICATION_MODAL|SWT.RESIZE);
 		shell.setText(message.getString("PageAttributionProduitsIHM.titreHautDePage"));
-		shell.setImage(GestionImage._euges);
+		Image eugesIcone = new Image(display, "configuration/images/euges.ico");
+		shell.setImage(eugesIcone);
 		
 			// Layout pour placer les objets
 		 GridLayout gridLayout = new GridLayout();
 		 gridLayout.numColumns = 3;
 		 shell.setLayout(gridLayout);
 		 
-		 	// Eléments de la page
 		 	
 		 
 		 	// Création de la page
@@ -72,7 +68,11 @@ public class PageAttributionProduitIHM {
 		Font font = new Font(shell.getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(shell, SWT.NONE);
 		titre.setFont(font);
-		titre.setText(message.getString("PageAttributionProduitsIHM.titrePage"));
+		if (version!=null && version.get_produitParent()!=null){
+			titre.setText(message.getString("PageAttributionProduitsIHM.titrePage") + version.toString());
+		} else {
+			titre.setText(message.getString("PageAttributionProduitsIHM.titrePage"));
+		}
 		 
 			// titre de l'arbre des produits
 		Label titreArbreProduit = new Label(shell,SWT.WRAP);
@@ -86,9 +86,9 @@ public class PageAttributionProduitIHM {
 		Label titreListePersonne = new Label(shell,SWT.WRAP);
 		titreListePersonne.setText(message.getString("titreListePersonne"));
 
-		 	// arbre des produits
-		arbreProduits = new Tree(shell,SWT.SINGLE|SWT.BORDER|SWT.V_SCROLL|SWT.H_SCROLL);
-		chargementElementArbre(shell);
+		 	// liste des personnes associées à cette version du produit
+		listePersVersion = new List(shell,SWT.SINGLE|SWT.BORDER|SWT.V_SCROLL|SWT.H_SCROLL);
+		chargementElementList(shell, version);
 		
 		   // on crée un composite pour mettre les boutons
 		Composite compositeBoutons = new Composite(shell, SWT.NONE);
@@ -96,19 +96,6 @@ public class PageAttributionProduitIHM {
 		GridLayout gridLayoutComposite = new GridLayout();
 		compositeBoutons.setLayout(gridLayoutComposite);
 		
-			// bouton pour ajouter un nouveau produit
-		Button boutonNouveauProduit = new Button(compositeBoutons,SWT.PUSH);
-		boutonNouveauProduit.setText("< +");
-		boutonNouveauProduit.setToolTipText(message.getString("PageAttributionProduitIHM.boutonNouveauProduit.infobulle"));
-		
-		// contrôle de l'évènement du bouton ajouter un nouveau produit
-		boutonNouveauProduit.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected (SelectionEvent e) {
-					PageNouveauProduitIHM pageNouveauProduit = new PageNouveauProduitIHM(shell);
-					chargementElementArbre(shell);
-				}
-			
-		});
 		
 		   // bouton d'association d'un responsable à un produit
 		Button boutonResponsableProduit = new Button(compositeBoutons,SWT.PUSH);
@@ -118,62 +105,55 @@ public class PageAttributionProduitIHM {
 		   // contrôle de l'évènement du bouton ajouter un responsable au produit
 		boutonResponsableProduit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected (SelectionEvent e) {
-				   // si les sélections dans l'arbre sont correctes 
-				if (testSelectionsPourAssociationCorrects()){
-					// une version de produit est sélectionné
-					// si pas exactement une personne sélectionnée
-					if (listePers.getSelectionCount() != 1){
-						boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.texte"), message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.titre"));
+			  
+				// si pas exactement une personne sélectionnée
+				if (listePersProjet.getSelectionCount() != 1){
+					boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.texte"), message.getString("PageAttributionProduitIHM.TropOuPasAssezDePersonneSelectionne.titre"));
+				}
+				else {
+					// une personne sélectionnée
+					
+					String nomPersonne = listePersProjet.getSelection()[0];
+					   // on récupère l'objet de la personne correspondante pour avoir ses info
+					EugesPersonne eugesPersonne = EugesElements.getPersonneDansListePersonnes(nomPersonne);
+					
+					   // on met la variable changerResponsable à faux de manière à tester => si =vrai, l'élément n'a pas de responsable ou il doit être changé 
+					int changerResponsable = SWT.NO;
+					
+					   // si la version a déjà un responsable, on demande s'il faut changer
+					if (version.get_responsable() != null){
+						   // si le responsable à mettre est le même que celui qui y est déjà
+						if (version.get_responsable().toString().equals(eugesPersonne.toString())){
+							boiteMessage(shell, SWT.ICON_WARNING, message.getString("PageAttributionProduitIHM.memeResponsable.texte"), message.getString("PageAttributionProduitIHM.memeResponsable.titre"));
+						}
+						else {   // le responsable est différent de l'actuel
+							changerResponsable = boiteMessage(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION, message.getString("PageAttributionProduitIHM.ResponsableDejaExistant.texte"), message.getString("PageAttributionProduitIHM.ResponsableDejaExistant.titre"));
+						}
 					}
 					else {
-						// une personne sélectionnée
-						   // on récupère la version de produit sélectionné
-						EugesVersion produitVersion = ((EugesVersion)(arbreProduits.getSelection()[0].getData()));
-						
-						   // on récupère la produit sélectionné
-						String nomPersonne = listePers.getSelection()[0];
-						   // on récupère l'objet de la personne correspondante pour avoir ses info
-						EugesPersonne eugesPersonne = EugesElements.getPersonneDansListePersonnes(nomPersonne);
-						
-						   // on met la variable changerResponsable à faux de manière à tester => si =vrai, l'élément n'a pas de responsable ou il doit être changé 
-						int changerResponsable = SWT.NO;
-						
-						   // si la version a déjà un responsable, on demande s'il faut changer
-						if (produitVersion.get_responsable() != null){
-							   // si le responsable à mettre est le même que celui qui y est déjà
-							if (produitVersion.get_responsable().toString().equals(eugesPersonne.toString())){
-								boiteMessage(shell, SWT.ICON_WARNING, message.getString("PageAttributionProduitIHM.memeResponsable.texte"), message.getString("PageAttributionProduitIHM.memeResponsable.titre"));
-							}
-							else {   // le responsable est différent de l'actuel
-								changerResponsable = boiteMessage(shell, SWT.YES | SWT.NO | SWT.ICON_QUESTION, message.getString("PageAttributionProduitIHM.ResponsableDejaExistant.texte"), message.getString("PageAttributionProduitIHM.ResponsableDejaExistant.titre"));
-							}
-						}
-						else {
-							   // il n'y a pas encore de responsable
-							   // on doit changer le responsable, mais on teste si il est acteur quand même
-							changerResponsable = SWT.YES;
-						}
-						
-						   // si on doit changer le responsable, il faut encore tester si il est pas acteur
-						if (changerResponsable == SWT.YES){
-							   // si on a au moins un acteur, il faut tester si la personne n'est pas acteur
-							if (produitVersion.getModifieurCount() != 0){
-								   // on cherche dans la liste des acteurs si elle y est
-								if (produitVersion.get_acteurs().contains(eugesPersonne)) {
-									produitVersion.get_acteurs().remove(eugesPersonne);
-								}
-								
-							}
-						
-							// on met la personne comme responsable du produit
-							produitVersion.set_responsable(eugesPersonne);
-							
-							// on rafraichit l'affichage de l'arbre
-							chargementElementArbre(shell);
-						}
+						   // il n'y a pas encore de responsable
+						   // on doit changer le responsable, mais on teste si il est acteur quand même
+						changerResponsable = SWT.YES;
 					}
-				}	
-			}
+					
+					   // si on doit changer le responsable, il faut encore tester si il est pas acteur
+					if (changerResponsable == SWT.YES){
+						   // si on a au moins un acteur, il faut tester si la personne n'est pas acteur
+						if (version.getModifieurCount() != 0){
+							   // on cherche dans la liste des acteurs si elle y est
+							if (version.get_acteurs().contains(eugesPersonne)) {
+								version.get_acteurs().remove(eugesPersonne);
+							}
+						}
+					
+						// on met la personne comme responsable du produit
+						version.set_responsable(eugesPersonne);
+						
+						// on rafraichit l'affichage de l'arbre
+						chargementElementList(shell, version);
+					}
+				}
+			}	
 		});
 
 		// bouton d'association d'un acteur à un produit
@@ -184,46 +164,37 @@ public class PageAttributionProduitIHM {
 		// contrôle de l'évènement du bouton ajouter un acteur au produit
 		boutonActeurProduit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected (SelectionEvent e) {
-				// si les sélections dans l'arbre sont correctes 
-				if (testSelectionsPourAssociationCorrects()){
-					// une version de produit est sélectionné
-					// si pas au moins une personne sélectionnée
-					if (listePers.getSelectionCount() == 0){
-						boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.PasDePersonneSelectionne.texte"), message.getString("PageAttributionProduitIHM.PasDePersonneSelectionne.titre"));
-					}
-					else {
-						// au moins une personne sélectionnée
-						// on récupère la version de produit sélectionné
-						EugesVersion version = ((EugesVersion)(arbreProduits.getSelection()[0].getData()));
-						
-						// tableau des personnes sélectionnées
-						String [] tabpersonneSelectionnee = listePers.getSelection();
-						  // on parcours le tableau
-						for (int i=0; i<tabpersonneSelectionnee.length; i++){
-							   // test si la personne n'est pas déjà acteur du produit
-							if (!testPersonneDejaActeur(version, tabpersonneSelectionnee[i])){
-								   // la personne n'est pas deja acteur, on peut l'inserer
-								   // on recupere l'objet EugesPersonne correspondant à la personne sélectionnée
-								EugesPersonne personne = null;
-								personne = EugesElements.getPersonneDansListePersonnes(tabpersonneSelectionnee[i]);
-								
-								   // on l'insére dans la liste des acteurs de la version
-								version.ajouterModifieur(personne);
-							}
-							   // on rafraichit l'affichage de l'arbre
-							chargementElementArbre(shell);
+			
+				// si pas au moins une personne sélectionnée
+				if (listePersProjet.getSelectionCount() == 0){
+					boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.PasDePersonneSelectionne.texte"), message.getString("PageAttributionProduitIHM.PasDePersonneSelectionne.titre"));
+				}
+				else {
+					// au moins une personne sélectionnée
+					// tableau des personnes sélectionnées
+					String [] tabpersonneSelectionnee = listePersProjet.getSelection();
+					  // on parcours le tableau
+					for (int i=0; i<tabpersonneSelectionnee.length; i++){
+						   // test si la personne n'est pas déjà acteur du produit
+						if (!testPersonneDejaActeur(version, tabpersonneSelectionnee[i])){
+							   // la personne n'est pas deja acteur, on peut l'inserer
+							   // on recupere l'objet EugesPersonne correspondant à la personne sélectionnée
+							EugesPersonne personne = null;
+							personne = EugesElements.getPersonneDansListePersonnes(tabpersonneSelectionnee[i]);
+							
+							   // on l'insére dans la liste des acteurs de la version
+							version.ajouterModifieur(personne);
 						}
-						  
-						
+						   // on rafraichit l'affichage de l'arbre
+						chargementElementList(shell, version);
 					}
+					  
+					
 				}
 			}
 		});
 
 		GridData dataComposite = new GridData(SWT.CENTER);
-		boutonNouveauProduit.setLayoutData(dataComposite);
-		
-		dataComposite = new GridData(SWT.CENTER);
 		boutonResponsableProduit.setLayoutData(dataComposite);
 		
 		dataComposite = new GridData(SWT.CENTER);
@@ -232,10 +203,12 @@ public class PageAttributionProduitIHM {
 		compositeBoutons.pack();
 		
 		   // liste des personnes associées au projet
-		listePers = new List(shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER); 
+		listePersProjet = new List(shell,SWT.MULTI|SWT.H_SCROLL|SWT.BORDER); 
 		String[] listeEugesPersonnes = EugesElements.getTableauListePersonne();
-		if (listeEugesPersonnes != null){
-			listePers.setItems(listeEugesPersonnes);
+		   // on charge dans la liste des personnes, celles qui travaillent sur l'activité
+		chargerListePersonne(version);
+		;if (listeEugesPersonnes != null){
+			listePersProjet.setItems(listeEugesPersonnes);
 		}
 		 
 		shell.pack();
@@ -254,24 +227,16 @@ public class PageAttributionProduitIHM {
 		titreListePersonne.setLayoutData(data); 
 		 
 		data = new GridData(GridData.FILL_BOTH);
-		arbreProduits.setLayoutData(data); 
+		listePersVersion.setLayoutData(data); 
 		
 		data = new GridData(SWT.CENTER);
 		compositeBoutons.setLayoutData(data);
 		
 		data = new GridData(GridData.FILL_BOTH);
-		listePers.setLayoutData(data);
+		listePersProjet.setLayoutData(data);
 		
 		
 		shell.pack();
-		
-		// ouvrir la fenêtre au centre de l'écran
-	   Monitor primary = display.getPrimaryMonitor ();
-	   Rectangle bounds = primary.getBounds ();
-	   Rectangle rect = shell.getBounds ();
-	   int x = bounds.x + (bounds.width - rect.width) / 2;
-	   int y = bounds.y + (bounds.height - rect.height) / 2;
-	   shell.setLocation (x, y);
 		
 		   //ouverture de la page de demarrage
 		shell.open();
@@ -292,80 +257,28 @@ public class PageAttributionProduitIHM {
 		return reponse;
 	}
 	
-	public void chargementElementArbre(Shell shell){
+	public void chargementElementList(Shell shell, EugesVersion version){
 		   // on vide l'arbre
-		arbreProduits.removeAll();
+		listePersVersion.removeAll();
+			
+		if (version.get_responsable() != null){
+			   // on écrit le responsable
+			listePersVersion.add(version.get_responsable().toString() + " (responsable)");
+		}				
 		
-		  // on parcours tous les produits
-		for (Iterator iter = EugesElements.listeProduits.iterator(); iter.hasNext();) {
-			EugesProduit eugesProduit = (EugesProduit) iter.next();
+		   // on parcourt la liste des acteurs
+		if (version.get_acteurs() != null){
 			
-			   // on écrit le produit
-			TreeItem itemProduit = new TreeItem(arbreProduits, SWT.NONE);
-			itemProduit.setExpanded(true);
-			   // on met une image à la branche de l'arbre
-			itemProduit.setImage(GestionImage._produit);
-			   // on met le texte
-			itemProduit.setText(eugesProduit.toString());
-			
-			   // on parcours les versions du produit
-			for (Iterator iterator = eugesProduit.get_versions().iterator();	iterator.hasNext();) {
-				EugesVersion eugesVersion = (EugesVersion) iterator.next();
-				
-				   // on écrit la version
-				TreeItem itemVersion = new TreeItem(itemProduit, SWT.NONE);
-				itemVersion.setExpanded(true);
-				itemVersion.setText(eugesVersion.toString());
-				   // on met la donnée
-				itemVersion.setData(eugesVersion);
-			
-				if (eugesVersion.get_responsable() != null){
-					   // on écrit le responsable
-					TreeItem itemResponsable = new TreeItem(itemVersion, SWT.NONE);
-					itemResponsable.setExpanded(true);
-					   // on met une image à la branche de l'arbre
-					itemResponsable.setImage(GestionImage._actor);
-					itemResponsable.setText(eugesVersion.get_responsable().toString() + " (responsable)");
-				}				
-				
-				   // on parcourt la liste des acteurs
-				if (eugesVersion.get_acteurs() != null){
-					for (Iterator iterPersonne = eugesVersion.get_acteurs().iterator(); iterPersonne.hasNext();	) {
-						EugesPersonne eugesPersonne = (EugesPersonne) iterPersonne.next();
-						if (eugesPersonne != null){	
-							   // on écrit les acteurs
-							TreeItem itemPersonne = new TreeItem(itemVersion, SWT.NONE);
-							itemPersonne.setExpanded(true);
-		 					   // on met une image à la branche de l'arbre
-							itemPersonne.setImage(GestionImage._actor);
-							itemPersonne.setText(eugesPersonne.toString());
-						}
-					}
-			}
+			for (Iterator iterPersonne = version.get_acteurs().iterator(); iterPersonne.hasNext();	) {
+				EugesPersonne eugesPersonne = (EugesPersonne) iterPersonne.next();
+				if (eugesPersonne != null){	
+					   // on écrit les acteurs
+					listePersVersion.add(eugesPersonne.toString());
+				}
 			}
 		}
 	}
 	
-	   // fonction pour tester si les elements selectionnés correspondent à ce qui est attendu
-	private boolean testSelectionsPourAssociationCorrects() {
-		boolean selectionCorrect = true;
-		// si pas d'élément sélectionné dans,l'arbre
-		if (arbreProduits.getSelectionCount() != 1){
-			boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.PasDElementSelectionne.texte"), message.getString("PageAttributionProduitIHM.PasDElementSelectionne.titre"));
-			selectionCorrect = false;
-		}
-		    // ce n'est pas une version de produit qui est sélectionné
-			// test si parent null ou parent non null et parent des parent null car version est au 2ème niveau de l'arbre 
-		else if ((arbreProduits.getSelection()[0].getParentItem() == null) ||
-					(arbreProduits.getSelection()[0].getParentItem() != null 
-							&& arbreProduits.getSelection()[0].getParentItem().getParentItem() != null)){ 
-				boiteMessage(shell, SWT.ICON_ERROR, message.getString("PageAttributionProduitIHM.SelectionElementPasVersion.texte"), message.getString("PageAttributionProduitIHM.SelectionElementPasVersion.titre"));
-				selectionCorrect = false;
-		}
-		
-		
-		return selectionCorrect;
-	}
 	
 	/**
 	 * test si la personne n'est pas déjà acteur ou responsable de cette version
@@ -402,5 +315,31 @@ public class PageAttributionProduitIHM {
 		return dejaActeur;
 	}
 	
+	private void chargerListePersonne(EugesVersion version){
+		Vector listePersonnesPossibles = new Vector();
+		   // on parcours la liste des activités réalisées pour savoir les personnes possibles sur cette version de produit
+			if (EugesElements.listeActivites != null){
+				for (Iterator itActRealise = EugesElements.listeActivites.iterator(); itActRealise.hasNext();) {
+					EugesActRealise actRealise = (EugesActRealise) itActRealise.next();
+					   // si la liste des versions de cette activité contient la version en cours
+					if (actRealise.get_produitsOut() != null) {
+						if (actRealise.get_produitsOut().contains(version)){
+							   // rajouter les personnes de l'activité réalisée dans la liste si elles n'y sont pas déjà
+							if (actRealise.get_personnes() != null) {
+								for (Iterator itPersonnes = actRealise.get_personnes().iterator();itPersonnes.hasNext(); ) {
+									   // on récupère les personnes
+									EugesPersonne personne = (EugesPersonne) itPersonnes.next();
+									   // si la personne n'est pas déjà citée, on l'insère
+									if (!listePersonnesPossibles.contains(personne)){
+										listePersonnesPossibles.add(personne);
+									}		
+								}
+							}
+						}
+					}
+			}
+			
+		}
+	}
 	
 }

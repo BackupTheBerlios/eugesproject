@@ -11,7 +11,6 @@ import ihm.graphe.GrapheIHM;
 import ihm.preferences.PreferencesIHM;
 
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -33,6 +32,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import utilitaires.EugesAide;
 import utilitaires.GestionImage;
+
 import configuration.Config;
 
 
@@ -78,22 +78,13 @@ public class FenetrePrincipaleIHM {
 		public static ToolItem itemEnregistrer;
 		public static ToolItem itemMail;
 		public static ToolItem itemAide;
-		
-		public static ToolItem itemToolIt;
-		public static ToolItem itemToolGraph;
-		public static ToolItem itemToolLine;
-		
 
 		// l'arbre à gauche
 		public static ArbrePrincipalIHM tree;
 		
 		/** Le plan d'IT */
 		public static PlanItIHM _planIt;
-		/** graphe d'activites*/
 		public static GrapheIHM _graphe;
-		
-		//vecteur contenant la liste des vues
-		Vector _vues = new Vector();
 		
 		public FenetrePrincipaleIHM(){
 			final Display display = new Display();
@@ -292,9 +283,7 @@ public class FenetrePrincipaleIHM {
 			CoolItem item2 = new CoolItem(coolBar, SWT.NONE);
 			CoolItem item3 = new CoolItem(coolBar, SWT.NONE);
 			CoolItem item4 = new CoolItem(coolBar, SWT.NONE);
-			//barre d'outil des differentes vues pour la fenetre principale
-			CoolItem item5 = new CoolItem(coolBar, SWT.NONE);
-			
+		
 
 			ToolBar toolBar1 = new ToolBar(coolBar, SWT.FLAT);
 			Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.ico");
@@ -389,46 +378,7 @@ public class FenetrePrincipaleIHM {
 			item4.setControl(toolBar4);
 			item4.setSize(toolBar4.computeSize(size4.x, size4.y));
 			item4.setMinimumSize(size4);
-			
-			//barre d'outil vues
-			ToolBar toolBar5 = new ToolBar(coolBar, SWT.FLAT);
-			//outil tableau iterations
-			itemToolIt = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolIt.setImage(GestionImage._toolTabIt);
-			itemToolIt.setToolTipText(message.getString("toolbar.itemToolIt.tooltiptext"));
-			itemToolIt.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					System.out.println("1 "+itemToolIt.getSelection());
-				}
-			});
-			//outil graphe activites
-			itemToolGraph = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolGraph.setImage(GestionImage._toolGraphIt);
-			itemToolGraph.setToolTipText(message.getString("toolbar.itemToolGraph.tooltiptext"));
-			itemToolGraph.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					System.out.println("2 "+itemToolGraph.getSelection());
-				}
-			});
-			//outil graphe effort
-			itemToolLine = new ToolItem(toolBar5, SWT.RADIO);
-			itemToolLine.setImage(GestionImage._toolGraphLine);
-			itemToolLine.setToolTipText(message.getString("toolbar.itemToolLine.tooltiptext"));
-			itemToolLine.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					System.out.println("3 "+itemToolLine.getSelection());
-				}
-			});
-			
-			//selection du premier element
-			itemToolIt.setSelection(true);
-			toolBar5.pack();
-			Point size5 = toolBar5.getSize();
-			item5.setControl(toolBar5);
-			item5.setSize(toolBar5.computeSize(size5.x, size5.y));
-			item5.setMinimumSize(size5);
-			
-			
+		
 			progressStart.progression(50, "Initialisation arbre...");
 			
 			// SahsForm
@@ -436,13 +386,8 @@ public class FenetrePrincipaleIHM {
 			
 			// Arbre
 			tree = new ArbrePrincipalIHM(sashForm);
-			//creation des vues
-			//vue 0 -> plan iteration
-			//vue 1 -> graphe activites
 			_planIt = new PlanItIHM(sashForm,0);
 			//_graphe = new GrapheIHM(sashForm);
-			//_vues.add(new PlanItIHM(sashForm,0));
-			//_vues.add(new GrapheIHM(sashForm));
 			
 			sashForm.setWeights(new int [] {25,75});		
 			

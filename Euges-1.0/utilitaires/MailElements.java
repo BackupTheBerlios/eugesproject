@@ -5,10 +5,8 @@
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package utilitaires;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.*;
+import java.net.*;
 
 
 /**

@@ -22,30 +22,30 @@
 
 package donnees.spem;
 
-import donnees.spem.basic.ExternalDescription;
-import donnees.spem.basic.Guidance;
-import donnees.spem.basic.GuidanceKind;
 import donnees.spem.core.Element;
 import donnees.spem.core.ModelElement;
 import donnees.spem.core.PresentationElement;
-import donnees.spem.diagram.ActivityDiagram;
-import donnees.spem.diagram.ClassDiagram;
-import donnees.spem.diagram.SpemDiagram;
 import donnees.spem.modelmanagement.SPackage;
 import donnees.spem.process.components.ProcessComponent;
 import donnees.spem.process.components.SProcess;
-import donnees.spem.process.structure.Activity;
-import donnees.spem.process.structure.ProcessPerformer;
-import donnees.spem.process.structure.ProcessRole;
 import donnees.spem.process.structure.WorkDefinition;
+import donnees.spem.process.structure.ProcessPerformer;
 import donnees.spem.process.structure.WorkProduct;
+import donnees.spem.process.structure.ProcessRole;
+import donnees.spem.process.structure.Activity;
+import donnees.spem.basic.ExternalDescription;
+import donnees.spem.basic.Guidance;
+import donnees.spem.basic.GuidanceKind;
+import donnees.spem.diagram.SpemDiagram;
+import donnees.spem.diagram.ClassDiagram;
+import donnees.spem.diagram.ActivityDiagram;
 
 
 /**
  * Default visitor implementation that does nothing.
  * Its only work is to follow the inheritance tree.
  *
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class DefaultSpemVisitor implements SpemVisitor
 {

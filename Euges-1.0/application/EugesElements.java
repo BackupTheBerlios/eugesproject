@@ -163,14 +163,14 @@ public class EugesElements {
 		EugesProduit produit = new EugesProduit(name);
 		
 		// vecteur avec la version du produit
-		Vector vers = new Vector();
+//		Vector vers = new Vector();
 		
 		
 		// on ajoute dans le vecteur la version du produit
-		vers.add(new EugesVersion(version, "en cours", 20, null, produit ));
+//		vers.add(new EugesVersion(version, "en cours", 20, null, produit ));
 
 		// on ajoute cette version dans le produit
-		produit.set_versions(vers);
+//		produit.set_versions(vers);
 		
 		   // on ajoute le produit dans la liste globale des produits
 		EugesElements.listeProduits.add(produit);

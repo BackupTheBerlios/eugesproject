@@ -23,7 +23,6 @@
 package donnees.spem.diagram;
 
 import java.util.Vector;
-
 import donnees.spem.SpemVisitor;
 import donnees.spem.core.ModelElement;
 import donnees.spem.process.structure.Activity;
@@ -35,7 +34,7 @@ import donnees.spem.process.structure.WorkProduct;
 /**
  * Base class for the class diagram
  *
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class ClassDiagram extends SpemDiagram
 {

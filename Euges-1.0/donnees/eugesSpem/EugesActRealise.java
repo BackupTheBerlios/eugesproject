@@ -174,4 +174,32 @@ public class EugesActRealise {
 		this.it = it;
 	}
 
+	/**
+	 * @return Returns the _personnes.
+	 */
+	public Vector get_personnes() {
+		return _personnes;
+	}
+
+	/**
+	 * @param _personnes The _personnes to set.
+	 */
+	public void set_personnes(Vector _personnes) {
+		this._personnes = _personnes;
+	}
+
+	/**
+	 * @return Returns the _produitsOut.
+	 */
+	public Vector get_produitsOut() {
+		return _produitsOut;
+	}
+
+	/**
+	 * @param out The _produitsOut to set.
+	 */
+	public void set_produitsOut(Vector out) {
+		_produitsOut = out;
+	}
+
 }

@@ -83,10 +83,11 @@ public class PlanItIHM extends ViewForm {
 		_tabFolder.setSelection(0);
 	}
 
-	public static void majActivites() {
+	public static void majContenuWidgets() {
 		for (int i = 0; i < _tabItems.length; i++) {
 			ItIHM it = (ItIHM) _tabItems[i].getControl();
-			it.majActivitesCOMBO();
+			it.majAct();
+			it.majProd();
 		}
 	}
 }

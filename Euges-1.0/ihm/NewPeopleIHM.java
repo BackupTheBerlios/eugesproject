@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;
+
 import application.EugesElements;
 import application.NewPeople;
 import configuration.Config;

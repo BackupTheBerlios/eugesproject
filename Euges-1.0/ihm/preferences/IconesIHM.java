@@ -54,7 +54,10 @@ public class IconesIHM extends Composite implements SelectionListener {
 		tabIcones = cheminIcones.list(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				File file = new File(dir + "\\" + name);
-				return file.isFile();
+				boolean accept = false;
+				String extension = name.substring(name.lastIndexOf('.')+1);
+				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
+				return (file.isFile() && accept);
 			}
 		});
 		

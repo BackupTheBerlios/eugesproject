@@ -24,10 +24,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import application.preferences.IconesAPP;
+
 import utilitaires.CopierFichier;
 import utilitaires.GestionImage;
-import application.preferences.IconesAPP;
-import configuration.Config;
+import configuration.*;
 
 /**
  * Classe permettznt de créer la fenêtre préférences
@@ -231,7 +232,10 @@ public class PreferencesIHM implements SelectionListener {
 					File[] tabCheminIcone = cheminIcone.listFiles(new FilenameFilter() {
 						public boolean accept(File dir, String name) {
 							File file = new File(dir + "\\" + name);
-							return file.isFile();
+							boolean accept = false;
+							String extension = name.substring(name.lastIndexOf('.')+1);
+							accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
+							return (file.isFile() && accept);
 						}
 					});
 					// on copie tous les anciens icônes dans le répertoire xxxOld

@@ -14,6 +14,8 @@ import donnees.spem.process.structure.WorkProduct;
  */
 public class EugesProduit extends WorkProduct{
 	
+	private double _versionSuivante = 1.0;
+	
 	private Vector _versions = new Vector();
 	
 	public EugesProduit(){
@@ -71,6 +73,25 @@ public class EugesProduit extends WorkProduct{
 	 */
 	public void set_versions(Vector _versions) {
 		this._versions = _versions;
+	}
+
+	public String getVersion() {
+		String s = (new Float(_versionSuivante)).toString();
+		_versionSuivante += 0.1;
+		return s;
+	}
+	/**
+	 * @return Returns the _versionSuivante.
+	 */
+	public double get_versionSuivante() {
+		return _versionSuivante;
+	}
+
+	/**
+	 * @param suivante The _versionSuivante to set.
+	 */
+	public void set_versionSuivante(double suivante) {
+		_versionSuivante = suivante;
 	}
 
 }

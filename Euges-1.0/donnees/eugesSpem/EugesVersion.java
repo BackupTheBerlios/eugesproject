@@ -12,16 +12,20 @@ import java.util.Vector;
  */
 public class EugesVersion {
 	private String _nom;
-	private String _etat;
-	private int _realisation;
+	private String _etat = "";
+	private int _realisation = 0;
 	private EugesPersonne _responsable;
 	private EugesProduit _produitParent;
 	private Vector _acteurs = new Vector();
 
 	public EugesVersion () {
-		
+	
 	}
 
+	public EugesVersion (EugesProduit p) {
+		set_produitParent(p);
+		set_nom(p.getVersion());
+	}
 	public EugesVersion (String nom) {
 		set_nom(nom);
 	}
@@ -34,10 +38,13 @@ public class EugesVersion {
 		
 		set_produitParent(produitParent);
 	}
-	
-	
+		
 	public String toString() {
 		return _produitParent.getName() + get_nom();
+	}
+	
+	private void setVersion(double v) {
+		_produitParent.set_versionSuivante(v);
 	}
 	
 	public boolean ajouterModifieur(EugesPersonne a) {
@@ -64,6 +71,11 @@ public class EugesVersion {
 		else {
 			return _acteurs.contains(a);
 		}
+	}
+
+	public EugesPersonne getModifieur(int i) {
+		
+		return (EugesPersonne)_acteurs.get(i);
 	}
 
 	public int getModifieurCount() {
@@ -96,6 +108,7 @@ public class EugesVersion {
 	 * @param _nom The _nom to set.
 	 */
 	public void set_nom(String _nom) {
+		//setVersion((new Float(_nom)).doubleValue());
 		this._nom = _nom;
 	}
 

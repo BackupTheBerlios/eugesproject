@@ -9,8 +9,8 @@ package application.preferences;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import utilitaires.CopierFichier;
 import configuration.Config;
+import utilitaires.*;
 
 /**
  * @author Nicolas
@@ -42,7 +42,10 @@ public class IconesAPP {
 		File[] tabCheminIcone = cheminIcone.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				File file = new File(dir + "\\" + name);
-				return file.isFile();
+				boolean accept = false;
+				String extension = name.substring(name.lastIndexOf('.')+1);
+				accept = extension.equals("jpg") || extension.equals("ico") || extension.equals("rpm") || extension.equals("png");
+				return (file.isFile() && accept);
 			}
 		});
 		   // on copie tous les anciens icônes dans le répertoire xxxOld

@@ -22,12 +22,11 @@
 
 package donnees.spem.process.structure;
 
+import donnees.spem.SpemVisitor;
 import java.util.Vector;
 
-import donnees.spem.SpemVisitor;
-
 /**
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class Activity extends WorkDefinition
 {

@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import utilitaires.GestionImage;
+
 import configuration.Config;
 /**
  * @author Will

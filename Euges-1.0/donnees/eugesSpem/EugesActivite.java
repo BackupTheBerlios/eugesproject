@@ -1,10 +1,9 @@
- /*
+/*
  * Created on 1 janv. 2004
  *
  */
 package donnees.eugesSpem;
 
-import java.util.Iterator;
 import java.util.Vector;
 
 import donnees.spem.process.structure.Activity;
@@ -16,7 +15,6 @@ import donnees.spem.process.structure.Activity;
  */
 public class EugesActivite extends Activity{	
 
-	//vecteur d'activites realisees 
 	private Vector _activites = new Vector();
 	private Vector _roles = new Vector();
 	private Vector _produitsIn = new Vector();
@@ -54,43 +52,13 @@ public class EugesActivite extends Activity{
 	public boolean contientActRealise(EugesActRealise a) {
 		return _activites.contains(a);
 	}
+
+
 	
 	public int getActRealiseCount() {
 		return _activites.size();
 	}
-	/**
-	 * getIterationDebut()
-	 * @return le numero de l'iteration pendant laquelle commence l'activité
-	 */
-	public int getIterationDebut(){
-		if(getActRealiseCount()!=0){
-			int debut=((EugesActRealise)_activites.elementAt(0)).getIt();
-			for (Iterator iter = _activites.iterator(); iter.hasNext();) {
-				EugesActRealise element = (EugesActRealise) iter.next();
-				if(element.getIt()<debut)
-					debut=element.getIt();
-			}
-			return debut;
-		}
-		return -1;
-	}
-	/**
-	 * getIterationFin()
-	 * @return le numero de l'iteration pendant laquelle se termine l'activité
-	 */
-	public int getIterationFin(){
-		if(getActRealiseCount()!=0){
-			int fin=((EugesActRealise)_activites.elementAt(0)).getIt();
-			for (Iterator iter = _activites.iterator(); iter.hasNext();) {
-				EugesActRealise element = (EugesActRealise) iter.next();
-				if(element.getIt()>fin)
-					fin=element.getIt();
-			}
-			return fin;
-		}
-		return -1;
-	}
-	
+
 	public EugesActRealise getActRealise(int i) {
 		return (EugesActRealise) _activites.get(i);
 	}
@@ -183,4 +151,32 @@ public class EugesActivite extends Activity{
 	public EugesProduit getProduitOut(int i) {
 		return (EugesProduit) _produitsOut.get(i);
 	}
+	/**
+	 * @return Returns the _produitsIn.
+	 */
+	public Vector get_produitsIn() {
+		return _produitsIn;
+	}
+
+	/**
+	 * @param in The _produitsIn to set.
+	 */
+	public void set_produitsIn(Vector in) {
+		_produitsIn = in;
+	}
+
+	/**
+	 * @return Returns the _produitsOut.
+	 */
+	public Vector get_produitsOut() {
+		return _produitsOut;
+	}
+
+	/**
+	 * @param out The _produitsOut to set.
+	 */
+	public void set_produitsOut(Vector out) {
+		_produitsOut = out;
+	}
+
 }

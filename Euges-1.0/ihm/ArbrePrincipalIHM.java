@@ -8,6 +8,10 @@ package ihm;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.SortedSet;
+
+import configuration.Config;
+import application.EugesElements;
+
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
@@ -28,8 +32,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;
-import application.EugesElements;
-import configuration.Config;
+
 import donnees.Iteration;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesActivite;
