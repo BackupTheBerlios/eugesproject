@@ -309,6 +309,17 @@ public class Iteration {
 		}	
 	}
 	
+	public void genereLigneMenu2(BufferedWriter buffer) {
+		try {
+			buffer.write("<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=iteration"+this.get_numIt()+".htm target='_self'>It&eacute;ration "+this.get_numIt()+"</td>\n</tr>\n");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}	
+	}
+	
+	
+	
 	public void genereIteration(String chemin) {
 		File FileIteration  = new File (chemin+"/iterations/iteration"+this.get_numIt()+".htm");
 		try {
@@ -319,7 +330,7 @@ public class Iteration {
 			
 			_eug._projet.genereIndex(iteration);
 			_eug._projet.genereTitre(iteration);
-			_eug.genereMenu(iteration);		
+			_eug.genereMenu2(iteration,chemin);		
 			
 			
 			

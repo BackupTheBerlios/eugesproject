@@ -378,6 +378,14 @@ public class Projet {
 		}
 	}
 	
+	public void genereMenuIt2(BufferedWriter buffer) {
+		
+		for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
+		{
+			((Iteration)iter.next()).genereLigneMenu2(buffer);
+		}
+	}
+	
 	public void genereIterations(String chemin) {
 		for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
 		{
