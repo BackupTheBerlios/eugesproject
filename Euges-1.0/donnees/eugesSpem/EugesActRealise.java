@@ -254,10 +254,10 @@ public class EugesActRealise {
 		return (listePersonne);
 	}
 	
-	public void genereTabProduitOut(BufferedWriter buffer) {
+	public void genereTabProduitOut(BufferedWriter buffer, String dirProduitIt) {
 		for (int i = 0; i<_produitsOut.size();i++)
 		{
-			((EugesVersion)_produitsOut.get(i)).genereTabProduitOut(buffer,this.get_activiteParent().getName());
+			((EugesVersion)_produitsOut.get(i)).genereTabProduitOut(buffer,this.get_activiteParent().getName(),dirProduitIt);
 		}
 		
 	}

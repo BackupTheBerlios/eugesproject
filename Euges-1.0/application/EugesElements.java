@@ -584,7 +584,7 @@ public class EugesElements {
 			
 			_projet.genereMenuIt(buffer);
 			
-			buffer.write("<tr><td><img src='images/activite.gif'>Activités</b></td>\n</tr>");
+			/*buffer.write("<tr><td><img src='images/activite.gif'>Activités</b></td>\n</tr>");
 			for (int i = 0; i<listeActivites.size();i++)
 			{
 				((EugesActivite)listeActivites.get(i)).genereMenu(buffer);
@@ -598,7 +598,7 @@ public class EugesElements {
 			for (int i = 0; i<listeRoles.size();i++)
 			{
 				((EugesRole)listeRoles.get(i)).genereMenu(buffer);
-			}
+			}*/
 			buffer.write("<tr><td><img src='images/actor.gif'>Personnes</td></tr>");
 			for (int i = 0; i<listePersonnes.size();i++)
 			{
@@ -618,7 +618,7 @@ public class EugesElements {
 			
 			_projet.genereMenuIt2(buffer);
 			
-			buffer.write("<tr><td><img src='../images/activite.gif'>Activités</b></td>\n</tr>");
+			/*buffer.write("<tr><td><img src='../images/activite.gif'>Activités</b></td>\n</tr>");
 			for (int i = 0; i<listeActivites.size();i++)
 			{
 				((EugesActivite)listeActivites.get(i)).genereMenu(buffer);
@@ -632,7 +632,7 @@ public class EugesElements {
 			for (int i = 0; i<listeRoles.size();i++)
 			{
 				((EugesRole)listeRoles.get(i)).genereMenu(buffer);
-			}
+			}*/
 			buffer.write("<tr><td><img src='../images/actor.gif'>Personnes</td></tr>");
 			for (int i = 0; i<listePersonnes.size();i++)
 			{
@@ -670,24 +670,27 @@ public class EugesElements {
 			
 
 			genereMenu(index);
-			
-			
+
 			_projet.generePrincipale(index);
 			
 			index.close();
 			
 			
+//			Création du repertoire contenant les produits :
+			File repProduits = new File(chemin+"/produits");
+			repProduits.mkdir();
 			
 			//Génération des pages d'itérations : 
 			File repIterations = new File(chemin+"/iterations");
 			repIterations.mkdir();
 			
-		
 			_projet.genereIterations(chemin);
 			
 			//Création du repertoire contenant les images :
 			File repImages = new File(chemin+"/images");
 			repImages.mkdir();
+			
+			
 			
 
 			

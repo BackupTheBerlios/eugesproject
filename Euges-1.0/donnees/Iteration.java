@@ -321,6 +321,10 @@ public class Iteration {
 	
 	public void genereIteration(String chemin) {
 		File FileIteration  = new File (chemin+"/iterations/iteration"+this.get_numIt()+".htm");
+		//Création du repertoire contenant les produits :
+		String dirProduitIt = chemin+"/produits/iteration"+this.get_numIt();
+		File repProduits = new File(dirProduitIt);
+		repProduits.mkdir();
 		try {
 			
 			//Génération de l'index : 
@@ -330,9 +334,6 @@ public class Iteration {
 			EugesElements._projet.genereIndex(iteration);
 			EugesElements._projet.genereTitre2(iteration);
 			EugesElements.genereMenu2(iteration,chemin);		
-			
-			
-			
 			
 			iteration.write("<div class='common'>\n<center>\n<i><h1 class='title'>Plan d'it&eacute;ration "+this.get_numIt()+"</h1></i>");
 			iteration.write("<h2>Du "+this.get_dateDebut()+" au "+this.get_dateFin()+"</h2>\n</center>\n<br>");
@@ -345,6 +346,7 @@ public class Iteration {
 			{
 				listePersonne = ((EugesActRealise)_activitesRealisees.get(i)).genereTabPersonne(listePersonne);
 			}
+			iteration.write("<table border=0>");
 			
 			for (int i = 0; i<listePersonne.size();i++)
 			{
@@ -364,7 +366,7 @@ public class Iteration {
 			iteration.write("<h2 class='right'><img src='../images/produit.gif'><B>Produits</B></h2>\n<hr>\n<table class='it'>\n<tr class='ititle'>\n<td><b>Produit en sortie</b></td>\n<td><b>Version</b></td>\n<td><b>Etat / R&eacute;alisation</b></td>\n</tr>");
 			for (int i = 0; i<_activitesRealisees.size();i++)
 			{
-				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitOut(iteration);
+				((EugesActRealise)_activitesRealisees.get(i)).genereTabProduitOut(iteration,dirProduitIt);
 			}
 			iteration.write("</table><br>");
 			iteration.write("</body>\n</html>");

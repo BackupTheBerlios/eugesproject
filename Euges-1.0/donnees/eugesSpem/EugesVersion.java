@@ -7,6 +7,7 @@ package donnees.eugesSpem;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Vector;
+import utilitaires.CopierFichier;
 
 /**
  * @author Mathieu GAYRAUD
@@ -228,15 +229,15 @@ public class EugesVersion {
 	 */
 	public void setFile(String file) {
 		this.file = file;
-		//String fileArray[] = file.split("\\",1);
-		//fileSansPath = fileArray[fileArray.length-1];
+		fileSansPath = file.substring(file.lastIndexOf("\\"));
 	}
 
 	
-	public void genereTabProduitOut(BufferedWriter buffer,String activite) {
+	public void genereTabProduitOut(BufferedWriter buffer,String activite, String dirProduitIt) {
 		try {
-			if (this.getFile() != null){
-				buffer.write("<tr bgcolor='white'><td>"+this.getFileSansPath()+" "+this.getFile()+" "+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
+			if (this.getFile() != ""){
+				CopierFichier.copyFile(this.getFile(),dirProduitIt+this.getFileSansPath());
+				buffer.write("<tr bgcolor='white'><td><a href='"+dirProduitIt+this.getFileSansPath()+"'> "+this.get_produitParent().getName()+"</a>(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
 			} else {
 				buffer.write("<tr bgcolor='white'><td>"+this.get_produitParent().getName()+"(Act: "+activite+")</td><td>"+this.get_produitParent().getVersion()+"</td><td>"+this.get_etat()+"/"+this.get_realisation()+"</td></tr>");
 			}
