@@ -15,12 +15,14 @@ package application;
  */
 
 import ihm.ArbrePrincipalIHM;
+import ihm.FenetreErreurChargement;
 import ihm.FenetrePrincipaleIHM;
 import ihm.vues.planIt.PlanItIHM;
 
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -35,6 +37,7 @@ public class OuvertureProjet {
 	 * Contructeur.
 	 */
 	public OuvertureProjet(String uri) throws SAXException, IOException {
+		try{
 		XMLReader xr = XMLReaderFactory.createXMLReader("org.apache.crimson.parser.XMLReaderImpl");
 		MySAXApp handler = new MySAXApp();
 		xr.setContentHandler(handler);
@@ -54,6 +57,11 @@ public class OuvertureProjet {
 		((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 		PlanItIHM.majContenuWidgets();
 		ArbrePrincipalIHM._tri.actualiser();
+		}
+		catch(SAXException e){
+			Shell shell = new Shell();
+			FenetreErreurChargement fenetreErreur = new FenetreErreurChargement(shell);
+		}
 	}
 }
 	

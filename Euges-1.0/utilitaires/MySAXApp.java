@@ -112,7 +112,7 @@ public class MySAXApp extends DefaultHandler{
 	 */
 	public void startElement(String nameSpaceURI, String localName, String rawName, Attributes attributs) throws SAXException {  
 		
-	  //System.out.println(localName);
+	  System.out.println(localName);
 	  
 	  if(creationAssociation == 0)
 	  {
@@ -179,6 +179,20 @@ public class MySAXApp extends DefaultHandler{
 	  	if(localName.equals("Iteration"))
 	  	{
 	  		numIt = Integer.parseInt(attributs.getValue(0));
+	  	}
+	  	
+	  	// Ajout des rôles d'une personne
+	  	if(localName.equals("EugesPersonne"))
+	  	{
+	  		personne = attributs.getValue(0);
+	  		ajoutRoleAct = 0;
+	  	}
+	  	if(localName.equals("EugesRole"))
+	  	{
+	  		// ajout du role à la personne dans l'activité de l'IT
+	  		//EugesElements._projet.getIteration(numIt).ajouterAssociation(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1), EugesElements.getRole(attributs.getValue(1)));
+	  		// ajout du role à la personne dans l'IT
+	  		EugesElements._projet.getIteration(numIt).ajouterAssociation(EugesElements.getPersonneDansListePersonnes(personne), EugesElements.getRole(attributs.getValue(1)));
 	  	}
 	  	
 	  	// Ajout d'une activité dans l'itération
