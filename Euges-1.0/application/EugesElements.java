@@ -31,11 +31,14 @@ public class EugesElements {
 	
 	public static Projet _projet;
 	
-	   //Listes globales utilisées dans tout le projet Euges
+	//Listes globales utilisées dans tout le projet Euges
 	public static Vector listeActivites = new Vector(); // liste des activités
 	public static Vector listeRoles = new Vector(); // liste des rôles 
 	public static Vector listeProduits = new Vector(); // liste des produits
 	public static Vector listePersonnes = new Vector(); // liste des personnes
+	//booleen qui permet de savoir si le processus est enregistré
+	public static boolean processusEnregistre = false;
+	
 	/**
 	 * constructeur nouveau projet en cours
 	 * @param nomProjet
@@ -548,6 +551,7 @@ public class EugesElements {
 			ecriture.write("</_projet>\n");
 			ecriture.write("</unProjet>\n");
 			ecriture.close();
+			EugesElements.processusEnregistre = true;
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
@@ -608,6 +612,7 @@ public class EugesElements {
 			ecriture.write("</_projet>\n");
 			ecriture.write("</unProjet>\n");
 			ecriture.close();
+			EugesElements.processusEnregistre = true;
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
