@@ -22,10 +22,9 @@ public class EugesActivite extends Activity{
 	
 	//vecteur d'activites realisees 
 	private Vector _activites = new Vector();
-	private Vector _roles = new Vector();
+	private EugesRole _role;
 	private Vector _produitsIn = new Vector();
 	private Vector _produitsOut = new Vector();
-
 
 	public EugesActivite () {
 		super();
@@ -121,34 +120,11 @@ public class EugesActivite extends Activity{
 	}
 	
 
-	public boolean ajouterRole(EugesRole r) {
-		if (!contientRole(r)) {
-			_roles.add(r);
-			return true;
-		}
-
-		return false;
+	public void setRole(EugesRole r) {
+			_role=r;
 	}
-
-	public boolean supprimerRole(EugesRole r) {
-		if (contientRole(r)) {
-			_activites.remove(r);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean contientRole(EugesRole r) {
-		return _roles.contains(r);
-	}
-
-	
-	public int getRoleCount() {
-			return _roles.size();
-		}
-
-	public EugesRole getRole(int i) {
-		return (EugesRole) _roles.get(i);
+	public EugesRole getRole() {
+		return _role;
 	}
 	
 	public boolean ajouterProduitIn(EugesProduit a) {
@@ -214,8 +190,6 @@ public class EugesActivite extends Activity{
 	public Vector get_activitesRealisees() {
 		return _activites;
 	}
-
-	
 	/**
 	 * @param ecriture
 	 * @return
@@ -229,10 +203,7 @@ public class EugesActivite extends Activity{
 				((EugesActRealise)_activites.get(i)).sauvegarder(ecriture);
 			}
 			//sauvegarde _de roles
-			for (int i = 0; i<_roles.size();i++)
-			{
-				((EugesRole)_roles.get(i)).sauvegarder(ecriture);
-			}
+			_role.sauvegarder(ecriture);
 			ecriture.write("</EugesActivite>\n");
 		} catch (IOException e) {
 			System.out.println(e);
