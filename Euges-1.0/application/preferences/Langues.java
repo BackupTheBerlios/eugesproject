@@ -75,7 +75,7 @@ public class Langues {
 	
 	/**
 	 * Permet de changer la langue lorsqu'une nouvelle a été sélectionnée
-	 * @param la chaine de caractere contenue dans la liste
+	 * @param s :la chaine de caractere contenue dans la liste
 	 */
 	public void appliquerChangements(String s) {
 		Traduction traduction = getTraduction(s);
@@ -99,7 +99,7 @@ public class Langues {
 	
 	/**
 	 * Permet de récupérer la traduction grâce à la chaîne sélectionnée dans la liste
-	 * @param la chaine selectionnee dans la liste
+	 * @param s : la chaine selectionnee dans la liste
 	 * @return la traduction
 	 */
 	public Traduction getTraduction(String s) {

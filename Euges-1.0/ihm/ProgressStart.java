@@ -113,9 +113,8 @@ public class ProgressStart{
 	}
 	/**
 	 * thread permettant de faire progresser la barre de progression
-	 * @param display display de l'application
-	 * @param bar barre de progression
-	 * @param valeur valeur a ateindre
+	 * @param texte texte à afficher
+	 * @param valeur valeur a atteindre
 	 */
 	public void progression(final int valeur, String texte){
 		//affichage du texte

@@ -124,7 +124,7 @@ public class Projet {
 	/**
 	 * supprime une iteration a partir de son instance
 	 * 
-	 * @param i
+	 * @param iteration : iteration a supprimer
 	 */
 	public void supprimerIteration(Iteration iteration){
 		_listeIteration.remove(iteration);

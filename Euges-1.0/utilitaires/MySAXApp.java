@@ -98,7 +98,7 @@ public class MySAXApp extends DefaultHandler{
 
 	/**
 	 * Debut de traitement dans un espace de nommage.
-	 * @param prefixe utilise pour cet espace de nommage dans cette partie de l'arborescence.
+	 * @param prefix utilise pour cet espace de nommage dans cette partie de l'arborescence.
 	 * @param URI de l'espace de nommage.
 	 * @see org.xml.sax.ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
 	 */
@@ -108,7 +108,7 @@ public class MySAXApp extends DefaultHandler{
 
 	/**
 	 * Fin de traitement de l'espace de nommage.
-	 * @param prefixe le prefixe choisi a l'ouverture du traitement de l'espace nommage.
+	 * @param prefix le prefixe choisi a l'ouverture du traitement de l'espace nommage.
 	 * @see org.xml.sax.ContentHandler#endPrefixMapping(java.lang.String)
 	 */
 	public void endPrefixMapping(String prefix) throws SAXException {

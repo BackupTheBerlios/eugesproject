@@ -48,16 +48,13 @@ public class CalendrierIHM extends Dialog{
 	 * Cette méthode permet de créer un CalendrierIHM à partir 
 	 * de la fenêtre appelante et du ChampDate à remplir
 	 * 
-	 * @return CalendrierIHM
-	 *
-	 * @param Shell shell de la fenêtre appelante
+	 * @param shellPere shell de la fenêtre appelante
 	 * 
-	 * @param ChampDate ChampDate devant être rempli
+	 * @param d ChampDate devant être rempli
 	 * 
 	 * @see #CalendrierIHM(Shell, ChampDate)
 	 *
 	 */
-	
 	public CalendrierIHM (final Shell shellPere,final ChampDate d)
 	{
 		
@@ -221,7 +218,7 @@ public class CalendrierIHM extends Dialog{
 	 * 
 	 * @return void
 	 *
-	 * @param Button bouton sur lequel on a cliqué 
+	 * @param source bouton sur lequel on a cliqué 
 	 * 
 	 * @see #choisirJour(Button)
 	 *
@@ -243,7 +240,7 @@ public class CalendrierIHM extends Dialog{
 	 * 
 	 * @return void
 	 *
-	 * @param Composite conteneur des boutons 
+	 * @param tabJour conteneur des boutons 
 	 * 
 	 * @see #afficheGrillejours(Composite)
 	 *
@@ -346,7 +343,7 @@ public class CalendrierIHM extends Dialog{
 	/**
 	 * Cette méthode permet de modifier l'attribut _jour du CalendrierIHM
 	 * 
-	 * @param String nouvelle valeur du jour
+	 * @param chaine nouvelle valeur du jour
 	 * 
 	 * @return void
 	 * 

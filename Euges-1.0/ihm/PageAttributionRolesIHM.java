@@ -46,8 +46,7 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 	
 	/**
 	 * @param shell fenêtre...
-	 * @param listP liste des personnes relatives au projet
-	 * @param listR liste des rôles du projet
+	 * @param it itération à prendre en compte
 	 */
 	public PageAttributionRolesIHM (final Shell shell, final Iteration it) {
 		// Appel au constructeur de l'objet Composite

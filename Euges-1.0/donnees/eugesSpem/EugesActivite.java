@@ -192,7 +192,6 @@ public class EugesActivite extends Activity{
 	}
 	/**
 	 * @param ecriture
-	 * @return
 	 */
 	public void sauvegarder(BufferedWriter ecriture) {
 		try {

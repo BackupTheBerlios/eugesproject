@@ -33,7 +33,6 @@ public class VuesIHM extends ViewForm{
 	private final Composite c;
 	/**
 	 * @param parent
-	 * @param nbIt
 	 */
 	public VuesIHM(final SashForm parent) {
 		super(parent, SWT.BORDER);
