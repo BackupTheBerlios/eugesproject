@@ -26,6 +26,9 @@ import donnees.eugesSpem.EugesRole;
 import donnees.eugesSpem.EugesVersion;
 
 
+
+
+
 /**
  * @author will
  *
@@ -41,6 +44,7 @@ public class EugesElements {
 	public static Vector listePersonnes = new Vector(); // liste des personnes
 	//booleen qui permet de savoir si le processus est enregistré
 	public static boolean processusEnregistre = true;
+	
 	
 	/**
 	 * constructeur nouveau projet en cours
@@ -724,7 +728,7 @@ public class EugesElements {
 			
 		} catch (IOException e) {
 			System.out.println (e);
-			e.printStackTrace();
+			
 		}
 	}
 	

@@ -124,18 +124,19 @@ public class GenIHM extends Dialog{
 				try {
 					
 					EugesElements.genereSite(text4.getText(),check);
-					shellGen.dispose();
+					
 				} catch (Exception e1) {}{
 				
 				}
 			
 			try {	
 				String test = EugesElements._projet.get_description();
+				shellGen.dispose();
 			}
 			catch (Exception e2)
 			
 			{
-				MessageBox msg = new MessageBox(shell, SWT.ICON_QUESTION|SWT.YES|SWT.NO|SWT.CANCEL);
+				MessageBox msg = new MessageBox(shell, SWT.ICON_ERROR|SWT.YES);
 				msg.setText(message.getString("GenIHM.err"));
 				msg.setMessage(message.getString("GenIHM.errgen"));
 				msg.open();
