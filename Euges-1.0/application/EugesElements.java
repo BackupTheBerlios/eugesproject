@@ -648,7 +648,7 @@ public class EugesElements {
 		}
 	}
 	
-	public static void genereSite(String chemin){
+	public static void genereSite(String chemin,String check){
 		File FileIndex = new File (chemin + "/index.htm");
 		/*File FileMenu  = new File (chemin+"/menu.htm");
 		File FilePrincipale  = new File (chemin+"/principale.htm");
@@ -701,8 +701,15 @@ public class EugesElements {
 			CopierFichier.copyFile("configuration/images/logo2.png",chemin+"/iterations/images/logo2.png");
 			CopierFichier.copyFile("configuration/images/iconeAngle.gif",chemin+"/iterations/images/iconeAngle.gif");
 			
-			CopierFichier.copyFile("configuration/images/style.css",chemin+"/style.css");
-			CopierFichier.copyFile("configuration/images/style.css",chemin+"/iterations/style.css");
+			if (check=="1"){
+			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/style.css");
+			CopierFichier.copyFile("configuration/images/style_grey.css",chemin+"/iterations/style.css");
+			}
+			else
+			{
+				CopierFichier.copyFile("configuration/images/style_blue.css",chemin+"/style.css");
+				CopierFichier.copyFile("configuration/images/style_blue.css",chemin+"/iterations/style.css");
+			}
 			
 			//Ouverture du site dans le navigateur d'Euges :
 			EugesNavigateur fenetre = new EugesNavigateur(chemin+"/index.htm");

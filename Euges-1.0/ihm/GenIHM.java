@@ -21,10 +21,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import java.io.FileOutputStream;
 
 import application.EugesElements;
 
-import java.io.FileOutputStream;
+
 
 import utilitaires.GestionImage;
 
@@ -44,6 +45,9 @@ public class GenIHM extends Dialog{
 	private Display display=Display.getCurrent();;
 	private final Shell shellGen;
 	private static Text text4;
+	private static Button styl1;
+	private static Button styl2;
+	private static String check;
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
 	public GenIHM(final Shell shell){
@@ -87,6 +91,21 @@ public class GenIHM extends Dialog{
 			}
 		});
 		
+		//bouton de style 1
+		
+		styl1=new Button(shellGen, SWT.RADIO );
+		styl1.setSelection(true);
+		styl1.setText("Gris");
+		
+		
+		
+		//bouton de style 2
+		
+		styl2=new Button(shellGen, SWT.RADIO );
+		styl2.setText("Bleu");
+		
+		
+		
 		//bouton ok
 		
 		Button ok=new Button(shellGen, SWT.PUSH );
@@ -95,8 +114,10 @@ public class GenIHM extends Dialog{
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				saveGen();
+				getCheck();
 				try {
-					EugesElements.genereSite(text4.getText());
+					
+					EugesElements.genereSite(text4.getText(),check);
 					shellGen.dispose();
 				} catch (Exception e1) {}
 				
@@ -174,6 +195,18 @@ public class GenIHM extends Dialog{
 		}
 		
 		
+	}
+	
+	public static void getCheck(){
+		if (styl1.getSelection())
+		{
+			
+			check = "1";
+						
+		}
+		else{
+			check = "0";
+		}
 	}
 	
 }
