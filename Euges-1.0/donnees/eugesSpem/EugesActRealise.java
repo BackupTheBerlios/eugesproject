@@ -211,19 +211,19 @@ public class EugesActRealise {
 			//sauvegarde de l'activité elle meme
 			ecriture.write("<EugesActRealise _chargeEstimee=\""+this.get_chargeEstimee()+"\" _chargeReelle=\""+this.get_chargeReelle()+"\" _activiteParent=\""+this.get_activiteParent()+"\"/>\n");
 			//sauvegarde des personnes participant à l'acivié
-			for (int i = 0; i<_personnes.size();i++)
+			for (int i = 0; i<getPersonneCount();i++)
 			{
-				((EugesPersonne)_personnes.get(i)).sauvegardeAssociation(ecriture);
+				getPersonne(i).sauvegardeAssociation(ecriture);
 			}
 			//sauvegarde des produitsIn
-			for (int i = 0; i<_produitsIn.size();i++)
+			for (int i = 0; i<getProduitInCount();i++)
 			{
-				((EugesVersion)_produitsIn.get(i)).sauvegarderProduitIn(ecriture);
+				getProduitIn(i).sauvegarderProduitIn(ecriture);
 			}
 			//sauvegarde des produitsOut
-			for (int i = 0; i<_produitsOut.size();i++)
+			for (int i = 0; i<getProduitOutCount();i++)
 			{
-				((EugesVersion)_produitsOut.get(i)).sauvegarderProduitOut(ecriture);
+				getProduitOut(i).sauvegarderProduitOut(ecriture);
 			}
 		} catch (IOException e) {
 			System.out.println (e);
