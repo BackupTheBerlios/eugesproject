@@ -9,6 +9,7 @@ package ihm;
 
 import ihm.preferences.PreferencesIHM;
 import ihm.vues.VuesIHM;
+import ihm.vues.planIt.PlanItIHM;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,6 @@ import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.CoolBar;
@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -35,6 +36,8 @@ import org.eclipse.swt.widgets.ToolItem;
 import utilitaires.EugesAide;
 import utilitaires.GestionImage;
 import utilitaires.MyDate;
+import application.EugesElements;
+import application.OuvertureProjet;
 import configuration.Config;
 
 
@@ -48,7 +51,7 @@ public class FenetrePrincipaleIHM {
 		
 		private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-//		private Display display = new Display();
+		//private Display display = new Display();
 		private final Shell shell;
 	
 			// définition des items de menus
@@ -73,13 +76,14 @@ public class FenetrePrincipaleIHM {
 		public static MenuItem menuItemOuvrirAide;
 		public static MenuItem menuItemAPropos;
 		
+		// Barre d'outils
+		final CoolBar coolBar;
 			// définition de items de la barre d'outils
 		public static ToolItem itemNouveau;
 		public static ToolItem itemOuvrir;	
 		public static ToolItem itemFermer;
 		public static ToolItem itemEnregistrer;
 		public static ToolItem itemMail;
-		public static ToolItem itemGen;
 		public static ToolItem itemAide;
 		//icones vues
 		public static ToolItem itemToolIt;
@@ -87,7 +91,7 @@ public class FenetrePrincipaleIHM {
 		public static ToolItem itemToolLine;
 		
 		// l'arbre à gauche
-		public static ArbrePrincipalIHM tree;
+		public static ArbrePrincipalIHM _tree;
 		
 		//liste des vues de l'application
 		public static VuesIHM _vues; 
@@ -133,47 +137,67 @@ public class FenetrePrincipaleIHM {
 			menuItemFichier.setMenu(menuFichier);
 		
 			menuItemCreer = new MenuItem(menuFichier,SWT.PUSH);
+			menuItemCreer.setImage(GestionImage._nouveauBar);
 			menuItemCreer.setText(message.getString("menu.fichier.nouveau"));
 			menuItemCreer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
+					if (EugesElements.processusEnregistre==false)
+						FermerProjet(shell);
 					AssistantIHM assistantIHM = new AssistantIHM(shell);
 				}
 			});
 		
 			menuItemOuvrir = new MenuItem(menuFichier,SWT.PUSH);
+			menuItemOuvrir.setImage(GestionImage._ouvrirBar);
 			menuItemOuvrir.setText(message.getString("menu.fichier.ouvrir"));
 			menuItemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					ouvrir();
+					if (FermerProjet(shell)!=SWT.CANCEL){
+						String chemin = new String();
+						chemin = ouvrir();
+						if (chemin!=null)
+						{
+							try {
+								OuvertureProjet parser = new OuvertureProjet(chemin);
+							} catch (Throwable t) {
+								t.printStackTrace();
+							}
+						}
+					}
 				}
 			});
 		
 			menuItemFermer = new MenuItem(menuFichier,SWT.PUSH);
+			menuItemFermer.setImage(GestionImage._fermerBar);
 			menuItemFermer.setText(message.getString("menu.fichier.fermer"));
 			menuItemFermer.setEnabled(false);
 			menuItemFermer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Fermer le projet");
+					FermerProjet(shell);
 				}
 			});
 		
 			MenuItem menuItemFichierSep1 = new MenuItem(menuFichier,SWT.SEPARATOR);
 		
 			menuItemEnregistrer = new MenuItem(menuFichier,SWT.PUSH);
+			menuItemEnregistrer.setImage(GestionImage._enregistrerBar);
 			menuItemEnregistrer.setText(message.getString("menu.fichier.enregistrer"));
 			menuItemEnregistrer.setEnabled(false);
 			menuItemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Enregistrer projet en cours");
+					EugesElements.sauvegarde();
+					EugesElements.processusEnregistre=true;
 				}
 			});
 		
 			menuItemEnregistrerSous = new MenuItem(menuFichier,SWT.PUSH);
+			menuItemEnregistrerSous.setImage(GestionImage._enregistrerSousBar);
 			menuItemEnregistrerSous.setText(message.getString("menu.fichier.enregistrerSous"));
 			menuItemEnregistrerSous.setEnabled(false);
 			menuItemEnregistrerSous.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					enregistrerSous();
+					String chemin = new String (enregistrerSous()+".xml");
+					EugesElements.sauvegarde(chemin);
 				}
 			});
 		
@@ -183,7 +207,7 @@ public class FenetrePrincipaleIHM {
 			menuItemQuitter.setText(message.getString("menu.fichier.quitter"));
 			menuItemQuitter.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Quitter Euges");
+					FermerProjet(shell);
 					shell.close();
 				}
 			});	
@@ -197,27 +221,34 @@ public class FenetrePrincipaleIHM {
 			 menuItemEdition.setMenu(menuEdition);
 			 
 	
-			 menuItemRoles = new MenuItem(menuEdition,SWT.PUSH);
+/*			 menuItemRoles = new MenuItem(menuEdition,SWT.PUSH);
 			 menuItemRoles.setText(message.getString("menu.gestion.roles"));
 			 menuItemRoles.addListener(SWT.Selection, new Listener(){
 				 public void handleEvent(Event e){
 					 System.out.println("Modifier rôles");
+					 //FenetreAttributionRoleIHM fenetre = new FenetreAttributionRoleIHM(parent.getShell(),EugesElements._projet.getIteration(numIt));
+					 //fenetre.open();
 				 }
-			 });
+			 });*/
 		 
 			menuItemActivites = new MenuItem(menuEdition,SWT.PUSH);
+			menuItemActivites.setImage(GestionImage._activite);
 			menuItemActivites.setText(message.getString("menu.gestion.activites"));
 			menuItemActivites.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier activités");
+					PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shell);
+					_vues.elementAt(0).loadData();
 				}
 			});
 				 
 			menuItemProduits = new MenuItem(menuEdition,SWT.PUSH);
+			menuItemProduits.setImage(GestionImage._produit);
 			menuItemProduits.setText(message.getString("menu.gestion.produits"));
 			menuItemProduits.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier produits");
+					FenetreGestionProduitsIHM fenetre = new FenetreGestionProduitsIHM(shell);
+					fenetre.open();
+					_vues.elementAt(0).loadData();
 				}
 			});		
 		
@@ -225,17 +256,18 @@ public class FenetrePrincipaleIHM {
 			menuItemIterations.setText(message.getString("menu.gestion.iterations"));
 			menuItemIterations.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Modifier ITs");
+					PageGestionIterationIHM gestionIt = new PageGestionIterationIHM(shell);
+					((PlanItIHM)_vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 				}
 			});
 		
-			menuItemEquipe = new MenuItem(menuEdition,SWT.PUSH);
+/*			menuItemEquipe = new MenuItem(menuEdition,SWT.PUSH);
 			menuItemEquipe.setText(message.getString("menu.gestion.equipe"));
 			menuItemEquipe.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					System.out.println("Modifier équipe");
 				}
-			});
+			});*/
 		
 				//	Menu affichage
 			menuItemAffichage = new MenuItem(menu, SWT.CASCADE);
@@ -244,11 +276,17 @@ public class FenetrePrincipaleIHM {
 			Menu menuAffichage = new Menu(shell, SWT.DROP_DOWN);
 			menuItemAffichage.setMenu(menuAffichage);
 
-			menuItemBarreOutils = new MenuItem(menuAffichage,SWT.PUSH);
+			menuItemBarreOutils = new MenuItem(menuAffichage,SWT.CHECK);
+			menuItemBarreOutils.setSelection(false);
 			menuItemBarreOutils.setText(message.getString("menu.affichage.barreOutils"));
 			menuItemBarreOutils.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Barre outils");
+					if(menuItemBarreOutils.getSelection()==true){
+						coolBar.setLocked(true);
+					}else{
+						coolBar.setLocked(false);
+					}
+					
 				}
 			});
 		
@@ -276,18 +314,22 @@ public class FenetrePrincipaleIHM {
 			menuItemAide.setMenu(menuAide);
 	
 			menuItemOuvrirAide = new MenuItem(menuAide,SWT.PUSH);
+			menuItemOuvrirAide.setImage(GestionImage._aideBar);
 			menuItemOuvrirAide.setText(message.getString("menu.aide.aide"));
 			menuItemOuvrirAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					EugesAide eugesAide = new EugesAide("http://euges.free.fr");
 				}
 			});
-		
+			
+			MenuItem menuItemAideSep1 = new MenuItem(menuAide,SWT.SEPARATOR);
+			
 			menuItemAPropos = new MenuItem(menuAide,SWT.PUSH);
 			menuItemAPropos.setText(message.getString("menu.aide.aPropos"));
 			menuItemAPropos.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					System.out.println("A propos");
+					ProgressStart progressStart = new ProgressStart(display);
 				}
 			});
 		
@@ -296,7 +338,7 @@ public class FenetrePrincipaleIHM {
 			
 	
 				// Barre d'outils
-			final CoolBar coolBar = new CoolBar(shell, SWT.FLAT);
+			coolBar = new CoolBar(shell, SWT.FLAT);
 			
 			CoolItem item1 = new CoolItem(coolBar, SWT.NONE);
 			CoolItem item2 = new CoolItem(coolBar, SWT.NONE);
@@ -304,38 +346,47 @@ public class FenetrePrincipaleIHM {
 			CoolItem item4 = new CoolItem(coolBar, SWT.NONE);
 			//barre d'outil des differentes vues pour la fenetre principale
 			CoolItem item5 = new CoolItem(coolBar, SWT.NONE);
-			CoolItem item6 = new CoolItem(coolBar, SWT.NONE);
 			
 
 			ToolBar toolBar1 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageNouveau = new Image(display, Config.config.getProperty("cheminIcone")+"nouveau.png");
 			itemNouveau = new ToolItem(toolBar1, SWT.NONE);
-			itemNouveau.setImage(imageNouveau);
+			itemNouveau.setImage(GestionImage._nouveauBar);
 			itemNouveau.setToolTipText(message.getString("toolbar.nouveau.tooltiptext"));
 			itemNouveau.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
+					if (EugesElements.processusEnregistre==false)
+						FermerProjet(shell);
 					AssistantIHM assistantIHM = new AssistantIHM(shell);
 				}
 			});
-					
-			Image imageOuvrir = new Image(display, Config.config.getProperty("cheminIcone")+"ouvrir.png");
+			
 			itemOuvrir = new ToolItem(toolBar1, SWT.NONE);
-			itemOuvrir.setImage(imageOuvrir);
+			itemOuvrir.setImage(GestionImage._ouvrirBar);
 			itemOuvrir.setToolTipText(message.getString("toolbar.ouvrir.tooltiptext"));
 			itemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					ouvrir();
+					if (FermerProjet(shell)!=SWT.CANCEL){
+						String chemin = new String();
+						chemin = ouvrir();
+						if (chemin!=null)
+						{
+							try {
+								OuvertureProjet parser = new OuvertureProjet(chemin);
+							} catch (Throwable t) {
+								t.printStackTrace();
+							}
+						}
+					}
 				}
 			});	
 		
-			Image imageFermer = new Image(display, Config.config.getProperty("cheminIcone")+"fermer.png");
 			itemFermer = new ToolItem(toolBar1, SWT.NONE);
 			itemFermer.setEnabled(false);
-			itemFermer.setImage(imageFermer);
+			itemFermer.setImage(GestionImage._fermerBar);
 			itemFermer.setToolTipText(message.getString("toolbar.fermer.tooltiptext"));
 			itemFermer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Fermer projet");
+					FermerProjet(shell);
 				}
 			});	
 			
@@ -348,14 +399,14 @@ public class FenetrePrincipaleIHM {
 		
 			ToolBar toolBar2 = new ToolBar(coolBar, SWT.FLAT);
 
-			Image imageEnregistrer = new Image(display, Config.config.getProperty("cheminIcone")+"enregistrer.png");
 			itemEnregistrer = new ToolItem(toolBar2, SWT.NONE);
-			itemEnregistrer.setImage(imageEnregistrer);
+			itemEnregistrer.setImage(GestionImage._enregistrerBar);
 			itemEnregistrer.setToolTipText(message.getString("toolbar.enregistrer.tooltiptext"));
 			itemEnregistrer.setEnabled(false);
 			itemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Enregistrer projet");
+					EugesElements.sauvegarde();
+					EugesElements.processusEnregistre=true;
 				}
 			});	
 			toolBar2.pack();
@@ -367,14 +418,13 @@ public class FenetrePrincipaleIHM {
 
 		
 			ToolBar toolBar3 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageMail = new Image(display, Config.config.getProperty("cheminIcone")+"mail.png");
 			itemMail = new ToolItem(toolBar3, SWT.NONE);
-			itemMail.setImage(imageMail);
+			itemMail.setImage(GestionImage._mailBar);
 			itemMail.setToolTipText(message.getString("toolbar.mail.tooltiptext"));
 			itemMail.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					MailIHM mailIHM = new MailIHM(shell);
-					}
+				}
 			});	
 			toolBar3.pack();
 
@@ -385,9 +435,8 @@ public class FenetrePrincipaleIHM {
 		
 
 			ToolBar toolBar4 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageAide = new Image(display, Config.config.getProperty("cheminIcone")+"aide.png");
 			itemAide = new ToolItem(toolBar4, SWT.NONE);
-			itemAide.setImage(imageAide);
+			itemAide.setImage(GestionImage._aideBar);
 			itemAide.setToolTipText(message.getString("toolbar.aide.tooltiptext"));
 			itemAide.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
@@ -436,24 +485,6 @@ public class FenetrePrincipaleIHM {
 				}
 			});
 			
-			
-			ToolBar toolBar6 = new ToolBar(coolBar, SWT.FLAT);
-			Image imageGen = new Image(display, Config.config.getProperty("cheminIcone")+"web.ico");
-			itemGen = new ToolItem(toolBar6, SWT.NONE);
-			itemGen.setImage(imageGen);
-			itemGen.setToolTipText(message.getString("toolbar.web.tooltiptext"));
-			itemGen.addListener(SWT.Selection, new Listener(){
-				public void handleEvent(Event e){
-					GenIHM genIHM = new GenIHM(shell);
-				}
-			});	
-			toolBar6.pack();
-
-			Point size6 = toolBar6.getSize();
-			item6.setControl(toolBar6);
-			item6.setSize(toolBar6.computeSize(size6.x, size6.y));
-			item6.setMinimumSize(size6);
-			
 			//selection du premier element
 			itemToolIt.setSelection(true);
 			toolBar5.pack();
@@ -468,7 +499,7 @@ public class FenetrePrincipaleIHM {
 			final SashForm sashForm = new SashForm(shell, SWT.HORIZONTAL);
 			
 			// Arbre
-			tree = new ArbrePrincipalIHM(sashForm);
+			_tree = new ArbrePrincipalIHM(sashForm);
 			//creation du vecteur de vues
 			_vues = new VuesIHM(sashForm);
 			
@@ -538,17 +569,7 @@ public class FenetrePrincipaleIHM {
 		private String ouvrir(){
 			FileDialog fileDialog = new FileDialog(shell);
 			fileDialog.setText(message.getString("titreFenetreOuvrir"));
-			String [] tab = {"*.txt"};
-			fileDialog.setFilterExtensions(tab);
-			String file = fileDialog.open();
-			
-			return file;
-		}
-		
-		private String rep(){
-			FileDialog fileDialog = new FileDialog(shell);
-			fileDialog.setText(message.getString("titreFenetreOuvrir"));
-			String [] tab = {"*.txt"};
+			String [] tab = {"*.egs"};
 			fileDialog.setFilterExtensions(tab);
 			String file = fileDialog.open();
 			
@@ -565,6 +586,43 @@ public class FenetrePrincipaleIHM {
 			
 			return file;
 		}
-	
-	
+		
+		/**
+		 * Fonction de fermeture d'un projet
+		 * Supprime tous les elements du modele de données
+		 */
+		public int FermerProjet(Shell shell){
+			int reponse=SWT.YES;
+			if (EugesElements.processusEnregistre==true){
+				EugesElements.clearAllElements();
+				_vues.disposePages();
+				ArbrePrincipalIHM._tri.actualiser();
+			}else{
+				MessageBox msg = new MessageBox(shell, SWT.ICON_QUESTION|SWT.YES|SWT.NO|SWT.CANCEL);
+				msg.setText(message.getString("fenetrePrincipaleIHM.fermerProjetTitre"));
+				msg.setMessage(message.getString("fenetrePrincipaleIHM.fermerProjet"));
+				reponse = msg.open();
+				if (reponse==SWT.YES){
+					EugesElements.sauvegarde();
+					EugesElements.clearAllElements();
+					_vues.disposePages();
+					ArbrePrincipalIHM._tri.actualiser();
+				}else if(reponse==SWT.NO){
+					EugesElements.clearAllElements();
+					_vues.disposePages();
+					ArbrePrincipalIHM._tri.actualiser();
+				}
+			}
+			if (reponse!=SWT.CANCEL){
+				menuItemEnregistrer.setEnabled(false);
+				menuItemEnregistrerSous.setEnabled(false);
+				menuItemFermer.setEnabled(false);
+				menuItemEdition.setEnabled(false);
+				
+				itemEnregistrer.setEnabled(false);
+				itemFermer.setEnabled(false);
+				EugesElements.processusEnregistre=true;
+			}
+			return reponse;
+		}
 }
