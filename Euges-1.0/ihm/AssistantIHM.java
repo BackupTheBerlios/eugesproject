@@ -5,6 +5,8 @@
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package ihm;
+import ihm.vues.PlanItIHM;
+
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -130,7 +132,7 @@ public class AssistantIHM extends Dialog {
 			 		FenetrePrincipaleIHM.itemFermer.setEnabled(true);
 			 		FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
 			 		
-					//FenetrePrincipaleIHM._planIt.majIt(EugesElements._projet._listeIteration.size());
+					((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
 					FenetrePrincipaleIHM.tree.actualiser();
 					shellAssistant.dispose();
 			 	}

@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -22,7 +21,7 @@ import configuration.Config;
  * @author Mathieu GAYRAUD
  *
  */
-public class PlanItIHM extends ViewForm {
+public class PlanItIHM extends Composite {
 
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 

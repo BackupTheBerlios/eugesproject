@@ -272,6 +272,15 @@ public class PageIterationIHM extends PageAssistantIHM{
 		loadData();
 		//desactivation du bouton reinitialiser
 		boutonReinitialiser.setEnabled(false);
+		
+		//redimensionnement des colonnes pdt le redimensionnment des fenetres
+
+		int largeur = this.getClientArea().width;
+		TableColumn[] cols = _tableauIteration.getColumns();
+		System.out.println("largeur" + largeur);
+		System.out.println("cols"+cols.length);
+		
+
 	}
 
 	/* (non-Javadoc)

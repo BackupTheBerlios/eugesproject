@@ -25,17 +25,10 @@ import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
 import utilitaires.MailElements;
-
 import configuration.Config;
-
-import application.EugesElements;
 /**
  * @author Jude
- * 
- *	modif par Fils le 16/02
- *		- ajout des personnes dans la liste
- *		- fonction de mail
- *		
+ *
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
@@ -54,7 +47,7 @@ public class MailIHM extends Dialog{
 		//nouveau shell
 		final Shell shellMail = new Shell(shell, SWT.APPLICATION_MODAL | SWT.CLOSE);
 		
-		
+				
 		shellMail.setText(message.getString("MailIHM.titre"));
 		shellMail.setSize(320,280);
 		
@@ -81,12 +74,9 @@ public class MailIHM extends Dialog{
 		
 		
 		//Choix
-		String[] TabPers;
-		TabPers = EugesElements.getTableauListePersonne();
 		Label label1 = new Label(shellMail, SWT.NONE);
 		label1.setText(message.getString("MailIHM.choix"));
 		this.combo1 = new Combo(shellMail,SWT.DROP_DOWN | SWT.READ_ONLY);
-		//combo1.setItems(TabPers);
 		combo1.setItems(new String[] {"Julien","Cyril","Bruno","Nicolas","Ludovic"});
 		combo1.select(0);
 		
@@ -101,7 +91,7 @@ public class MailIHM extends Dialog{
 				choose();
 			}
 		});
-		
+				
 		
 		//Sujet
 		Label label2 = new Label(shellMail, SWT.NONE);
@@ -119,20 +109,15 @@ public class MailIHM extends Dialog{
 		envoie.setImage(GestionImage._euges);
 		envoie.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				
-				MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),text4.getText(),text3.getText(),text2.getText());
-				try {
-					mail.sendMsg();
-				} catch (Exception e1) {
-					
-				}
+				MailElements mail = new MailElements("smtp.mail.yahoo.fr","willnico2002@yahoo.fr",text4.getText(),text3.getText(),text2.getText());
+				mail.sendMsg();
 				shellMail.dispose();
 			}
 		});
 		
 		
 		
-		
+			
 		
 		
 		//Mise en place des éléments
@@ -191,7 +176,7 @@ public class MailIHM extends Dialog{
 		
 	}
 	public void choose(){
-		this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+";");
+		this.text4.append(this.combo1.getText()+";");
 		
 	}
 	

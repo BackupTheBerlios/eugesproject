@@ -8,9 +8,7 @@ package ihm;
 
 
 import ihm.preferences.PreferencesIHM;
-import ihm.vues.*;
-import ihm.vues.graphe.GrapheIHM;
-import ihm.vues.graphe.Test;
+import ihm.vues.Vues;
 
 import java.util.ResourceBundle;
 
@@ -34,7 +32,6 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import utilitaires.EugesAide;
 import utilitaires.GestionImage;
-
 import configuration.Config;
 
 
@@ -88,6 +85,7 @@ public class FenetrePrincipaleIHM {
 		// l'arbre à gauche
 		public static ArbrePrincipalIHM tree;
 		
+		//liste des vues de l'application
 		public static Vues _vues; 
 		
 		public FenetrePrincipaleIHM(){
@@ -392,8 +390,9 @@ public class FenetrePrincipaleIHM {
 			itemToolIt.setToolTipText(message.getString("toolbar.itemToolIt.tooltiptext"));
 			itemToolIt.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					
-					System.out.println("1 "+itemToolIt.getSelection());
+					if (itemToolGraph.getSelection()){
+						_vues.setVisible(0);
+					}
 				}
 			});
 			//outil graphe activites
@@ -403,8 +402,7 @@ public class FenetrePrincipaleIHM {
 			itemToolGraph.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
 					if (itemToolGraph.getSelection()){
-						Test t = new Test();
-						System.out.println("2 "+itemToolGraph.getSelection());
+						_vues.setVisible(1);
 					}
 				}
 			});
@@ -414,7 +412,9 @@ public class FenetrePrincipaleIHM {
 			itemToolLine.setToolTipText(message.getString("toolbar.itemToolLine.tooltiptext"));
 			itemToolLine.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("3 "+itemToolLine.getSelection());
+					if (itemToolGraph.getSelection()){
+						_vues.setVisible(2);
+					}
 				}
 			});
 			
@@ -433,12 +433,10 @@ public class FenetrePrincipaleIHM {
 			
 			// Arbre
 			tree = new ArbrePrincipalIHM(sashForm);
-			//_planIt = new PlanItIHM(sashForm,0);
-			//_graphe = new GrapheIHM(sashForm);
+			//creation du vecteur de vues
 			_vues = new Vues(sashForm);
 			
 			sashForm.setWeights(new int [] {25,75});		
-			
 			
 			// redessiner la coolbar et le sashform si la coolbar est redimensionnée
 			coolBar.addListener(SWT.Resize, new Listener () {

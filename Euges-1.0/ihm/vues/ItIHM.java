@@ -421,11 +421,9 @@ public class ItIHM extends Composite {
 						// on insère les nouvelles heures
 						if (_EDITABLECOLUMN == 1) { // charge prévue
 							a.set_chargeEstimee(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
-							System.out.println(a.get_chargeEstimee());
 						}
 						else { // charge réelle
 							a.set_chargeReelle(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
-							System.out.println(a.get_chargeReelle());
 						}
 					}
 				});

@@ -39,7 +39,7 @@ public class GrapheHautIHM extends Composite {
 	private Vector _tableColonnes = new Vector();
 	
 	public GrapheHautIHM(final Composite comp) {
-		super(comp, SWT.BORDER);
+		super(comp, SWT.NONE);
 		// titre
 		Font font = new Font(comp.getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE|SWT.CENTER);
@@ -68,8 +68,13 @@ public class GrapheHautIHM extends Composite {
 		//redimensionnement des colonnes pdt le redimensionnment des fenetres
 		addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
-				//TableColumn[] cols = _graphe.getColumns();
-				System.out.println(_graphe.getSize().x);
+				int largeur = _graphe.getClientArea().width;
+				TableColumn[] cols = _graphe.getColumns();
+				//la taille minimale d'une colonne est de 150 pixels
+				if (largeur>cols.length*150){
+					for (int i=0; i<cols.length; i++)
+						cols[i].setWidth(largeur / cols.length);
+				}
 			}
 		});
 		
@@ -93,12 +98,16 @@ public class GrapheHautIHM extends Composite {
 		//génération des colonnes correspondant au nombre d'itération
 		for (int i=0; i<nbIteration; i++){
 			tmp = new TableColumn(_graphe, SWT.CENTER);
-			System.out.println("->>>"+_graphe.getSize().x);
-			tmp.setWidth(100);
 			//titre de la colonne
 			tmp.setText(message.getString("grapheIHM.iteration")+" "+i);
 			_tableColonnes.add(tmp);
 		}
+		
+	/*/	int largeur = _graphe.getClientArea().width;
+		TableColumn[] cols = _graphe.getColumns();
+		for (int i=; i<cols.length; i++)
+			cols[i].setWidth(largeur / 4);*/
+		
 		//création des activites
 		//recuperation du vecteur d'activités
 		Vector vecteurTmp = EugesElements.listeActivites;
