@@ -91,7 +91,8 @@ public class PageNouveauProjetIHM extends PageAssistantIHM{
 		Label sauvegarde = new Label(this, SWT.NONE);
 		sauvegarde.setText(message.getString("pageNouveauProjetIHM.repDestination"));
 		sauvegarde.pack();
-		_cheminSauvegarde = new Text(this, SWT.SINGLE | SWT.BORDER);
+		_cheminSauvegarde = new Text(this, SWT.SINGLE | SWT.BORDER );
+		_cheminSauvegarde.setEditable(false);
 		Button parcourirSauvegarde = new Button(this, SWT.PUSH);
 		parcourirSauvegarde.setText(message.getString("pageNouveauProjetIHM.parcourir"));
 		parcourirSauvegarde.pack();

@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.MessageBox;
 
 
+import utilitaires.EugesAide;
 import utilitaires.EugesNavigateur;
 import utilitaires.GestionImage;
 import application.EugesElements;
@@ -86,6 +87,12 @@ public class AssistantIHM extends Dialog {
 			_listeBoutons.add(boutonAide);
 			boutonAide.setText(message.getString("assistantIHM.boutonAide"));
 			boutonAide.setBounds(10, 430, 100, 30);
+			boutonAide.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					EugesAide eugesAide = new EugesAide("http://euges.free.fr");
+				}
+			});
+			
 			//bouton precedent
 			Button boutonPrecedent = new Button(shellAssistant, SWT.PUSH);
 			_listeBoutons.add(boutonPrecedent);
