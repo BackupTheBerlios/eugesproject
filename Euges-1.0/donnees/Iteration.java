@@ -13,9 +13,12 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
+import application.EugesElements;
+
 import utilitaires.MyDate;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesPersonne;
+import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 
 /**
@@ -251,6 +254,26 @@ public class Iteration {
 		public void sauvegarderAssociation(BufferedWriter ecriture) {
 		try {
 			ecriture.write("<Iteration _numIt=\""+this.get_numIt()+"\"/>\n");
+			//sauvegarde des personnes ayant travaillées sur l'itératon avec leurs roles
+			Vector pers = new Vector ();
+			pers= getPersonnes();
+			EugesPersonne persCour = new EugesPersonne();
+			Vector role = new Vector ();
+			EugesRole roleCour = new EugesRole();
+			for (int i =0;i< pers.size();i++)
+			{
+				persCour = (EugesPersonne)pers.elementAt(i);
+				persCour.sauvegardePartielle(ecriture);
+				role = getAssociation(persCour);
+				for (int j = 0;j<role.size();j++)
+				{
+					roleCour = (EugesRole)role.elementAt(j);
+					roleCour.sauvegarder(ecriture);
+				}
+				//System.out.println (_personnesRoles.elementAt(i));
+			}
+			
+			//sauvegarde des activités réalisées
 			for (int i = 0; i<_activitesRealisees.size();i++)
 			{
 				((EugesActRealise)_activitesRealisees.get(i)).sauvegarder(ecriture);
