@@ -150,7 +150,7 @@ public class EugesProduit extends WorkProduct{
 	
 	public void genereMenu(BufferedWriter buffer) {
 		try {
-			buffer.write("<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+this.getName()+"</td></tr>");
+			buffer.write("<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+this.getName()+"  "+this.get_cheminProduit()+"</td></tr>");
 		} catch (IOException e) {
 			System.out.println(e);
 			e.printStackTrace();
