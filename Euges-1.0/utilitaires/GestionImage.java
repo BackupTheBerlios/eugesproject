@@ -52,6 +52,7 @@ public class GestionImage {
 	public static Image _navRefresh;
 	public static Image _navStop;
 	public static Image _navGo;
+	public static Image _attach_file;
 	
 	public static Image _toolTabIt;
 	public static Image _toolGraphIt;
@@ -182,6 +183,9 @@ public class GestionImage {
 			
 			url = getClass().getResource(_basePath + "icones/graphLine.png");
 			_toolGraphLine = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "attach_file.gif");
+			_attach_file = new Image(display,url.openStream());
 			
 		} catch (IOException e) {
 			System.out.println("Erreur au chargement d'une image");

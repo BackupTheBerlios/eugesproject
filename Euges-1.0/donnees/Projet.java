@@ -28,6 +28,7 @@ public class Projet {
 	private MyDate _dateFin;
 	private String _repDestination;
 	private String _processus;
+	private String _cheminProcessus;
 	private String _description;
 	//liste des itérations du projet
 	//fonction d'ordre sur l'ensemble
@@ -38,9 +39,11 @@ public class Projet {
 	  };
 	public SortedSet _listeIteration = new TreeSet(ordre);
 	
+	
+
 	/**
 	 * 
-	 * cré un nouveau projet
+	 * créer un nouveau projet
 	 * 
 	 * @param nomProjet
 	 * @param dateDebut
@@ -59,6 +62,32 @@ public class Projet {
 		_description=description;
 		_listeIteration.add(new Iteration(dateDebut, dateFin));
 	}
+
+	/**
+	 * 
+	 * créer un nouveau projet
+	 * 
+	 * @param nomProjet
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param repDestination
+	 * @param processus
+	 * @param cheminProcessus
+	 * @param description
+	 */
+	public Projet(String nomProjet, MyDate dateDebut, MyDate dateFin,
+				  String repDestination, String processus,	String cheminProcessus, 
+				  String description) {
+		_nomProjet=nomProjet;
+		_dateDebut=dateDebut;
+		_dateFin=dateFin;
+		_repDestination=repDestination;
+		_processus=processus;
+		_cheminProcessus = cheminProcessus;
+		_description=description;
+		_listeIteration.add(new Iteration(dateDebut, dateFin));
+	}
+	
 	/**
 	 * 	ajout d'une nouvelle iteration
 	 * 
@@ -169,6 +198,21 @@ public class Projet {
 	}
 
 	/**
+	 * @return Returns the _cheminProcessus.
+	 */
+	public String get_cheminProcessus() {
+		return _cheminProcessus;
+	}
+
+	/**
+	 * @param processus The _cheminProcessus to set.
+	 */
+	public void set_cheminProcessus(String processus) {
+		_cheminProcessus = processus;
+	}
+	
+	
+	/**
 	 * @return Returns the _repDestination.
 	 */
 	public String get_repDestination() {
@@ -278,7 +322,7 @@ public class Projet {
 				((Iteration)iter.next()).sauvegardePartielle(ecriture);
 			}		
 	}
-	
+		
 	public void genereIndex(BufferedWriter buffer) {
 		try {
 			buffer.write("<html>\n<head>\n<title>Euges - " + this.get_nomProjet());
