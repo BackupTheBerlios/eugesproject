@@ -326,4 +326,13 @@ public class EugesElements {
 		}
 		return max;
 	}
+
+	public static int getActivitesRealiseesCount() {
+		int nb=0;
+		for (Iterator it = listeActivites.iterator(); it.hasNext();) {
+				EugesActivite actTemp = (EugesActivite)it.next();
+				nb += actTemp.getActRealiseCount();
+		}
+		return nb;
+	}
 }

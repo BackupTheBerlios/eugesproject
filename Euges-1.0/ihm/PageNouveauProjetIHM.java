@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import utilitaires.ChampDate;
+import application.ChargementProcessus;
 import application.EugesElements;
 import configuration.Config;
 
@@ -251,6 +252,7 @@ public class PageNouveauProjetIHM extends PageAssistantIHM{
 		}else {
 			//si toutes les données ont été vérifiées avec succées alors le projet est créé
 			new EugesElements(_nomProjet.getText(), _dateDebut.toMyDate(), _dateFin.toMyDate(), _cheminSauvegarde.getText(), _cheminProcessus.getText(), _description.getText());
+			new ChargementProcessus(_cheminProcessus.getText());
 			return true;
 		}
 	}

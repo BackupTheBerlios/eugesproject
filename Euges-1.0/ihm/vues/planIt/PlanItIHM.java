@@ -99,4 +99,10 @@ public class PlanItIHM extends PageVuesIHM {
 		// TODO Auto-generated method stub
 		majContenuWidgets();
 	}
+	/**
+	 * @return Returns the _tabFolder.
+	 */
+	public static CTabFolder get_tabFolder() {
+		return _tabFolder;
+	}
 }

@@ -37,6 +37,7 @@ public class GestionImage {
 	public static Image _plus;
 	public static Image _moins;
 	public static Image _start;
+	public static Image _triRefresh;
 	public static Image _triActivite;
 	public static Image _triDefaut;
 	public static Image _triIteration;
@@ -98,6 +99,9 @@ public class GestionImage {
 //			
 //			url = getClass().getResource(_basePath + "icones/aide.ico");
 //			_aideBar = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/tri_refresh.ico");
+			_triRefresh = new Image(display,url.openStream());
 			
 			url = getClass().getResource(_basePath + "icones/tri_activite.ico");
 			_triActivite = new Image(display,url.openStream());

@@ -44,25 +44,17 @@ public class GrapheChargesIHM extends PageVuesIHM {
 	
 	private boolean vueSuperposee = false;
 	
+	private final Canvas canvas;
+	
+	private final Composite parent;
+	
 	public GrapheChargesIHM(final Composite parent){
-		super(parent,SWT.NONE|SWT.H_SCROLL|SWT.V_SCROLL);
+		super(parent,SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL);
+		this.parent= parent;
 		//this.setLayout(new FillLayout(SWT.VERTICAL));
-		final int chargeMax;
-		if (EugesElements.getChargeEstimeeMax()>EugesElements.getChargeReelleMax())
-			chargeMax = EugesElements.getChargeEstimeeMax();
-		else
-			chargeMax = EugesElements.getChargeReelleMax();
-		final int nombreActivites = EugesElements.getActivitesCount();
 		this.setSize(parent.getParent().getSize());
-		final Canvas canvas = new Canvas(this,SWT.NONE);
-		if ((nombreActivites<10)&&(chargeMax<40))
-			canvas.setSize(parent.getParent().getSize().x,parent.getParent().getSize().y-20);
-		else if (nombreActivites<10)
-			canvas.setSize(parent.getParent().getSize().x,chargeMax*20);
-		else if (chargeMax<40)
-			canvas.setSize(nombreActivites*120,parent.getParent().getSize().y);
-		else
-			canvas.setSize(nombreActivites*120, chargeMax*20);
+		canvas = new Canvas(this,SWT.NONE);
+		reglerTaille();
 		Menu menu = new Menu(parent.getShell(), SWT.POP_UP);
 		MenuItem vueNormale = new MenuItem(menu, SWT.NONE);
 		vueNormale.setText(message.getString("vueNormale"));
@@ -108,15 +100,7 @@ public class GrapheChargesIHM extends PageVuesIHM {
 		
 		addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
-
-				if ((nombreActivites*120<parent.getParent().getSize().x)&&(chargeMax*20<parent.getParent().getSize().y))
-					canvas.setSize(parent.getParent().getSize().x,parent.getParent().getSize().y-20);
-				else if (nombreActivites*120<parent.getParent().getSize().x)
-					canvas.setSize(parent.getParent().getSize().x,chargeMax*20);
-				else if (chargeMax*20<parent.getParent().getSize().y)
-					canvas.setSize(nombreActivites*120,parent.getParent().getSize().y);
-				else
-					canvas.setSize(nombreActivites*120, chargeMax*20);
+				reglerTaille();
 				
 				Point size = canvas.getSize ();
 				Rectangle rect = getClientArea ();
@@ -276,7 +260,12 @@ public class GrapheChargesIHM extends PageVuesIHM {
 				}
 			}
 		});
+		
+		
 		canvas.redraw();
+		
+
+
 	}
 
 	/* (non-Javadoc)
@@ -284,5 +273,29 @@ public class GrapheChargesIHM extends PageVuesIHM {
 	 */
 	public void loadData() {
 		// TODO Auto-generated method stub
+		reglerTaille();
+		canvas.redraw();
+		
+	}
+	
+	public void reglerTaille() {
+		int nombreIt=0;
+		int chargeMax=0;
+		if (EugesElements.getChargeEstimeeMax()>EugesElements.getChargeReelleMax())
+			chargeMax = EugesElements.getChargeEstimeeMax();
+		else
+			chargeMax = EugesElements.getChargeReelleMax();
+		int nombreActivites = EugesElements.getActivitesRealiseesCount();
+		if (EugesElements._projet!= null) 
+			nombreIt = EugesElements._projet._listeIteration.size();
+		if (((nombreActivites*120+nombreIt*100)<parent.getParent().getSize().x)&&(chargeMax*20<parent.getParent().getSize().y))
+			canvas.setSize(parent.getParent().getSize().x,parent.getParent().getSize().y-20);
+		else if ((nombreActivites*120+nombreIt*100)<parent.getParent().getSize().x)
+			canvas.setSize(parent.getParent().getSize().x,chargeMax*20);
+		else if (chargeMax*20<parent.getParent().getSize().y)
+			canvas.setSize(nombreActivites*120+nombreIt*100,parent.getParent().getSize().y);
+		else
+			canvas.setSize(nombreActivites*120+nombreIt*100, chargeMax*20);
+		
 	}
 }

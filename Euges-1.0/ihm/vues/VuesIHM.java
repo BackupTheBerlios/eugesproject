@@ -30,6 +30,7 @@ public class VuesIHM extends ViewForm{
 	//vecteur de vues
 	private Vector _vues;
 	private int pageCourante=0;
+	private final Composite c;
 	/**
 	 * @param parent
 	 * @param nbIt
@@ -39,7 +40,7 @@ public class VuesIHM extends ViewForm{
 		//allocation du vecteur de vues
 		_vues = new Vector();
 		//composite contenant les vues
-		final Composite c = new Composite(this, SWT.NONE);
+		c = new Composite(this, SWT.NONE);
 		//ajout des vues dans la liste des vues
 		_vues.add(new PlanItIHM(c, 0));
 		_vues.add(new GrapheHautIHM(c));
@@ -62,6 +63,10 @@ public class VuesIHM extends ViewForm{
 	 * @param numPage numero de la page a afficher
 	 */
 	public void setVisible(int numPage){		
+		if (((PageVuesIHM)_vues.elementAt(numPage)) instanceof GrapheChargesIHM) {
+			((GrapheChargesIHM)_vues.elementAt(numPage)).dispose();
+			_vues.setElementAt(new GrapheChargesIHM(c),numPage);
+		}
 		((PageVuesIHM)_vues.elementAt(numPage)).setVisible(true);
 		((PageVuesIHM)_vues.elementAt(numPage)).loadData();
 		if (pageCourante!=numPage){
