@@ -55,7 +55,7 @@ public class FenetreErreurChargement extends Dialog{
 		
 		//nouveau shell
 		final Shell shellFenetreErreurChargement = new Shell(shell, SWT.APPLICATION_MODAL | SWT.CLOSE);
-		shellFenetreErreurChargement.setSize(200, 120);
+		shellFenetreErreurChargement.setSize(160, 120);
 		//curseur qui apparait lors du survol des boutons
 		Cursor curseurMain = new Cursor(display, SWT.CURSOR_HAND);
 		shellFenetreErreurChargement.setImage(GestionImage._euges);
@@ -85,7 +85,7 @@ public class FenetreErreurChargement extends Dialog{
 		fenetreErreurChargementLabel.setLayoutData(gridLayout);
 		fermer.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
-		//shellFenetreErreurChargement.pack();
+		shellFenetreErreurChargement.pack();
 		
 		// ouvrir la fenêtre au centre de l'écran
 		Rectangle bounds = shell.getBounds ();
