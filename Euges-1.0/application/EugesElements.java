@@ -52,13 +52,13 @@ public class EugesElements {
 	 * @param description
 	 */
 	public EugesElements(String nomProjet, MyDate dateDebut, MyDate dateFin,
-	String repDestination, String processus,	String description){
+			String repDestination, String processus,	String description){
 		_projet=new Projet(nomProjet, dateDebut, dateFin, repDestination, processus, description);
 	}
 	public EugesElements(){
 	}
 	
-	   // fonction qui teste si la chaine de caractères est vide
+	// fonction qui teste si la chaine de caractères est vide
 	public static boolean testTexteVide(String string){
 		return string.equals("");
 	}
@@ -110,7 +110,7 @@ public class EugesElements {
 			return listePersonnes.remove(o);
 		}
 	}
-	   // fonction qui teste si l'objet en paramètres est dans la liste globale associée
+	// fonction qui teste si l'objet en paramètres est dans la liste globale associée
 	public static boolean testObjetExistant(Object o){
 		if (o instanceof EugesProduit){
 			return listeProduits.contains(o);
@@ -130,7 +130,7 @@ public class EugesElements {
 		EugesElements.listeProduits.add(produit);
 	}
 	
-		/*fonction de suppression d'un produit dans la liste globale des produits*/
+	/*fonction de suppression d'un produit dans la liste globale des produits*/
 	public static void supprimeEugesProduit(EugesProduit produit){		
 		if (EugesElements.listeProduits.contains(produit)){
 			EugesElements.listeProduits.remove(produit);
@@ -184,7 +184,7 @@ public class EugesElements {
 		// on ajoute cette version dans le produit
 //		produit.set_versions(vers);
 		
-		   // on ajoute le produit dans la liste globale des produits
+		// on ajoute le produit dans la liste globale des produits
 		EugesElements.listeProduits.add(produit);
 	}
 	
@@ -342,8 +342,8 @@ public class EugesElements {
 	public static int getActivitesRealiseesCount() {
 		int nb=0;
 		for (Iterator it = listeActivites.iterator(); it.hasNext();) {
-				EugesActivite actTemp = (EugesActivite)it.next();
-				nb += actTemp.getActRealiseCount();
+			EugesActivite actTemp = (EugesActivite)it.next();
+			nb += actTemp.getActRealiseCount();
 		}
 		return nb;
 	}
