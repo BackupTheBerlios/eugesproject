@@ -117,6 +117,7 @@ public class MailIHM extends Dialog{
 			public void widgetSelected(SelectionEvent e) {
 				boolean erreur = false;
 				MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),text4.getText(),text3.getText(),text2.getText());
+				
 				try {
 					mail.sendMsg();
 				} catch (Exception e1) {
@@ -128,6 +129,7 @@ public class MailIHM extends Dialog{
 					
 				}
 				if(erreur=false)
+					System.out.println("");
 					shellMail.dispose();
 			}
 		});
