@@ -5,19 +5,21 @@
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package ihm.preferences;
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Button;
+import java.io.FileOutputStream;
 
+
+import java.util.ResourceBundle;
 import configuration.Config;
+
 
 
 /**
@@ -33,36 +35,48 @@ public class AutoMailIHM extends Composite{
 	
 	private Shell _shell;
 	
-	private Text serve;
 	
-	private Text servs;
+	private static Text servs;
 	
-	private Text mess;
+	private static Text mess;
 	
-	private Text login;
+	private static Text login;
 	
-	private Text passwd;
+	private static Text sujet;
+	
+	private static Label suj;
+	
+	private static Button button;
+	
+	private Composite comp;
+	
+	
+	
+	
 	
 	public AutoMailIHM(Composite arg0, int arg1, Shell shell) {
 		super(arg0, arg1);
 		_shell=shell;
+		
+		
 		//Le layout du composite
 		setLayout(new FormLayout());
 		
 		
 		
-		Composite comp = new Composite(this,SWT.NONE);
+		comp = new Composite(this,SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
 		comp.setLayout(gridLayout);
 		
-			
+		
 		
 		
 		// Serveur de courrier Sortant
 		Label bas = new Label(comp,SWT.NONE);
 		bas.setText(message.getString("AutoMailIHM.serv"));
-		Text servs = new Text(comp, SWT.BORDER);
+		servs = new Text(comp, SWT.BORDER);
+		servs.setText(Config.config.getProperty("serv"));
 		
 		// Label Vierge
 		Label vierge = new Label(comp,SWT.NONE);
@@ -75,30 +89,27 @@ public class AutoMailIHM extends Composite{
 		// Login
 		Label log = new Label(comp,SWT.NONE);
 		log.setText(message.getString("AutoMailIHM.log"));
-		Text login = new Text(comp, SWT.BORDER);
-		
-		// Mot de passe
-		Label pass = new Label(comp,SWT.NONE);
-		pass.setText(message.getString("AutoMailIHM.pass"));
-		Text passwd = new Text(comp, SWT.BORDER);
-		passwd.setEchoChar('*');
-		
-		
-		
+		login = new Text(comp, SWT.BORDER);
+		login.setText(Config.config.getProperty("login"));
+			
 		
 		// Sujet
-		Label suj = new Label(comp,SWT.NONE);
+		suj = new Label(comp,SWT.NONE);
 		suj.setText(message.getString("AutoMailIHM.suj"));
-		Text sujet = new Text(comp, SWT.BORDER);
+		sujet = new Text(comp, SWT.BORDER);
+		sujet.setText(Config.config.getProperty("suj"));
 		
 		//Message
 		Label msg = new Label(comp, SWT.NONE);
 		msg.setText(message.getString("AutoMailIHM.msg"));
-		Text mess = new Text(comp, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
+		mess = new Text(comp, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
+		mess.setText(Config.config.getProperty("msg"));
 		
 		//Envoie au demarrage du projet
-		Button button = new Button(comp, SWT.CHECK);
+		button = new Button(comp, SWT.CHECK);
 		button.setText(message.getString("AutoMailIHM.button"));
+		button.setSelection(setCheck());
+		
 		
 		
 		
@@ -117,11 +128,6 @@ public class AutoMailIHM extends Composite{
 		data1 = new GridData();
 		data1.widthHint = 60;
 		login.setLayoutData(data1);
-		data1 = new GridData();
-		pass.setLayoutData(data1);
-		data1 = new GridData();
-		data1.widthHint = 60;
-		passwd.setLayoutData(data1);
 		data1 = new GridData(GridData.FILL_HORIZONTAL);
 		suj.setLayoutData(data1);
 		data1 = new GridData();
@@ -138,9 +144,48 @@ public class AutoMailIHM extends Composite{
 		
 		
 		
+		
+	}
+	
+	public static String getCheck(){
+		if (button.getSelection())
+		{
+			return "1";
+		}
+		else{
+			return "0";
+		}
+	}
+	
+	public static boolean setCheck(){
+		if (Config.config.getProperty("start")=="1"){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	
+	public static void saveMail() {
+		
+		try {
+			Config.config.setProperty("serv",servs.getText());
+			Config.config.setProperty("login",login.getText());
+			Config.config.setProperty("suj",sujet.getText());
+			Config.config.setProperty("msg",mess.getText());
+			Config.config.setProperty("start",getCheck());
+			Config.config.store(new FileOutputStream(Config.fichierConfig),"");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
 	
 	
+	
 }
+
