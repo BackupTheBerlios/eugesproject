@@ -125,6 +125,7 @@ public class MailIHM extends Dialog{
 					msg.setMessage(message.getString("MailIHM.problemeCorps"));
 					msg.open();
 					erreur=true;
+					
 				}
 				if(erreur=false)
 					shellMail.dispose();
@@ -189,7 +190,7 @@ public class MailIHM extends Dialog{
 	 */
 	public void choose(){
 		try {
-			this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+";");
+			this.text4.append(EugesElements.getPersonneDansListePersonnes(this.combo1.getText()).getMail()+",");
 		} catch (Exception e) {}
 		
 		

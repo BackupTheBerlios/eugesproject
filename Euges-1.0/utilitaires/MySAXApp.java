@@ -82,6 +82,18 @@ public class MySAXApp extends DefaultHandler{
 	 */
 	public void endDocument() throws SAXException {
 		//System.out.println("Fin de l'analyse du document" );
+		creationAssociation = 0;
+		numIt = 0;
+		nbPersAct = 0;
+		nbActIt = 0;
+		nbProOutAct = 0;
+		nbProInAct = 0;
+		nbProAct = 0;
+		nbVerPro = 0;
+		personne = "";
+		produit = "";
+		activite = "";
+		ajoutRoleAct = 1;
 	}
 
 	/**
@@ -191,13 +203,6 @@ public class MySAXApp extends DefaultHandler{
 	  	}
 	  	if(localName.equals("EugesRole"))
 	  	{
-	  		/*System.out.println(numIt);
-	  		System.out.println(nbActIt);
-	  		System.out.println(nbPersAct);
-	  		System.out.println(EugesElements._projet.getIteration(numIt).getActiviteCount());
-	  		System.out.println(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1));
-	  		System.out.println(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1));*/
-	  		
 	  		// ajout du role à la personne dans l'activité de l'IT
 	  		//EugesElements._projet.getIteration(numIt).ajouterAssociation(EugesElements._projet.getIteration(numIt).getActivite(nbActIt -1).getPersonne(nbPersAct -1), EugesElements.getRole(attributs.getValue(1)));
 	  		// ajout du role à la personne dans l'IT

@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import ihm.preferences.PreferencesIHM;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,11 +22,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.MessageBox;
+
 
 import utilitaires.EugesNavigateur;
 import utilitaires.GestionImage;
 import application.EugesElements;
 import configuration.Config;
+import utilitaires.MailElements;
 
 /**
  * @author will
@@ -137,6 +141,58 @@ public class AssistantIHM extends Dialog {
 					FenetrePrincipaleIHM._vues.elementAt(0).setVisible(true);
 					ArbrePrincipalIHM._tri.actualiser();
 					EugesElements.processusEnregistre=false;
+					
+					
+					
+					
+							//envoie du mail de démarrage
+					
+					if (Config.config.getProperty("start").equals("1")){
+							try{	
+								String[] TabPers;
+								TabPers = EugesElements.getTableauListePersonne();
+								String dest="";
+								
+								
+								
+								for (int i=0;i<TabPers.length;i++){
+								
+								dest= dest + (EugesElements.getPersonneDansListePersonnes(TabPers[i]).getMail()+",");
+								
+								}
+								
+								if (Config.config.getProperty("login")!="" & Config.config.getProperty("suj")!="" & Config.config.getProperty("msg")!="" & Config.config.getProperty("serv")!=""){
+									
+										
+									MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),dest,Config.config.getProperty("msg"),Config.config.getProperty("suj"));
+										try {
+											mail.sendMsg();
+										} catch (Exception e1) {}
+							 		}
+								else {
+									while ((Config.config.getProperty("login").equals("") || Config.config.getProperty("suj").equals("") || Config.config.getProperty("msg").equals("") || Config.config.getProperty("serv").equals("")) & Config.config.getProperty("start").equals("1")){
+										
+										MessageBox msg = new MessageBox(shellAssistant, SWT.ICON_ERROR|SWT.YES);
+										msg.setText(message.getString("assistantIHM.probmail"));
+										msg.setMessage(message.getString("assistantIHM.msgprobmail"));
+										msg.open();
+										
+										PreferencesIHM preferences = new PreferencesIHM(shellAssistant);
+									}
+										
+									if (Config.config.getProperty("start").equals("1")){
+										MailElements mail = new MailElements(Config.config.getProperty("serv"),Config.config.getProperty("login"),dest,Config.config.getProperty("msg"),Config.config.getProperty("suj"));
+										try {
+											mail.sendMsg();
+										} catch (Exception e1) {}
+									}
+								
+									
+									
+								}
+							}
+							catch (Exception e1){}
+							}
 					shellAssistant.dispose();
 			 	}
 			 });

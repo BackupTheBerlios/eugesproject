@@ -58,6 +58,11 @@ public class AutoMailIHM extends Composite{
 		super(arg0, arg1);
 		_shell=shell;
 		
+		boolean tst = false;
+		if (Config.config.getProperty("start").equals("1")) tst = true;
+		
+		
+		
 		
 		//Le layout du composite
 		setLayout(new FormLayout());
@@ -108,7 +113,8 @@ public class AutoMailIHM extends Composite{
 		//Envoie au demarrage du projet
 		button = new Button(comp, SWT.CHECK);
 		button.setText(message.getString("AutoMailIHM.button"));
-		button.setSelection(setCheck());
+		button.setSelection(tst);
+		
 		
 		
 		
@@ -158,7 +164,9 @@ public class AutoMailIHM extends Composite{
 	}
 	
 	public static boolean setCheck(){
-		if (Config.config.getProperty("start")=="1"){
+				
+		if (Config.config.getProperty("start").equals("1")){
+			
 			return true;
 		}
 		else{
@@ -170,12 +178,16 @@ public class AutoMailIHM extends Composite{
 	public static void saveMail() {
 		
 		try {
+			
 			Config.config.setProperty("serv",servs.getText());
 			Config.config.setProperty("login",login.getText());
 			Config.config.setProperty("suj",sujet.getText());
 			Config.config.setProperty("msg",mess.getText());
 			Config.config.setProperty("start",getCheck());
 			Config.config.store(new FileOutputStream(Config.fichierConfig),"");
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
