@@ -15,15 +15,23 @@ import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import utilitaires.EugesNavigateur;
+
 import application.EugesElements;
+
+
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesVersion;
@@ -39,7 +47,7 @@ public class PageProprietesVersionIHM extends PageAssistantIHM {
 	
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-	public PageProprietesVersionIHM(final Shell shell, EugesVersion vers) {
+	public PageProprietesVersionIHM(final Shell shell, final EugesVersion vers) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
 		Label vide;
@@ -64,9 +72,21 @@ public class PageProprietesVersionIHM extends PageAssistantIHM {
 		// Nom du produit
 		CLabel lblVersion = new CLabel(this,SWT.WRAP);
 		lblVersion.setText(message.getString("PageProprietesVersionIHM.version.lblProduit"));
-		Text version = new Text(this,SWT.WRAP);
+		final Label version = new Label(this,SWT.WRAP);
 		version.setText(vers.get_produitParent().getName());
-		version.setEditable(false);
+		//version.setEditable(false);
+				
+		// Lien vers le site de l'outil publication
+		if ((vers.get_produitParent().get_cheminProduit() != null) && (vers.get_produitParent().get_cheminProduit() != "")) {
+			version.setForeground(new Color(getDisplay(), 0, 0, 255));
+			version.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
+			version.addListener(SWT.MouseUp, new Listener(){
+				public void handleEvent(Event e){
+					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + vers.get_produitParent().get_cheminProduit());
+				}
+			});
+		}
+		
 		
 		// Produit associé à l'itération : 
 		CLabel lblIteration = new CLabel(this,SWT.WRAP);

@@ -14,14 +14,19 @@ import java.util.SortedSet;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import utilitaires.EugesNavigateur;
 import application.EugesElements;
 import configuration.Config;
 import donnees.Iteration;
@@ -38,7 +43,7 @@ public class PageProprietesProjetIHM extends PageAssistantIHM {
 	
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-	public PageProprietesProjetIHM(final Shell shell, Projet p) {
+	public PageProprietesProjetIHM(final Shell shell, final Projet p) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
 		Label vide;
@@ -76,6 +81,7 @@ public class PageProprietesProjetIHM extends PageAssistantIHM {
 		debut.setText(p.get_dateDebut().toString());
 		debut.setEditable(false);
 		
+		
 		// Date de fin projet
 		CLabel lblFin = new CLabel(this,SWT.WRAP);
 		lblFin.setText(message.getString("PageProprietesProjetIHM.projet.lblFin"));
@@ -83,12 +89,24 @@ public class PageProprietesProjetIHM extends PageAssistantIHM {
 		fin.setText(p.get_dateFin().toString());
 		fin.setEditable(false);
 		
+		
 		// Processus
 		CLabel lblProcessus = new CLabel(this,SWT.WRAP);
 		lblProcessus.setText(message.getString("PageProprietesProjetIHM.projet.lblProcessus"));
-		Text processus = new Text(this,SWT.WRAP);
+		final Label processus = new Label(this, SWT.WRAP);
 		processus.setText(p.get_processus());
-		processus.setEditable(false);
+		//processus.setEditable(false);
+		
+		// Lien vers le site de l'outil publication
+		if ((p.get_cheminProcessus() != null) && (p.get_cheminProcessus() != "")) {
+			processus.setForeground(new Color(getDisplay(), 0, 0, 255));
+			processus.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
+			processus.addListener(SWT.MouseUp, new Listener(){
+				public void handleEvent(Event e){
+					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + p.get_cheminProcessus());
+				}
+			});
+		}
 		
 		// Description
 		CLabel lblDescription = new CLabel(this,SWT.WRAP);

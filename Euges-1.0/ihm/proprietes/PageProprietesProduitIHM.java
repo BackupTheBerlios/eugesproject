@@ -15,15 +15,23 @@ import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import utilitaires.EugesNavigateur;
+
 import application.EugesElements;
+
+
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesProduit;
@@ -39,7 +47,7 @@ public class PageProprietesProduitIHM extends PageAssistantIHM {
 	
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-	public PageProprietesProduitIHM(final Shell shell, EugesProduit prod) {
+	public PageProprietesProduitIHM(final Shell shell, final EugesProduit prod) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
 		Label vide;
@@ -64,11 +72,22 @@ public class PageProprietesProduitIHM extends PageAssistantIHM {
 		// Nom du produit
 		CLabel lblProduit = new CLabel(this,SWT.WRAP);
 		lblProduit.setText(message.getString("PageProprietesProduitIHM.produit.lblProduit"));
-		Text produit = new Text(this,SWT.WRAP);
+		final Label produit = new Label(this,SWT.WRAP);
 		produit.setText(prod.getName());
-		produit.setEditable(false);
+		//produit.setEditable(false);
 		
-
+		// Lien vers le site de l'outil publication
+		if ((prod.get_cheminProduit() != null) && (prod.get_cheminProduit() != "")) {
+			produit.setForeground(new Color(getDisplay(), 0, 0, 255));
+			produit.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
+			produit.addListener(SWT.MouseUp, new Listener(){
+				public void handleEvent(Event e){
+					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + prod.get_cheminProduit());
+				}
+			});
+		}
+		
+		
 		// Vide pour la présentation
 		vide = new Label(this, SWT.NONE);
 		vide.setText("");

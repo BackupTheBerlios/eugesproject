@@ -68,6 +68,7 @@ public class PageProprietesIterationIHM extends PageAssistantIHM {
 		iteration.setText(it.get_numIt() + "");
 		iteration.setEditable(false);
 		
+		
 		// Date de début de l'itération
 		CLabel lblDebut = new CLabel(this,SWT.WRAP);
 		lblDebut.setText(message.getString("PageProprietesIterationIHM.iteration.lblDebut"));
@@ -89,7 +90,7 @@ public class PageProprietesIterationIHM extends PageAssistantIHM {
 		vide = new Label(this, SWT.NONE);
 		vide.setText("");
 		
-
+		
 		// Affichage d'un séparateur pour la présentation
 		Label sep1 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
 		GridData dataSep = new GridData(GridData.FILL_HORIZONTAL);

@@ -17,8 +17,10 @@ import donnees.spem.process.structure.WorkProduct;
 public class EugesProduit extends WorkProduct{
 	
 	private double _versionSuivante = 1.0;
-	
+	public Vector _etats = new Vector();
 	private Vector _versions = new Vector();
+	private String _cheminProduit;
+	
 	
 	public EugesProduit(){
 		super();  // appel du constructeur de WorkProduct
@@ -28,9 +30,47 @@ public class EugesProduit extends WorkProduct{
 		super(name); // appel du constructeur de WorkProduct
 	}
 
+	public EugesProduit(String name, String chemin, Vector etats) {
+		super(name); // appel du constructeur de WorkProduct
+		_cheminProduit = chemin;
+		_etats = etats;
+	}
+	
 	public String toString() {
 		return this.getName();
 	}
+	
+	
+	/**
+	 * @return Returns the _cheminProduit.
+	 */
+	public String get_cheminProduit() {
+		return _cheminProduit;
+	}
+
+	/**
+	 * @param produit The _cheminProduit to set.
+	 */
+	public void set_cheminProduit(String produit) {
+		_cheminProduit = produit;
+	}
+
+	
+	/**
+	 * @return Returns the _etats.
+	 */
+	public Vector get_etats() {
+		return _etats;
+	}
+
+	/**
+	 * @param _etats The _etats to set.
+	 */
+	public void set_etats(Vector _etats) {
+		this._etats = _etats;
+	}
+	
+	
 	
 	public boolean ajouterVersion(EugesVersion a) {
 		if (!contientVersion(a)) {

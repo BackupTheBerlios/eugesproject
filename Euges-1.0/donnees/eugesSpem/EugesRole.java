@@ -15,6 +15,8 @@ import donnees.spem.process.structure.ProcessRole;
  */
 public class EugesRole extends ProcessRole {
 	
+	private String _cheminRole;
+	
 	public EugesRole() {
 		super();
 	}
@@ -22,10 +24,32 @@ public class EugesRole extends ProcessRole {
 	public EugesRole(String name) {
 		super(name);
 	}
+
+	public EugesRole(String name, String chemin) {
+		super(name);
+		_cheminRole = chemin;
+	}
 	
 	public String toString() {
 		return this.getName();
 	}
+	
+
+	/**
+	 * @return Returns the _cheminRole.
+	 */
+	public String get_cheminRole() {
+		return _cheminRole;
+	}
+
+	/**
+	 * @param role The _cheminRole to set.
+	 */
+	public void set_cheminRole(String role) {
+		_cheminRole = role;
+	}
+	
+	
 	/**
 	 * @param ecriture
 	 */

@@ -19,6 +19,7 @@ public class EugesVersion {
 	private EugesPersonne _responsable;
 	private EugesProduit _produitParent;
 	private Vector _acteurs = new Vector();
+	private String file = "";
 
 	public EugesVersion () {
 	
@@ -206,6 +207,20 @@ public class EugesVersion {
 		}
 		
 	}
+	/**
+	 * @return Returns the file.
+	 */
+	public String getFile() {
+		return file;
+	}
+
+	/**
+	 * @param file The file to set.
+	 */
+	public void setFile(String file) {
+		this.file = file;
+	}
+
 	
 	public void genereTabProduitIn(BufferedWriter buffer, String activite) {
 		try {

@@ -13,14 +13,21 @@ import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import application.EugesElements;
+
+import utilitaires.EugesNavigateur;
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesProduit;
@@ -36,7 +43,7 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 	
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-	public PageProprietesActiviteIHM(final Shell shell, EugesActivite act) {
+	public PageProprietesActiviteIHM(final Shell shell, final EugesActivite act) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
 		Label vide;
@@ -61,9 +68,21 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 		// Nom de l'activité
 		CLabel lblActivite = new CLabel(this,SWT.WRAP);
 		lblActivite.setText(message.getString("PageProprietesActiviteIHM.activite.lblActivite"));
-		Text activite = new Text(this,SWT.WRAP);
+		final Label activite = new Label(this,SWT.WRAP);
 		activite.setText(act.getName());
-		activite.setEditable(false);
+		//activite.setEditable(false);
+		
+		// Lien vers le site de l'outil publication
+		if ((act.get_cheminActivite() != null) && (act.get_cheminActivite() != "")) {
+			activite.setForeground(new Color(getDisplay(), 0, 0, 255));
+			activite.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
+			activite.addListener(SWT.MouseUp, new Listener(){
+				public void handleEvent(Event e){
+					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + act.get_cheminActivite());
+				}
+			});
+		}
+		
 		
 		// Rôle associé
 		CLabel lblRole = new CLabel(this,SWT.WRAP);

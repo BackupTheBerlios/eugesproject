@@ -15,14 +15,19 @@ import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import utilitaires.EugesNavigateur;
 import application.EugesElements;
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
@@ -41,7 +46,7 @@ public class PageProprietesRoleIHM extends PageAssistantIHM {
 	
 	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
-	public PageProprietesRoleIHM(final Shell shell, EugesRole r) {
+	public PageProprietesRoleIHM(final Shell shell, final EugesRole r) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
 		Label vide;
@@ -66,10 +71,20 @@ public class PageProprietesRoleIHM extends PageAssistantIHM {
 		// Nom du rôle
 		CLabel lblRole = new CLabel(this,SWT.WRAP);
 		lblRole.setText(message.getString("PageProprietesRoleIHM.role.lblRole"));
-		Text role = new Text(this,SWT.WRAP);
+		final Label role = new Label(this,SWT.WRAP);
 		role.setText(r.getName());
-		role.setEditable(false);
+		//role.setEditable(false);
 		
+		// Lien vers le site de l'outil publication
+		if ((r.get_cheminRole() != null) && (r.get_cheminRole() != "")) {
+			role.setForeground(new Color(getDisplay(), 0, 0, 255));
+			role.setCursor( new Cursor(getDisplay(), SWT.CURSOR_HAND));
+			role.addListener(SWT.MouseUp, new Listener(){
+				public void handleEvent(Event e){
+					EugesNavigateur nav = new EugesNavigateur(EugesElements._projet.get_cheminProcessus() + r.get_cheminRole());
+				}
+			});
+		}
 		
 		// Vide pour la présentation
 		vide = new Label(this, SWT.NONE);

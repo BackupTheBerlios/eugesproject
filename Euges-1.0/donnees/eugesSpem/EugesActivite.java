@@ -18,11 +18,14 @@ import donnees.spem.process.structure.Activity;
  */
 public class EugesActivite extends Activity{	
 
+	private String _cheminActivite;
+	
 	//vecteur d'activites realisees 
 	private Vector _activites = new Vector();
 	private Vector _roles = new Vector();
 	private Vector _produitsIn = new Vector();
 	private Vector _produitsOut = new Vector();
+
 
 	public EugesActivite () {
 		super();
@@ -32,8 +35,28 @@ public class EugesActivite extends Activity{
 		super(name);
 	}
 
+	public EugesActivite (String name, String chemin) {
+		super(name);
+		_cheminActivite = chemin;
+	}
+	
 	public String toString() {
 		return getName();
+	}
+	
+
+	/**
+	 * @return Returns the _cheminActivite.
+	 */
+	public String get_cheminActivite() {
+		return _cheminActivite;
+	}
+
+	/**
+	 * @param activite The _cheminActivite to set.
+	 */
+	public void set_cheminActivite(String activite) {
+		_cheminActivite = activite;
 	}
 	
 	public boolean ajouterActRealise(EugesActRealise a) {

@@ -4,6 +4,7 @@
  */
 package ihm.vues.planIt;
 
+import ihm.FenetreAttacherFichierIHM;
 import ihm.FenetreAttributionRoleIHM;
 import ihm.FenetreGestionProduitsIHM;
 import ihm.NouveauParticipantIHM;
@@ -19,6 +20,8 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeEditor;
 import org.eclipse.swt.custom.TableTreeItem;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,9 +40,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -89,9 +92,11 @@ public class ItIHM extends Composite {
 	private ToolItem _produitsDEL;
 	private ToolItem _produitsMNG;
 	private ToolItem _produitsPAR;
-	private Table _produitsInTABLE;
+	private ToolItem _produitsATT;
+//	private Table _produitsInTABLE;
 	private TableTree _produitsOutTABLE;
-	
+	private Point _mouseDown2;
+	private int _EDITABLECOLUMN2;
 	
 	/**
 	 * @param parent
@@ -286,7 +291,8 @@ public class ItIHM extends Composite {
 		_activitesMNG.setText(message.getString("ItIHM.mngAct"));
 		_activitesMNG.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event e){
-				PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(parent.getShell());
+				Shell shel = new Shell(parent.getShell());
+				PageGestionActivitesIHM pageGestionActivitesIHM = new PageGestionActivitesIHM(shel);
 				PlanItIHM.majContenuWidgets();
 //				// on règle la taille de la liste déroulante
 //				int maxSize = c.getSize().x - _activitesBAR2.getSize().x - _activitesADD.getWidth()*2;
@@ -357,7 +363,7 @@ public class ItIHM extends Composite {
 		_activitesTABLE.setToolTipText(message.getString("ItIHM.toolTipTabAct"));
 
 		data = new GridData(GridData.FILL_BOTH);
-		data.heightHint = _activitesTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 2;
+		data.heightHint = _activitesTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 3;
 		_activitesTABLE.setLayoutData(data);
 
 		final TableTreeEditor editor = new TableTreeEditor(_activitesTABLE);
@@ -396,7 +402,7 @@ public class ItIHM extends Composite {
 					_EDITABLECOLUMN = 2;
 				
 				// The control that will be the editor must be a child of the Table
-				Text newEditor = new Text(table, SWT.NONE);
+				final Text newEditor = new Text(table, SWT.NONE);
 				newEditor.setText(item.getText(_EDITABLECOLUMN));
 				newEditor.addVerifyListener(new VerifyListener() {
 					public void verifyText(VerifyEvent e) {
@@ -425,6 +431,16 @@ public class ItIHM extends Composite {
 							else { // charge réelle
 								a.set_chargeReelle(new Integer(item.getText(_EDITABLECOLUMN)).intValue());
 							}
+						}
+					}
+				});
+				newEditor.addKeyListener(new KeyListener() {
+					public void keyPressed(KeyEvent e) {
+							
+					}
+					public void keyReleased(KeyEvent e) {
+						if ((e.character == SWT.CR)||(e.character == SWT.LF)) {
+							newEditor.dispose();
 						}
 					}
 				});
@@ -511,6 +527,26 @@ public class ItIHM extends Composite {
 			}
 		});
 
+		ToolItem sepp = new ToolItem(_produitsBAR1, SWT.SEPARATOR);
+		
+		_produitsATT = new ToolItem(_produitsBAR1, SWT.NONE);
+		_produitsATT.setImage(GestionImage._attach_file);
+		_produitsATT.setToolTipText(message.getString("ItIHM.attach_file"));
+		_produitsATT.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event e){
+				if (_produitsOutTABLE.getSelectionCount() != 0) {
+					TableTreeItem item = _produitsOutTABLE.getSelection()[0];
+					if (item.getParentItem() != null) {
+						item = item.getParentItem();
+					}
+					EugesVersion v = (EugesVersion)item.getData();
+					FenetreAttacherFichierIHM page = new FenetreAttacherFichierIHM(parent.getShell(), v);
+					page.open();
+					majProd();
+				}
+			}
+		});
+
 		_produitsBAR1.pack ();
 
 		_produitsBAR2 = new ToolBar (c2, SWT.FLAT);
@@ -564,7 +600,7 @@ public class ItIHM extends Composite {
 				}
 			}
 		});
-
+		
 		_produitsBAR2.pack ();
 		
 		data = new GridData(GridData.FILL_HORIZONTAL);
@@ -583,7 +619,7 @@ public class ItIHM extends Composite {
 		toolSep.setLayoutData(data);
 		
 		//tableau des produits en sortie
-		_produitsOutTABLE = new TableTree(c, SWT.BORDER);
+		_produitsOutTABLE = new TableTree(c, SWT.FULL_SELECTION|SWT.BORDER);
 		final Table table2 = _produitsOutTABLE.getTable();
 		table2.setLinesVisible(true);
 		table2.setHeaderVisible(true);
@@ -599,23 +635,201 @@ public class ItIHM extends Composite {
 		_produitsOutTABLE.removeAll();
 
 		data = new GridData(GridData.FILL_HORIZONTAL);
-		data.heightHint = _produitsOutTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 2;
+		data.heightHint = _produitsOutTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 3;
 		_produitsOutTABLE.setLayoutData(data);
+
+		// editor du tableau des produits
+		final TableTreeEditor editor2 = new TableTreeEditor(_produitsOutTABLE);
+		//The editor must have the same size as the cell and must
+		//not be any smaller than 50 pixels.
+		editor2.horizontalAlignment = SWT.LEFT;
+		editor2.grabHorizontal = true;
+		editor2.minimumWidth = 50;
+		
+		table2.addListener (SWT.MouseDown, new Listener () {
+			public void handleEvent (Event event) {
+				_mouseDown2 = new Point (event.x, event.y);
+			}
+		});
+
+		_produitsOutTABLE.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// Clean up any previous editor control
+				Control oldEditor = editor2.getEditor();
+				if (oldEditor != null) oldEditor.dispose();
+				
+				// Identify the selected row
+				final TableTreeItem item = (TableTreeItem)e.item;
+				if (item == null) return;
+
+				if (item.getParentItem() != null) return;
+
+				EugesVersion v = (EugesVersion)item.getData();
+				
+				Table table2 = _produitsOutTABLE.getTable();
+				int width = _produitsOutTABLE.getClientArea().width;
+				int largeur;
+				largeur = width - width / 6;
+				
+				if (_mouseDown2.x < largeur)
+					_EDITABLECOLUMN2 = 1;
+				else
+					_EDITABLECOLUMN2 = 2;
+
+				// The control that will be the editor must be a child of the Table
+				if (_EDITABLECOLUMN2 != 1) {
+					// SI des états ne sont pas prévus pour ce produit
+					if (v.get_produitParent()._etats.size() == 0) {
+						// on affiche un champ texte modifiable pour entrer un % de réalisation
+						final Text newEditor = new Text(table2, SWT.NONE);
+						newEditor.setText(item.getText(_EDITABLECOLUMN2));
+						newEditor.addVerifyListener(new VerifyListener() {
+							public void verifyText(VerifyEvent e) {
+								String text = e.text;
+								char [] chars = new char [text.length ()];
+								text.getChars (0, chars.length, chars, 0);
+								for (int i=0; i<chars.length; i++) {
+									if (!('0' <= chars [i] && chars [i] <= '9')) {
+										e.doit = false;
+										return;
+									}
+								}
+							}
+						});
+						newEditor.addModifyListener(new ModifyListener() {
+							public void modifyText(ModifyEvent e) {
+								Text text = (Text)editor2.getEditor();
+								editor2.getItem().setText(_EDITABLECOLUMN2, text.getText());
+
+								if (!item.getText(_EDITABLECOLUMN2).equals("")) {
+									EugesVersion v = (EugesVersion) item.getData();
+									// on insère les nouvelles données
+									v.set_realisation(new Integer(item.getText(_EDITABLECOLUMN2)).intValue());
+								}
+							}
+						});
+						newEditor.addKeyListener(new KeyListener() {
+							public void keyPressed(KeyEvent e) {
+							
+							}
+							public void keyReleased(KeyEvent e) {
+								if ((e.character == SWT.CR)||(e.character == SWT.LF)) {
+									newEditor.dispose();
+								}
+							}
+						});
+						newEditor.selectAll();
+						newEditor.setFocus();
+						editor2.setEditor(newEditor, item, _EDITABLECOLUMN2);
+					}
+					else {
+						// SINON on affiche la liste des états du produit
+						// Recupérer l'ancienne valeur
+						String oldVal = item.getText(_EDITABLECOLUMN2);
+						
+						final Combo newEditor = new Combo(table2, SWT.DROP_DOWN|SWT.READ_ONLY);
+						int i=0;
+						for (Iterator iter = v.get_produitParent()._etats.iterator();
+							iter.hasNext();
+							) {
+							String etat = (String) iter.next();
+							newEditor.add(etat);
+							if (etat.equalsIgnoreCase(oldVal))
+								newEditor.select(i);
+							i++;
+						}
+						newEditor.addModifyListener(new ModifyListener() {
+							public void modifyText(ModifyEvent e) {
+								Combo combo = (Combo)editor2.getEditor();
+								editor2.getItem().setText(_EDITABLECOLUMN2, combo.getText());
+								EugesVersion v = (EugesVersion) item.getData();
+								// on insère les nouvelles données
+								v.set_etat(item.getText(_EDITABLECOLUMN));
+							}
+						});
+						newEditor.addKeyListener(new KeyListener() {
+							public void keyPressed(KeyEvent e) {
+							}
+							public void keyReleased(KeyEvent e) {
+								if ((e.character == SWT.CR)||(e.character == SWT.LF)) {
+									Combo combo = (Combo)editor2.getEditor();
+									editor2.getItem().setText(_EDITABLECOLUMN2, combo.getText());
+									EugesVersion v = (EugesVersion) item.getData();
+									// on insère les nouvelles données
+									v.set_etat(item.getText(_EDITABLECOLUMN));
+									newEditor.dispose();
+								}
+							}
+						});
+						newEditor.setFocus();
+						editor2.setEditor(newEditor, item, _EDITABLECOLUMN2);
+					}
+				}
+				else {
+					// VERSION
+					final Text newEditor = new Text(table2, SWT.NONE);
+					newEditor.setText(item.getText(_EDITABLECOLUMN2));
+					newEditor.addVerifyListener(new VerifyListener() {
+						public void verifyText(VerifyEvent e) {
+							String text = e.text;
+							char [] chars = new char [text.length ()];
+							text.getChars (0, chars.length, chars, 0);
+							for (int i=0; i<chars.length; i++) {
+								if (!('0' <= chars [i] && chars [i] <= '9' || chars[i] == '.')) {
+									e.doit = false;
+									return;
+								}
+							}
+						}
+					});
+					newEditor.addModifyListener(new ModifyListener() {
+						public void modifyText(ModifyEvent e) {
+							if (_EDITABLECOLUMN2 != 1) {
+							
+							}
+							else {
+								Text text = (Text)editor2.getEditor();
+								editor2.getItem().setText(_EDITABLECOLUMN2, text.getText());
+	
+								if (!item.getText(_EDITABLECOLUMN2).equals("")) {
+									EugesVersion v = (EugesVersion) item.getData();
+									// on insère les nouvelles données
+									v.set_nom(item.getText(_EDITABLECOLUMN2));
+								}
+							}
+						}
+					});
+					newEditor.addKeyListener(new KeyListener() {
+						public void keyPressed(KeyEvent e) {
+							
+						}
+						public void keyReleased(KeyEvent e) {
+							if ((e.character == SWT.CR)||(e.character == SWT.LF)) {
+								newEditor.dispose();
+							}
+						}
+					});
+					newEditor.selectAll();
+					newEditor.setFocus();
+					editor2.setEditor(newEditor, item, _EDITABLECOLUMN2);
+				}
+			}
+		});
 		
 		//tableau des produits en entrée
-		_produitsInTABLE = new Table(c, SWT.BORDER);
-		_produitsInTABLE.setLinesVisible(true);
-		_produitsInTABLE.setHeaderVisible(true);
-		//colonnes du tableau
-		colonne1 = new TableColumn(_produitsInTABLE, SWT.LEFT);
-		
-		colonne1.setText(message.getString("ItIHM.prodIn"));
-		
-		_produitsInTABLE.removeAll();
-
-		data = new GridData(GridData.FILL_HORIZONTAL);
-		data.heightHint = _produitsInTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 2;
-		_produitsInTABLE.setLayoutData(data);
+//		_produitsInTABLE = new Table(c, SWT.BORDER);
+//		_produitsInTABLE.setLinesVisible(true);
+//		_produitsInTABLE.setHeaderVisible(true);
+//		//colonnes du tableau
+//		colonne1 = new TableColumn(_produitsInTABLE, SWT.LEFT);
+//		
+//		colonne1.setText(message.getString("ItIHM.prodIn"));
+//		
+//		_produitsInTABLE.removeAll();
+//
+//		data = new GridData(GridData.FILL_HORIZONTAL);
+//		data.heightHint = _produitsInTABLE.computeSize(SWT.DEFAULT,SWT.DEFAULT).y * 2;
+//		_produitsInTABLE.setLayoutData(data);
 
 		c.setSize(c.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		addListener(SWT.Resize, new Listener() {
@@ -640,6 +854,10 @@ public class ItIHM extends Composite {
 				c.setLocation (location);
 			}
 		});
+		
+		// mise à jour des tableaux
+		majProd();
+		majAct();
 	}
 
 	private void resizeTab() {
@@ -658,9 +876,9 @@ public class ItIHM extends Composite {
 		total = (width / 2);
 		cols[0].setWidth(width - total);
 		
-		width = _produitsInTABLE.getClientArea().width;
-		cols = _produitsInTABLE.getColumns();
-		cols[0].setWidth(width);
+//		width = _produitsInTABLE.getClientArea().width;
+//		cols = _produitsInTABLE.getColumns();
+//		cols[0].setWidth(width);
 
 		width = _produitsOutTABLE.getClientArea().width;
 		Table table2 = _produitsOutTABLE.getTable();
@@ -674,43 +892,22 @@ public class ItIHM extends Composite {
 	public void majProd() {
 		Vector vIn = It.getProdIn(_activitesTABLE.getItems());
 		Vector vOut = It.getProdOut(_activitesTABLE.getItems());
-		/*Vector vIn = new Vector();
-		 for (int i = 0; i < _it.getActiviteCount(); i++) {
-		 EugesActRealise a = _it.getActivite(i);
-		 EugesActivite act = a.get_activiteParent();
-		 for (int j = 0; j < act.getProduitInCount(); j++) {
-		 if (!vIn.contains(act.getProduitIn(j)))
-		 vIn.add(act.getProduitIn(j));
-		 }
-		 }
-		 
-		 Vector vOut = new Vector();
-		 for (int i = 0; i < _it.getActiviteCount(); i++) {
-		 EugesActRealise a = _it.getActivite(i);
-		 EugesActivite act = a.get_activiteParent();
-		 for (int j = 0; j < act.getProduitOutCount(); j++) {
-		 if (!vOut.contains(act.getProduitOut(j)))
-		 vOut.add(act.getProduitOut(j));
-		 }
-		 }*/
 		// maj de la combo
 		_produitsCOMBO.removeAll();
 		for (Iterator iter = vOut.iterator(); iter.hasNext();) {
 			EugesProduit e = (EugesProduit) iter.next();
-			if(e != null)
-				_produitsCOMBO.add(e.toString());
+			_produitsCOMBO.add(e.toString());
 		}
 		_produitsCOMBO.select(0);
-		_produitsCOMBO.pack();
 		
 		// maj de la table prodIn
-		_produitsInTABLE.removeAll();
-		for (Iterator iter = vIn.iterator(); iter.hasNext();) {
-			EugesProduit e = (EugesProduit) iter.next();
-			TableItem item = new TableItem(_produitsInTABLE,SWT.NONE);
-			item.setText(0,e.toString() + It.getInAct(e));
-			item.setData(e);
-		}
+//		_produitsInTABLE.removeAll();
+//		for (Iterator iter = vIn.iterator(); iter.hasNext();) {
+//			EugesProduit e = (EugesProduit) iter.next();
+//			TableItem item = new TableItem(_produitsInTABLE,SWT.NONE);
+//			item.setText(0,e.toString() + It.getInAct(e));
+//			item.setData(e);
+//		}
 		
 		// maj de la table prodOut
 		_produitsOutTABLE.removeAll();
@@ -718,8 +915,12 @@ public class ItIHM extends Composite {
 		TableTreeItem itemV;
 		for (Iterator iter = vVerOut.iterator(); iter.hasNext();) {
 			EugesVersion v = (EugesVersion) iter.next();
+			String file = "";
+			if (!v.getFile().equals("")) {
+				file = " (" + message.getString("fic_att") + ")";
+			}
 			itemV = new TableTreeItem(_produitsOutTABLE,SWT.NONE);
-			itemV.setText(0, v.get_produitParent().toString() + It.getOutAct(v.get_produitParent()));
+			itemV.setText(0, v.get_produitParent().toString() + It.getOutAct(v.get_produitParent()) + file);
 			itemV.setText(1, v.get_nom()); // rechercher la nouvelle version
 			itemV.setText(2, v.get_etat()); // rechercher l'état
 			itemV.setData(v);
@@ -750,7 +951,6 @@ public class ItIHM extends Composite {
 			_activitesCOMBO.add(e1.toString());
 		}
 		_activitesCOMBO.select(0);
-		_activitesCOMBO.pack();
 		
 		_activitesTABLE.removeAll();
 		TableTreeItem item;
@@ -763,15 +963,6 @@ public class ItIHM extends Composite {
 			s = "" + _it.getActivite(i).get_chargeReelle();
 			item.setText(2, s);
 			item.setData(_it.getActivite(i));
-			
-			// on crée les participants
-			TableTreeItem subitem;
-			for (int j=0; j<_it.getActivite(i).getPersonneCount(); j++) {
-				subitem = new TableTreeItem(item, SWT.NONE);
-				subitem.setText(0,_it.getActivite(i).getPersonne(j).toString());
-				subitem.setText(1,"");
-				subitem.setText(2,"");
-			}
 		}
 	}
 }
