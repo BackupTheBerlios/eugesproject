@@ -2,17 +2,72 @@
 
 <Euges>
 	<comment_utiliser_Euges>
-		<Comment_creer_un_nouveau_projet/>		
-		<Comment_ouvrir_un_projet_existant/>
-		<Comment_fermer_projet/>
-		<Comment_sauvegarder_projet/>
-		<Comment_generer_site/>
+		<creer_un_nouveau_projet/>		
+		<ouvrir_un_projet_existant/>
+		<fermer_projet/>
+		<sauvegarder_projet/>
+		<charger_un_processus/>
+		<utiliser_l_arbre_de_navigation/>
 	</comment_utiliser_Euges>
+		
+	<comment_gerer_les_donnees_du_processus>
+		<gerer_les_iterations>
+			<creer_une_nouvelle_iteration/>
+			<supprimer_une_iteration/>
+			<associer_une_activite_a_une_iteration/>
+		</gerer_les_iterations>
+		<gerer_les_personnes>
+			<creer_une_nouvelle_personne/>
+			<modifier_une_personne/>
+			<supprimer_une_personne/>
+			<associer_un_role_a_une_personne/>
+			<associer_un_produit_a_une_personne/>
+			<visualiser_les_proprietes_de_la_personne/>
+		</gerer_les_personnes>
 
-	<Comment_configurer_euges>
-		<Comment_configurer_la_langue/>
-		<Comment_configurer_l_aide/>
-		<Comment_configurer_les_icones/>
-	</Comment_configurer_euges>
+		<gerer_les_roles>
+			<creer_un_nouveau_role/>
+			<modifier_un_role/>
+			<supprimer_un_role/>
+			<associer_un_role_a_une_activite/>
+			<associer_un_role_a_une_personne/>
+			<visualiser_les_proprietes_du_role/>
+		</gerer_les_roles>
+
+		<gerer_les_activites>
+			<creer_une_nouvelle_activite/>
+			<modifier_une_activite/>
+			<supprimer_une_activite/>
+			<associer_un_role_a_une_activite/>
+			<associer_une_iteration_a_une_activite/>
+			<associer_un_produit_en_entree_d_une_activite/>
+			<associer_un_produit_en_sortie_d_une_activite/>
+			<visualiser_les_proprietes_de_l_activite/>
+		</gerer_les_activites>
+
+		<gerer_les_produits>
+			<creer_un_nouveau_produit/>
+			<modifier_un_produit/>
+			<supprimer_un_produit/>
+			<associer_un_produit_a_une_iteration/>
+			<associer_une_personne_a_un_produit/>
+			<associer_un_produit_en_entree_d_une_activite/>
+			<associer_un_produit_en_sortie_d_une_activite/>
+			<visualiser_les_proprietes_du_produit/>
+		</gerer_les_produits>
+
+		<visualiser_les_statistiques>
+			<diagramme_des_activites/>
+			<diagramme_des_efforts/>
+		</visualiser_les_statistiques>
+
+		<generer_site/>
+	</comment_gerer_les_donnees_du_processus>
+
+	<comment_configurer_euges>
+		<configurer_la_langue/>
+		<configurer_l_aide/>
+		<configurer_les_icones/>
+	</comment_configurer_euges>
 
 </Euges>
