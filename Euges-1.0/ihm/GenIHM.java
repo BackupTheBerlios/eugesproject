@@ -95,7 +95,7 @@ public class GenIHM extends Dialog{
 		
 		
 		Label label6 = new Label(shellGen, SWT.NONE);
-		label6.setText("Choix du style :");
+		label6.setText(message.getString("GenIHM.styl"));
 		Label label7 = new Label(shellGen, SWT.NONE);
 		label7.setText("");
 		
@@ -104,14 +104,14 @@ public class GenIHM extends Dialog{
 		
 		styl1=new Button(shellGen, SWT.RADIO );
 		styl1.setSelection(true);
-		styl1.setText("Gris");
+		styl1.setText(message.getString("GenIHM.stylg"));
 		
 		
 		
 		//bouton de style 2
 		
 		styl2=new Button(shellGen, SWT.RADIO );
-		styl2.setText("Bleu");
+		styl2.setText(message.getString("GenIHM.stylb"));
 		
 		
 		
