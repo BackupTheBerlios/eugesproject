@@ -43,6 +43,13 @@ public class GrapheHautIHM extends PageVuesIHM {
 	private Table _graphe;
 	private Vector _tableColonnes = new Vector();
 	
+
+	//Déclaration des couleurs
+	Color activitesFondPasse = new Color(Display.getCurrent(), 255, 160, 160);
+	Color activitesFondEnCours = new Color(Display.getCurrent(), 160, 160, 255);
+	Color activitesFondFutur = new Color(Display.getCurrent(), 160, 255, 160);
+	Color activitesTexte = new Color(Display.getCurrent(), 0,0,0);
+	
 	public GrapheHautIHM(final Composite comp) {
 		super(comp, SWT.NONE);
 		// titre
@@ -57,9 +64,25 @@ public class GrapheHautIHM extends PageVuesIHM {
 		//chargement des donnees du tableau
 		loadData();
 		
+		//legende
+		Label legende = new Label(this, SWT.NONE);
+		legende.setText(message.getString("grapheHautIHM.legende"));
+		//activité passée
+		Label activitePasse = new Label(this, SWT.NONE);
+		activitePasse.setText(message.getString("grapheHautIHM.activitePasse"));
+		activitePasse.setBackground(new Color(Display.getCurrent(), activitesFondPasse.getRGB()));
+		//activité passée
+		Label activiteEnCours = new Label(this, SWT.NONE);
+		activiteEnCours.setText(message.getString("grapheHautIHM.activiteEnCours"));
+		activiteEnCours.setBackground(new Color(Display.getCurrent(), activitesFondEnCours.getRGB()));
+		//activité passée
+		Label activiteFuture = new Label(this, SWT.NONE);
+		activiteFuture.setText(message.getString("grapheHautIHM.activiteFuture"));
+		activiteFuture.setBackground(new Color(Display.getCurrent(), activitesFondFutur.getRGB()));
+		
+		
 		//mise en place du layout
 		GridLayout layout = new GridLayout(3, true);
-		layout.numColumns = 1;
 		setLayout(layout);
 		//layout
 		//titre
@@ -71,6 +94,18 @@ public class GrapheHautIHM extends PageVuesIHM {
 		data = new GridData(GridData.FILL_BOTH);
 		data.horizontalSpan=3;
 		_graphe.setLayoutData(data);
+		//legende
+		data = new GridData();
+		data.horizontalSpan=3;
+		legende.setLayoutData(data);
+		//detail légende
+		data = new GridData();
+		activitePasse.setLayoutData(data);
+		data = new GridData();
+		activiteEnCours.setLayoutData(data);
+		data = new GridData();
+		activiteFuture.setLayoutData(data);
+		
 	}
 	/**
 	 * chargement des donnees du tableau
@@ -79,11 +114,6 @@ public class GrapheHautIHM extends PageVuesIHM {
 	public void loadData(){
 		//suppression de tous les elements
 		_graphe.removeAll();
-		//Déclaration des couleurs
-		Color activitesFondPasse = new Color(Display.getCurrent(), 255, 160, 160);
-		Color activitesFondEnCours = new Color(Display.getCurrent(), 160, 160, 255);
-		Color activitesFondFutur = new Color(Display.getCurrent(), 160, 255, 160);
-		Color activitesTexte = new Color(Display.getCurrent(), 0,0,0);
 		
 		//si le projet a été créé
 		if (EugesElements._projet!=null){
