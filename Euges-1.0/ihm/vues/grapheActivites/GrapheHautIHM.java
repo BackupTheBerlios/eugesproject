@@ -148,10 +148,14 @@ public class GrapheHautIHM extends PageVuesIHM {
 				//remplissage des lignes
 				TableItem item;
 				String[] texte;	//texte a afficher
-				int dateDebut, dateFin; //dates de debut et fin de l'activite 
+				int dateDebut, dateFin; //dates de debut et fin de l'activite
+				int nit = 0;
 				for (Iterator iter = vecteurTmp.iterator(); iter.hasNext();) {
+					System.out.println("Activité n° : " + nit);
+					nit ++;
 					//recuperation de l'activite a traiter
 					EugesActivite element = (EugesActivite) iter.next();
+					System.out.println("	 activité : " + element);
 					//recuperation du vecteur d'activite realise correspondant a l'activité en cours et ordonnancement du vecteur
 					Vector listeActReal = element.get_activitesRealisees();
 					ordonnerListeActivitesRealisees(listeActReal);
