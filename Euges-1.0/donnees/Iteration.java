@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import application.EugesElements;
+//import application.EugesElements;
 
 import utilitaires.MyDate;
 import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesPersonne;
-import donnees.eugesSpem.EugesProduit;
+//import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 
 /**

@@ -152,7 +152,6 @@ public class EugesPersonne {
 	public void sauvegardeAssociation(BufferedWriter ecriture) {
 		try {
 			ecriture.write("<_personne _string=\""+this+"\"/>\n");
-			System.out.println("nb de roles pour la personne :"+_roles.size());
 			for (int i = 0; i<_roles.size();i++)
 			{
 				((EugesRole)_roles.get(i)).sauvegarderAssociation(ecriture);

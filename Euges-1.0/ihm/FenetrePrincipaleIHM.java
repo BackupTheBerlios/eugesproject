@@ -11,6 +11,7 @@ import ihm.preferences.PreferencesIHM;
 import ihm.vues.VuesIHM;
 import ihm.vues.planIt.PlanItIHM;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -197,8 +198,31 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrerSous.setEnabled(false);
 			menuItemEnregistrerSous.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					String chemin = new String (enregistrerSous()+".xml");
-					EugesElements.sauvegarde(chemin);
+					String chemin = new String (enregistrerSous());
+					//on rajoute l'extension egs au nom de fichier si l'utilisateur ne l'a pas saisie
+					if (!chemin.endsWith(".egs"))
+					{
+							chemin+=".egs";
+					}
+					//on regarde si le fichier existe déjà
+					File testExiste = new File (chemin);
+					boolean ecraser = true;
+					if (testExiste.exists())
+					{
+						//si oui, on demande à l'utilisateur voir s'il veut l'écraser ou pas
+						MessageBox mess = new MessageBox (shell,SWT.ICON_WARNING|SWT.YES|SWT.NO);
+						mess.setText(message.getString("titreMessageBoxEnregistrerSous"));
+						mess.setMessage(message.getString("messageMessageBoxEnregistrerSous"));
+						if (mess.open()==SWT.NO)
+						{
+							ecraser = false;
+						}
+					}
+					if (ecraser)
+					{
+						//si le fichier doit etre créé ou écrasé, on sauvegarde
+						EugesElements.sauvegarde(chemin);
+					}
 				}
 			});
 		
