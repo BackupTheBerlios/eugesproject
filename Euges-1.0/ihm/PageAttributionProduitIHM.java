@@ -14,7 +14,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -25,9 +24,12 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+import utilitaires.GestionImage;
+
 import application.EugesElements;
 import configuration.Config;
 import donnees.eugesSpem.EugesActRealise;
+import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesVersion;
 
@@ -52,8 +54,7 @@ public class PageAttributionProduitIHM {
 		Display myDisplay = display;
 		shell = new Shell(display, SWT.CLOSE|SWT.APPLICATION_MODAL|SWT.RESIZE);
 		shell.setText(message.getString("PageAttributionProduitsIHM.titreHautDePage"));
-		Image eugesIcone = new Image(display, "configuration/images/euges.ico");
-		shell.setImage(eugesIcone);
+		shell.setImage(GestionImage._euges);
 		
 			// Layout pour placer les objets
 		 GridLayout gridLayout = new GridLayout();
@@ -75,8 +76,8 @@ public class PageAttributionProduitIHM {
 		}
 		 
 			// titre de l'arbre des produits
-		Label titreArbreProduit = new Label(shell,SWT.WRAP);
-		titreArbreProduit.setText(message.getString("PageAttributionProduitsIHM.titreArbreProduit"));
+		Label titreListePersonneAssociee = new Label(shell,SWT.WRAP);
+		titreListePersonneAssociee.setText(message.getString("PageAttributionProduitsIHM.titreListePersonneAssociee"));
 		
 			// bouton pour laisser une place vide
 		Button boutonNouveau = new Button(shell,SWT.PUSH);
@@ -218,7 +219,7 @@ public class PageAttributionProduitIHM {
 		titre.setLayoutData(data);
 		 
 		data = new GridData();						
-		titreArbreProduit.setLayoutData(data);
+		titreListePersonneAssociee.setLayoutData(data);
 		 
 		data = new GridData(GridData.CENTER);
 		boutonNouveau.setLayoutData(data);
@@ -317,29 +318,34 @@ public class PageAttributionProduitIHM {
 	
 	private void chargerListePersonne(EugesVersion version){
 		Vector listePersonnesPossibles = new Vector();
-		   // on parcours la liste des activités réalisées pour savoir les personnes possibles sur cette version de produit
+		   // on parcours la liste des activités pour savoir les personnes possibles sur cette version de produit
 			if (EugesElements.listeActivites != null){
-				for (Iterator itActRealise = EugesElements.listeActivites.iterator(); itActRealise.hasNext();) {
-					EugesActRealise actRealise = (EugesActRealise) itActRealise.next();
-					   // si la liste des versions de cette activité contient la version en cours
-					if (actRealise.get_produitsOut() != null) {
-						if (actRealise.get_produitsOut().contains(version)){
-							   // rajouter les personnes de l'activité réalisée dans la liste si elles n'y sont pas déjà
-							if (actRealise.get_personnes() != null) {
-								for (Iterator itPersonnes = actRealise.get_personnes().iterator();itPersonnes.hasNext(); ) {
-									   // on récupère les personnes
-									EugesPersonne personne = (EugesPersonne) itPersonnes.next();
-									   // si la personne n'est pas déjà citée, on l'insère
-									if (!listePersonnesPossibles.contains(personne)){
-										listePersonnesPossibles.add(personne);
-									}		
+				for (Iterator itActivite = EugesElements.listeActivites.iterator(); itActivite.hasNext();) {
+					EugesActivite activite = (EugesActivite) itActivite.next();
+					
+					int nbActRealisées = activite.getActRealiseCount();
+					//on parcours la liste des activités réalisées pour savoir les personnes possibles sur cette version de produit
+					for (int i=0; i<nbActRealisées; i++) {
+						EugesActRealise actRealise = activite.getActRealise(i);
+						   // si la liste des versions de cette activité contient la version en cours
+						if (actRealise.get_produitsOut() != null) {
+							if (actRealise.get_produitsOut().contains(version)){
+								   // rajouter les personnes de l'activité réalisée dans la liste si elles n'y sont pas déjà
+								if (actRealise.get_personnes() != null) {
+									for (Iterator itPersonnes = actRealise.get_personnes().iterator();itPersonnes.hasNext(); ) {
+										   // on récupère les personnes
+										EugesPersonne personne = (EugesPersonne) itPersonnes.next();
+										   // si la personne n'est pas déjà citée, on l'insère
+										if (!listePersonnesPossibles.contains(personne)){
+											listePersonnesPossibles.add(personne);
+										}		
+									}
 								}
 							}
 						}
 					}
+				}
 			}
-			
-		}
 	}
 	
 }
