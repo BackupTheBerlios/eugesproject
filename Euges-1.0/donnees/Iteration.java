@@ -268,14 +268,17 @@ public class Iteration {
 			for (int i =0;i< pers.size();i++)
 			{
 				persCour = (EugesPersonne)pers.elementAt(i);
-				persCour.sauvegardePartielle(ecriture);
-				role = getAssociation(persCour);
-				//System.out.println ("personne (nb roles): "+persCour.getNom()+" "+role.size());
-				for (int j = 0;j<role.size();j++)
+				if (persCour != null)
 				{
-					roleCour = (EugesRole)role.elementAt(j);
-					//System.out.println ("role : "+roleCour.getName());
-					roleCour.sauvegarder(ecriture);
+					persCour.sauvegardePartielle(ecriture);
+					role = getAssociation(persCour);
+					//System.out.println ("personne (nb roles): "+persCour.getNom()+" "+role.size());
+					for (int j = 0;j<role.size();j++)
+					{
+						roleCour = (EugesRole)role.elementAt(j);
+						//System.out.println ("role : "+roleCour.getName());
+						roleCour.sauvegarder(ecriture);
+					}
 				}
 			}
 			
