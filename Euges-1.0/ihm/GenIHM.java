@@ -75,6 +75,7 @@ public class GenIHM extends Dialog{
 		text4.setEditable(false);
 		
 		
+		
 		//bouton parcourir
 		
 		Button parc=new Button(shellGen, SWT.PUSH );
@@ -99,6 +100,8 @@ public class GenIHM extends Dialog{
 			}
 		});
 		
+		
+		
 		//bouton annuler
 		
 		Button ann=new Button(shellGen, SWT.PUSH );
@@ -116,9 +119,6 @@ public class GenIHM extends Dialog{
 		GridData data = new GridData();
 		data.widthHint = 60;
 		label4.setLayoutData(data);
-		
-		
-		
 		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
 		text4.setLayoutData(data2);
 		GridData data3 = new GridData();
