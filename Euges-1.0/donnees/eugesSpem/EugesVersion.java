@@ -185,7 +185,6 @@ public class EugesVersion {
 			{
 				((EugesPersonne)_acteurs.get(i)).sauvegardeActeur(ecriture);
 			}
-			
 		} catch (IOException e) {
 			System.out.println (e);
 			e.printStackTrace();
@@ -196,7 +195,7 @@ public class EugesVersion {
 		try {
 			ecriture.write("<ProduitsOut name=\""+this.get_nom()+"\"/>\n");
 			//sauvegarde de l'état
-			ecriture.write("<_version _nom=\""+this.get_nom()+"\" _etat=\""+this.get_etat()+"\" _realisation=\""+this.get_realisation()+"\" _responsable=\""+this.get_responsable()+"\" _produitParent=\""+this.get_produitParent()+"\"/>\n");
+			ecriture.write("<_version _nom=\""+this.get_nom()+"\" _etat=\""+this.get_etat()+"\" _realisation=\""+this.get_realisation()+"\" _responsable=\""+this.get_responsable()+"\" _produitParent=\""+this.get_produitParent()+/*" file=\""+getFile()+*/"\"/>\n");
 			//sauvegarde des acteurs
 			for (int i = 0; i<_acteurs.size();i++)
 			{
