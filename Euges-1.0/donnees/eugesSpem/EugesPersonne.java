@@ -152,6 +152,7 @@ public class EugesPersonne {
 	public void sauvegardeAssociation(BufferedWriter ecriture) {
 		try {
 			ecriture.write("<_personne _string=\""+this+"\"/>\n");
+			System.out.println("nb de roles pour la personne :"+_roles.size());
 			for (int i = 0; i<_roles.size();i++)
 			{
 				((EugesRole)_roles.get(i)).sauvegarderAssociation(ecriture);
@@ -184,10 +185,12 @@ public class EugesPersonne {
 			e.printStackTrace();
 		}
 	}
+
+
 	public void genereTabProduitOutActeur(BufferedWriter buffer) {
 		try {
-			buffer.write("<tr bgcolor='white'><td>&nbsp;&nbsp;&nbsp;&nbsp;"+this.getId()+" "+this.getNom()+" "+this.getPrenom()+"</td><td> </td><td> </td></tr>");
-		} catch (IOException e) {
+			buffer.write("<tr bgcolor='white'><td>"+this.getId()+" "+this.getNom()+" "+this.getPrenom()+"</td><td> </td><td> </td></tr>");
+} catch (IOException e) {
 			System.out.println(e);
 			e.printStackTrace();
 		}

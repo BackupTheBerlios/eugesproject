@@ -214,6 +214,8 @@ public class EugesActivite extends Activity{
 	public Vector get_activitesRealisees() {
 		return _activites;
 	}
+
+	
 	/**
 	 * @param ecriture
 	 * @return

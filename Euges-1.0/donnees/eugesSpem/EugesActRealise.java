@@ -210,14 +210,19 @@ public class EugesActRealise {
 		try {
 			//sauvegarde de l'activité elle meme
 			ecriture.write("<EugesActRealise _chargeEstimee=\""+this.get_chargeEstimee()+"\" _chargeReelle=\""+this.get_chargeReelle()+"\" _activiteParent=\""+this.get_activiteParent()+"\"/>\n");
-			//sauvegarde des personnes participant à l'acivié
-			System.out.println("nb personnes :"+getPersonneCount());
+			//sauvegarde des roles avec les personnes associées
+			EugesActivite actiTemp = get_activiteParent();
+			for (int i = 0; i<actiTemp.getRoleCount();i++)
+			{
+				ecriture.write("<_roles name =\""+actiTemp.getRole(i)+"\"/>\n");
+				
+			}
+			//sauvegarde des personnes participant à l'acivité
 			for (int i = 0; i<getPersonneCount();i++)
 			{
 				getPersonne(i).sauvegardeAssociation(ecriture);
 			}
 			//sauvegarde des produitsIn
-			System.out.println("nb produits in :"+getProduitInCount());
 			for (int i = 0; i<getProduitInCount();i++)
 			{
 				getProduitIn(i).sauvegarderProduitIn(ecriture);
@@ -244,16 +249,16 @@ public class EugesActRealise {
 	}
 	
 	public void genereTabPersonne(BufferedWriter buffer) {
-		System.out.println("pers"+_personnes.size());
+		//System.out.println("pers"+_personnes.size());
 		for (int i = 0; i<_personnes.size();i++)
 		{
-			System.out.println("pers2");
+			//System.out.println("pers2");
 			((EugesPersonne)_personnes.get(i)).genereMenu(buffer);
 		}
 	}
 	
 	public void genereTabProduitIn(BufferedWriter buffer) {
-		System.out.println("produitIn"+_produitsIn.size());
+		//System.out.println("produitIn"+_produitsIn.size());
 		for (int i = 0; i<_produitsIn.size();i++)
 		{
 			((EugesVersion)_produitsIn.get(i)).genereTabProduitIn(buffer,this.get_activiteParent().getName());

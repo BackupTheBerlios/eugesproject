@@ -966,6 +966,14 @@ public class ItIHM extends Composite {
 			s = "" + _it.getActivite(i).get_chargeReelle();
 			item.setText(2, s);
 			item.setData(_it.getActivite(i));
+		TableTreeItem subItem;
+		for(int j=0; j<_it.getActivite(i).getPersonneCount(); j++)
+		{
+			subItem = new TableTreeItem(item, SWT.NONE);
+			subItem.setText(0, _it.getActivite(i).getPersonne(j).toString());
+			subItem.setText(1, "");
+			subItem.setText(2, "");
+		}
 		}
 	}
 }
