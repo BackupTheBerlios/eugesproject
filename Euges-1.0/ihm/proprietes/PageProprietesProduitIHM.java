@@ -9,7 +9,9 @@ package ihm.proprietes;
 
 import ihm.PageAssistantIHM;
 
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -21,7 +23,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import application.EugesElements;
+
+
 import configuration.Config;
+import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesProduit;
 
 
@@ -38,6 +44,7 @@ public class PageProprietesProduitIHM extends PageAssistantIHM {
 	public PageProprietesProduitIHM(final Shell shell, EugesProduit prod) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
+		Label vide;
 		
 		// Objet GridLayout pour placer les objets
 		GridLayout gridLayout = new GridLayout();
@@ -48,26 +55,87 @@ public class PageProprietesProduitIHM extends PageAssistantIHM {
 		Font font = new Font(getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE);
 		titre.setFont(font);
-		titre.setText(message.getString("PageProprietesIHM.produit.titre"));
+		titre.setText(message.getString("PageProprietesProduitIHM.produit.titre"));
 
 		// Vide pour la présentation
-		CLabel lblVide1 = new CLabel(this,SWT.WRAP);
-		lblVide1.setText("");
-		Label vide1 = new Label(this,SWT.WRAP);
-		vide1.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		// Nom du produit
 		CLabel lblProduit = new CLabel(this,SWT.WRAP);
-		lblProduit.setText(message.getString("PageProprietesIHM.produit.lblProduit"));
+		lblProduit.setText(message.getString("PageProprietesProduitIHM.produit.lblProduit"));
 		Text produit = new Text(this,SWT.WRAP);
 		produit.setText(prod.getName());
 		produit.setEditable(false);
 		
+
 		// Vide pour la présentation
-		CLabel lblVide2 = new CLabel(this,SWT.WRAP);
-		lblVide2.setText("");
-		Label vide2 = new Label(this,SWT.WRAP);
-		vide2.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Affichage d'un séparateur pour la présentation
+		Label sep1 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
+		GridData dataSep = new GridData(GridData.FILL_HORIZONTAL);
+		Point pointSep = sep1.computeSize(SWT.DEFAULT,SWT.DEFAULT);
+		dataSep.heightHint = pointSep.y;
+		dataSep.horizontalSpan = 2;
+		sep1.setLayoutData(dataSep);
+
+
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Toutes les activités dont le produit est entrée
+		CLabel lblActivitesIn = new CLabel(this,SWT.WRAP);
+		lblActivitesIn.setText(message.getString("PageProprietesProduitIHM.activite.lblActivitesIn"));
+		Text auxLabelActiviteIn;
+		Vector activitesIn = EugesElements.getActivitesProduitIn(prod);
+		for (Iterator it = activitesIn.iterator(); it.hasNext();) {
+			EugesActivite auxActiviteIn = (EugesActivite) it.next();
+			auxLabelActiviteIn = new Text(this, SWT.WRAP);
+			auxLabelActiviteIn.setText(auxActiviteIn.getName());
+			auxLabelActiviteIn.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+
+		// Toutes les activités dont le produit est sortie
+		CLabel lblActivitesOut = new CLabel(this,SWT.WRAP);
+		lblActivitesOut.setText(message.getString("PageProprietesProduitIHM.activite.lblActivitesOut"));
+		Text auxLabelActiviteOut;
+		Vector activitesOut = EugesElements.getActivitesProduitOut(prod);
+		for (Iterator it = activitesOut.iterator(); it.hasNext();) {
+			EugesActivite auxActiviteOut = (EugesActivite) it.next();
+			auxLabelActiviteOut = new Text(this, SWT.WRAP);
+			auxLabelActiviteOut.setText(auxActiviteOut.getName());
+			auxLabelActiviteOut.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		
 		// mise en place des caractéristiques du GridLayout (hauteur, largeur, remplissage, span, ...)

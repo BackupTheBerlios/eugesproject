@@ -9,7 +9,9 @@ package ihm.proprietes;
 
 import ihm.PageAssistantIHM;
 
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -21,7 +23,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import application.EugesElements;
+
+
 import configuration.Config;
+import donnees.eugesSpem.EugesActivite;
+import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesRole;
 
 
@@ -39,6 +46,7 @@ public class PageProprietesRoleIHM extends PageAssistantIHM {
 	public PageProprietesRoleIHM(final Shell shell, EugesRole r) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
+		Label vide;
 		
 		// Objet GridLayout pour placer les objets
 		GridLayout gridLayout = new GridLayout();
@@ -49,33 +57,107 @@ public class PageProprietesRoleIHM extends PageAssistantIHM {
 		Font font = new Font(getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE);
 		titre.setFont(font);
-		titre.setText(message.getString("PageProprietesIHM.role.titre"));
+		titre.setText(message.getString("PageProprietesRoleIHM.role.titre"));
 
 		// Vide pour la présentation
-		CLabel lblVide1 = new CLabel(this,SWT.WRAP);
-		lblVide1.setText("");
-		Label vide1 = new Label(this,SWT.WRAP);
-		vide1.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		// Nom du rôle
 		CLabel lblRole = new CLabel(this,SWT.WRAP);
-		lblRole.setText(message.getString("PageProprietesIHM.role.lblRole"));
+		lblRole.setText(message.getString("PageProprietesRoleIHM.role.lblRole"));
 		Text role = new Text(this,SWT.WRAP);
 		role.setText(r.getName());
 		role.setEditable(false);
 		
-
-//		// Tous les personnes associées au rôle
-//		CLabel lblPersonnes = new CLabel(this,SWT.WRAP);
-//		lblPersonnes.setText(message.getString("PageProprietesIHM.role.lblPeronnes"));
-//		Label auxPersonne;
-//		// for
 		
 		// Vide pour la présentation
-		CLabel lblVide2 = new CLabel(this,SWT.WRAP);
-		lblVide2.setText("");
-		Label vide2 = new Label(this,SWT.WRAP);
-		vide2.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		// Affichage d'un séparateur pour la présentation
+		Label sep1 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
+		GridData dataSep = new GridData(GridData.FILL_HORIZONTAL);
+		Point pointSep = sep1.computeSize(SWT.DEFAULT,SWT.DEFAULT);
+		dataSep.heightHint = pointSep.y;
+		dataSep.horizontalSpan = 2;
+		sep1.setLayoutData(dataSep);
+		
+
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Toutes les activites associées au rôle
+		CLabel lblActivites = new CLabel(this,SWT.WRAP);
+		lblActivites.setText(message.getString("PageProprietesRoleIHM.activite.lblActivites"));
+		Text auxLabelActivite;
+		Vector activites = EugesElements.getActivitesRole(r);
+		for (Iterator it = activites.iterator(); it.hasNext();) {
+			EugesActivite auxActivite = (EugesActivite) it.next();
+			auxLabelActivite = new Text(this, SWT.WRAP);
+			auxLabelActivite.setText(auxActivite.getName());
+			auxLabelActivite.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+			
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		// Affichage d'un séparateur pour la présentation
+		Label sep2 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
+		GridData dataSep2 = new GridData(GridData.FILL_HORIZONTAL);
+		Point pointSep2 = sep2.computeSize(SWT.DEFAULT,SWT.DEFAULT);
+		dataSep2.heightHint = pointSep2.y;
+		dataSep2.horizontalSpan = 2;
+		sep2.setLayoutData(dataSep2);
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Toutes les personnes associées au rôle
+		CLabel lblPersonnes = new CLabel(this,SWT.WRAP);
+		lblPersonnes.setText(message.getString("PageProprietesRoleIHM.personne.lblPersonnes"));
+		Text auxLabelPersonne;
+		Vector personnes = EugesElements.getPersonnesRole(r);
+		for (Iterator it = personnes.iterator(); it.hasNext();) {
+			EugesPersonne auxPersonnes = (EugesPersonne) it.next();
+			auxLabelPersonne = new Text(this, SWT.WRAP);
+			auxLabelPersonne.setText(auxPersonnes.getNom());
+			auxLabelPersonne.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		
 		// mise en place des caractéristiques du GridLayout (hauteur, largeur, remplissage, span, ...)

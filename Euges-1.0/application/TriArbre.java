@@ -25,7 +25,7 @@ import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 import donnees.eugesSpem.EugesVersion;
-import donnees.spem.process.structure.WorkProduct;
+
 
 
 /**
@@ -242,13 +242,15 @@ public class TriArbre {
 					itemProduit.setData("produits");
 					itemProduitsIn.setData("produitsIn");
 					itemProduitsOut.setData("produitsOut");
+					itemProduitsIn.setImage(GestionImage._produit);
+					itemProduitsOut.setImage(GestionImage._produit);
 					
 					
 					// Recuperation des Produits en entrees de l'activite
 					TreeItem itemAuxProduitIn;
-					WorkProduct auxProduitIn;
-					for (int k=0; k<auxActRealise.get_activiteParent().getInputCount(); k++) {
-						auxProduitIn = auxActRealise.get_activiteParent().getInput(k);
+					EugesProduit auxProduitIn;
+					for (int k=0; k<auxActRealise.get_activiteParent().getProduitInCount(); k++) {
+						auxProduitIn = auxActRealise.get_activiteParent().getProduitIn(k);
 						itemAuxProduitIn = new TreeItem(itemProduitsIn, SWT.NONE);
 						itemAuxProduitIn.setText(auxProduitIn.getName());
 						itemAuxProduitIn.setData(auxProduitIn);
@@ -256,13 +258,13 @@ public class TriArbre {
 					itemProduitsIn.setExpanded(true);
 					
 					
-					// Recuperation des Produits en sorties de l'activite
+					// Recuperation des Versions en sorties de l'activite
 					TreeItem itemAuxProduitOut;
-					WorkProduct auxProduitOut;
-					for (int k=0; k<auxActRealise.get_activiteParent().getOutputCount(); k++) {
-						auxProduitOut = auxActRealise.get_activiteParent().getOutput(k);
+					EugesVersion auxProduitOut;
+					for (int k=0; k<auxActRealise.getProduitOutCount(); k++) {
+						auxProduitOut = auxActRealise.getProduitOut(k);
 						itemAuxProduitOut = new TreeItem(itemProduitsOut, SWT.NONE);
-						itemAuxProduitOut.setText(auxProduitOut.getName());
+						itemAuxProduitOut.setText(auxProduitOut.get_produitParent().getName() + " " + auxProduitOut.get_nom());
 						itemAuxProduitOut.setData(auxProduitOut);
 					}
 					itemProduitsOut.setExpanded(true);
@@ -424,31 +426,16 @@ public class TriArbre {
 			// Recuperation des Personnes associées au rôle
 			EugesPersonne auxPersonne;
 			TreeItem itemAuxPersonne;
-			boolean appartient = false;
-			Iterator it = EugesElements.listePersonnes.iterator();
-			while(!appartient && it.hasNext()){
-				auxPersonne = (EugesPersonne) it.next();
-				
-				Iteration auxIteration;
-				for (Iterator it2 = EugesElements._projet.get_listeIteration().iterator(); it2.hasNext();) {
-					auxIteration = (Iteration) it2.next();
+			
+			Vector personnes = EugesElements.getPersonnesRole(auxRole);
+			for (Iterator it = personnes.iterator(); it.hasNext();) {
+				EugesPersonne element = (EugesPersonne) it.next();
+				itemAuxPersonne = new TreeItem(itemPersonnes, SWT.NONE);
+				itemAuxPersonne.setText(element.getNom());
+				itemAuxPersonne.setImage(GestionImage._actor);
+				itemAuxPersonne.setData(element);
 					
-					// Recuperation des Roles de l'itération
-					EugesRole auxRoleAct;	
-					Vector tempRoles = auxIteration.getAssociation(auxPersonne);
-					for (Iterator iterator = tempRoles.iterator(); iterator.hasNext();) {
-						auxRoleAct = (EugesRole) iterator.next();
-						if (auxRoleAct.getName() == auxRole.getName()) {
-							appartient = true;
-							itemAuxPersonne = new TreeItem(itemPersonnes, SWT.NONE);
-							itemAuxPersonne.setText(auxPersonne.getNom());
-							itemAuxPersonne.setImage(GestionImage._actor);
-							itemAuxPersonne.setData(auxPersonne);
-						}
-					}	
-				}
-				appartient = false;
-			}
+			}				
 			itemPersonnes.setExpanded(true);
 			
 			
@@ -461,61 +448,52 @@ public class TriArbre {
 			
 			// Recuperation des Activites
 			TreeItem itemAuxActivite;
-			EugesActivite auxActivite;
+			Vector activites = EugesElements.getActivitesRole(auxRole) ;
 			EugesActRealise auxActRealise;
-			boolean appartient2 = false;
-			Iterator it2 = EugesElements.listeActivites.iterator();
-			while(!appartient2 && it2.hasNext()){
-				auxActivite = (EugesActivite) it2.next();
-				for (int n=0; n<auxActivite.getRoleCount(); n++) {
-					if(auxActivite.getRole(n).getName().equals(auxRole.getName()) && !appartient2) {
-						itemAuxActivite= new TreeItem(itemActivites, SWT.NONE);
-						itemAuxActivite.setText(auxActivite.getName());
-						itemAuxActivite.setImage(GestionImage._activite);
-						itemAuxActivite.setData(auxActivite);
-						appartient2 = true;
-						
-						// Ajout des produits en entrées et en sorties de cette activité
-						// Noeuds fixes 'Produits', 'Produits In' et 'Produits Out'
-						TreeItem itemProduitsIn = new TreeItem(itemAuxActivite, SWT.NONE);
-						TreeItem itemProduitsOut = new TreeItem(itemAuxActivite, SWT.NONE);
-						
-						itemProduitsIn.setText(message.getString("arbre.produits.in"));
-						itemProduitsOut.setText(message.getString("arbre.produits.out"));
-						itemProduitsIn.setImage(GestionImage._produit);
-						itemProduitsOut.setImage(GestionImage._produit);
-						itemProduitsIn.setData("produitsIn");
-						itemProduitsOut.setData("produitsOut");
-						
-						
-						// Recuperation des produits en entree de l'activite
-						TreeItem itemAuxProduitsIn; 
-						EugesProduit auxProduitsIn;
-						for (int k=0; k<auxActivite.getProduitInCount(); k++) {
-							auxProduitsIn = (EugesProduit) auxActivite.getProduitIn(k);
-							itemAuxProduitsIn = new TreeItem(itemProduitsIn, SWT.NONE);
-							itemAuxProduitsIn.setText(auxProduitsIn.getName());
-							itemAuxProduitsIn.setData(auxProduitsIn);
-						}					
-						itemProduitsIn.setExpanded(true);
-						
-						// Recuperation des produits en sortie de l'activite
-						TreeItem itemAuxProduitsOut; 
-						EugesProduit auxProduitsOut;
-						for (int k=0; k<auxActivite.getProduitOutCount(); k++) {
-							auxProduitsOut = (EugesProduit) auxActivite.getProduitOut(k);
-							itemAuxProduitsOut = new TreeItem(itemProduitsOut, SWT.NONE);
-							itemAuxProduitsOut.setText(auxProduitsOut.getName());
-							itemAuxProduitsOut.setData(auxProduitsOut);
-						}	
-						itemProduitsOut.setExpanded(true);
-						
-						itemAuxActivite.setExpanded(true);
-					}
-				}
-				appartient2 = false;
+			for (Iterator it = activites.iterator(); it.hasNext();) {
+				EugesActivite auxActivite = (EugesActivite) it.next();
+				itemAuxActivite = new TreeItem(itemActivites, SWT.NONE);
+				itemAuxActivite.setText(auxActivite.getName());
+				itemAuxActivite.setImage(GestionImage._activite);
+				itemAuxActivite.setData(auxActivite);
+
+				// Ajout des produits en entrées et en sorties de cette activité
+				// Noeuds fixes 'Produits', 'Produits In' et 'Produits Out'
+				TreeItem itemProduitsIn = new TreeItem(itemAuxActivite, SWT.NONE);
+				TreeItem itemProduitsOut = new TreeItem(itemAuxActivite, SWT.NONE);
 				
+				itemProduitsIn.setText(message.getString("arbre.produits.in"));
+				itemProduitsOut.setText(message.getString("arbre.produits.out"));
+				itemProduitsIn.setImage(GestionImage._produit);
+				itemProduitsOut.setImage(GestionImage._produit);
+				itemProduitsIn.setData("produitsIn");
+				itemProduitsOut.setData("produitsOut");
+				
+				
+				// Recuperation des produits en entree de l'activite
+				TreeItem itemAuxProduitsIn; 
+				EugesProduit auxProduitsIn;
+				for (int k=0; k<auxActivite.getProduitInCount(); k++) {
+					auxProduitsIn = (EugesProduit) auxActivite.getProduitIn(k);
+					itemAuxProduitsIn = new TreeItem(itemProduitsIn, SWT.NONE);
+					itemAuxProduitsIn.setText(auxProduitsIn.getName());
+					itemAuxProduitsIn.setData(auxProduitsIn);
+				}					
+				itemProduitsIn.setExpanded(true);
+				
+				// Recuperation des produits en sortie de l'activite
+				TreeItem itemAuxProduitsOut; 
+				EugesProduit auxProduitsOut;
+				for (int k=0; k<auxActivite.getProduitOutCount(); k++) {
+					auxProduitsOut = (EugesProduit) auxActivite.getProduitOut(k);
+					itemAuxProduitsOut = new TreeItem(itemProduitsOut, SWT.NONE);
+					itemAuxProduitsOut.setText(auxProduitsOut.getName());
+					itemAuxProduitsOut.setData(auxProduitsOut);
+				}	
+				itemProduitsOut.setExpanded(true);			
+				itemAuxActivite.setExpanded(true);
 			}
+			
 			itemActivites.setExpanded(true);
 			itemAuxRole.setExpanded(true);
 			
@@ -587,39 +565,16 @@ public class TriArbre {
 			
 			// Recuperation des produits
 			TreeItem itemAuxProduits;
-			EugesProduit auxProduit;
-			EugesVersion auxVersion;
-			boolean appartient = false;
-			Iterator it = EugesElements.listeProduits.iterator();
-			while(it.hasNext()){
-				auxProduit = (EugesProduit) it.next();
-				for (int n=0; n<auxProduit.getVersionCount(); n++) { 
-					auxVersion = auxProduit.getVersionPrecise(n);
-					
-					// Si auxPersonne est responsable de la version
-					if (auxVersion.get_responsable() != null && auxPersonne.getNom() == auxVersion.get_responsable().getNom()) {
-						itemAuxProduits = new TreeItem(itemProduit, SWT.NONE);
-						itemAuxProduits.setText(auxVersion.get_produitParent().getName() + " " + auxVersion.get_nom());
-						itemAuxProduits.setData(auxVersion);
-						appartient = true;
-					}
-					else {
-						for (int m=0; m<auxVersion.get_acteurs().size(); m++) {
-							if((EugesPersonne) auxVersion.get_acteurs().elementAt(m) == auxPersonne && !appartient) {
-								itemAuxProduits = new TreeItem(itemProduit, SWT.NONE);
-								itemAuxProduits.setText(auxVersion.get_produitParent().getName() + " " + auxVersion.get_nom());
-								itemAuxProduits.setData(auxVersion);
-								appartient = true;
-							}
-						}
-					}		
-					appartient = false;
-				}
-				itemProduit.setExpanded(true);
-				
-			}
-			itemAuxPersonne.setExpanded(true);
+			Vector produits = EugesElements.getProduitsPersonne(auxPersonne);
 			
+			for (Iterator iter = produits.iterator(); iter.hasNext();) {
+				EugesProduit auxProduit = (EugesProduit) iter.next();
+				itemAuxProduits = new TreeItem(itemProduit, SWT.NONE);
+				itemAuxProduits.setText(auxProduit.getName());
+				itemAuxProduits.setData(auxProduit);
+			}
+			itemProduit.setExpanded(true);
+			itemAuxPersonne.setExpanded(true);	
 		}
 		itemProjet.setExpanded(true);
 	}

@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Text;
 
 import configuration.Config;
 import donnees.eugesSpem.EugesActivite;
+import donnees.eugesSpem.EugesProduit;
 
 
 /**
@@ -38,6 +39,7 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 	public PageProprietesActiviteIHM(final Shell shell, EugesActivite act) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
+		Label vide;
 		
 		// Objet GridLayout pour placer les objets
 		GridLayout gridLayout = new GridLayout();
@@ -48,24 +50,24 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 		Font font = new Font(getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE);
 		titre.setFont(font);
-		titre.setText(message.getString("PageProprietesIHM.activite.titre"));
+		titre.setText(message.getString("PageProprietesActiviteIHM.activite.titre"));
 
 		// Vide pour la présentation
-		CLabel lblVide1 = new CLabel(this,SWT.WRAP);
-		lblVide1.setText("");
-		Label vide1 = new Label(this,SWT.WRAP);
-		vide1.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		// Nom de l'activité
 		CLabel lblActivite = new CLabel(this,SWT.WRAP);
-		lblActivite.setText(message.getString("PageProprietesIHM.activite.lblActivite"));
+		lblActivite.setText(message.getString("PageProprietesActiviteIHM.activite.lblActivite"));
 		Text activite = new Text(this,SWT.WRAP);
 		activite.setText(act.getName());
 		activite.setEditable(false);
 		
 		// Rôle associé
 		CLabel lblRole = new CLabel(this,SWT.WRAP);
-		lblRole.setText(message.getString("PageProprietesIHM.activite.lblRole"));
+		lblRole.setText(message.getString("PageProprietesActiviteIHM.activite.lblRole"));
 		Text role = new Text(this,SWT.WRAP);
 		role.setText(act.getRole(0).getName());
 		role.setEditable(false);
@@ -73,8 +75,67 @@ public class PageProprietesActiviteIHM extends PageAssistantIHM {
 		// Vide pour la présentation
 		CLabel lblVide2 = new CLabel(this,SWT.WRAP);
 		lblVide2.setText("");
-		Label vide2 = new Label(this,SWT.WRAP);
-		vide2.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+
+		// Affichage d'un séparateur pour la présentation
+		Label sep1 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
+		GridData dataSep = new GridData(GridData.FILL_HORIZONTAL);
+		Point pointSep = sep1.computeSize(SWT.DEFAULT,SWT.DEFAULT);
+		dataSep.heightHint = pointSep.y;
+		dataSep.horizontalSpan = 2;
+		sep1.setLayoutData(dataSep);
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Affichage des produits en entrées de l'activité
+		CLabel lblProduitsIn = new CLabel(this,SWT.WRAP);
+		lblProduitsIn.setText(message.getString("PageProprietesActiviteIHM.produit.lblProduitsIn"));
+		Text auxLabelProduitIn;
+		EugesProduit auxProduitIn;
+		for (int i=0; i<act.getProduitInCount(); i++) {
+			auxProduitIn = act.getProduitIn(i);
+			auxLabelProduitIn = new Text(this, SWT.WRAP);
+			auxLabelProduitIn.setText(auxProduitIn.getName());
+			auxLabelProduitIn.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Affichage des produits en sorites de l'activité
+		CLabel lblProduitsOut = new CLabel(this,SWT.WRAP);
+		lblProduitsOut.setText(message.getString("PageProprietesActiviteIHM.produit.lblProduitsOut"));
+		Text auxLabelProduitOut;
+		EugesProduit auxProduitOut;
+		for (int j=0; j<act.getProduitOutCount(); j++) {
+			auxProduitOut = act.getProduitOut(j);
+			auxLabelProduitOut = new Text(this, SWT.WRAP);
+			auxLabelProduitOut.setText(auxProduitOut.getName());
+			auxLabelProduitOut.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		
 		// mise en place des caractéristiques du GridLayout (hauteur, largeur, remplissage, span, ...)

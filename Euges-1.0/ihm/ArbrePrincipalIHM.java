@@ -9,6 +9,10 @@ import ihm.vues.planIt.PlanItIHM;
 
 import java.util.ResourceBundle;
 
+import application.TriArbre;
+import configuration.Config;
+
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Point;
@@ -27,8 +31,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;
-import application.TriArbre;
-import configuration.Config;
+
 import donnees.Iteration;
 import donnees.Projet;
 import donnees.eugesSpem.EugesActRealise;
@@ -36,6 +39,7 @@ import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
+import donnees.eugesSpem.EugesVersion;
 
 
 /**
@@ -306,7 +310,7 @@ public class ArbrePrincipalIHM extends ViewForm {
 				}
 				
 				// Si le noeud séléctionné est une version d'un produit
-				if(noeud.getData() instanceof EugesProduit) {
+				if(noeud.getData() instanceof EugesVersion) {
 					fenetre.open(11, noeud.getData());
 					return;
 				}
@@ -345,12 +349,14 @@ public class ArbrePrincipalIHM extends ViewForm {
 		
 		_tree.addListener(SWT.MouseDown, new Listener() {
 			public void handleEvent(Event event) {
-				TreeItem[] selections = _tree.getSelection();
-				TreeItem selection = selections[0];
-				if (selection.getData() instanceof Iteration) {
-					Iteration it = (Iteration) selection.getData();
-					int numIt = it.get_numIt();
-					PlanItIHM.get_tabFolder().setSelection(numIt);
+				if (_tree.getSelectionCount() > 0) {
+					TreeItem[] selections = _tree.getSelection();
+					TreeItem selection = selections[0];
+					if (selection.getData() instanceof Iteration) {
+						Iteration it = (Iteration) selection.getData();
+						int numIt = it.get_numIt();
+						PlanItIHM.get_tabFolder().setSelection(numIt);
+					}
 				}
 			} 
 		});

@@ -7,26 +7,33 @@
 package application;
 
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import configuration.Config;
 
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 
 /**
- * @author Nicolas
+ * @author Nicolas Elbeze
  *
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class ChargementProcessus {
 
+	private ResourceBundle message = ResourceBundle.getBundle(Config.config.getProperty("cheminTraduction") + "." + Config.locale.getLanguage() + getClass().getName().substring(getClass().getName().lastIndexOf('.')), Config.locale);
 	
 	public ChargementProcessus(String file){
 		try {
@@ -91,7 +98,6 @@ public class ChargementProcessus {
 				auxProduit = new EugesProduit(auxNodeProduit.getChildNodes().item(3).getChildNodes().item(0).toString());
 				//System.out.println("Ajout du produit : " + auxNodeProduit.getChildNodes().item(3).getChildNodes().item(0));
 				EugesElements.listeProduits.addElement(auxProduit);
-				//EugesElements.ajouteEugesProduit(auxProduit.getName(), " 1.0");
 				
 				// ajout dans la HashMap des produits
 				produitHashMap.put(auxNodeProduit.getChildNodes().item(1).getChildNodes().item(0).toString(), auxProduit);
@@ -121,6 +127,10 @@ public class ChargementProcessus {
 			}
 		}
 		catch (Exception e) {
+				MessageBox msg = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR);
+				msg.setText(message.getString("ChargementProcessus.erreur"));
+				msg.setMessage(message.getString("ChargementProcessus.erreurChamps"));
+				msg.open();
 				System.out.println("Erreur");
 		}
 	}

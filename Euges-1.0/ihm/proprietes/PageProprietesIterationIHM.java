@@ -9,6 +9,7 @@ package ihm.proprietes;
 
 import ihm.PageAssistantIHM;
 
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
@@ -21,8 +22,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import application.EugesElements;
+
+
 import configuration.Config;
 import donnees.Iteration;
+import donnees.eugesSpem.EugesActivite;
+import donnees.eugesSpem.EugesVersion;
 
 
 /**
@@ -38,6 +44,7 @@ public class PageProprietesIterationIHM extends PageAssistantIHM {
 	public PageProprietesIterationIHM(final Shell shell, Iteration it) {
 		// Appel au constructeur de l'objet Composite
 		super(shell);
+		Label vide;
 		
 		// Objet GridLayout pour placer les objets
 		GridLayout gridLayout = new GridLayout();
@@ -48,40 +55,107 @@ public class PageProprietesIterationIHM extends PageAssistantIHM {
 		Font font = new Font(getDisplay(), "Arial", 15, 15);
 		Label titre = new Label(this, SWT.NONE);
 		titre.setFont(font);
-		titre.setText(message.getString("PageProprietesIHM.iteration.titre"));
+		titre.setText(message.getString("PageProprietesIterationIHM.iteration.titre"));
 
 		// Vide pour la présentation
 		CLabel lblVide1 = new CLabel(this,SWT.WRAP);
 		lblVide1.setText("");
-		Label vide1 = new Label(this,SWT.WRAP);
-		vide1.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		// Nom de l'itération
 		CLabel lblIteration = new CLabel(this,SWT.WRAP);
-		lblIteration.setText(message.getString("PageProprietesIHM.iteration.lblNumIteration"));
+		lblIteration.setText(message.getString("PageProprietesIterationIHM.iteration.lblNumIteration"));
 		Text iteration = new Text(this,SWT.WRAP);
 		iteration.setText(it.get_numIt() + "");
 		iteration.setEditable(false);
 		
 		// Date de début de l'itération
 		CLabel lblDebut = new CLabel(this,SWT.WRAP);
-		lblDebut.setText(message.getString("PageProprietesIHM.iteration.lblDebut"));
+		lblDebut.setText(message.getString("PageProprietesIterationIHM.iteration.lblDebut"));
 		Text debut = new Text(this,SWT.WRAP);
 		debut.setText(it.get_dateDebut().toString());
 		debut.setEditable(false);
 		
 		// Date de fin de l'itération
 		CLabel lblFin = new CLabel(this,SWT.WRAP);
-		lblFin.setText(message.getString("PageProprietesIHM.iteration.lblFin"));
+		lblFin.setText(message.getString("PageProprietesIterationIHM.iteration.lblFin"));
 		Text fin = new Text(this,SWT.WRAP);
 		fin.setText(it.get_dateFin().toString());
 		fin.setEditable(false);
 		
+		
 		// Vide pour la présentation
-		CLabel lblVide2 = new CLabel(this,SWT.WRAP);
-		lblVide2.setText("");
-		Label vide2 = new Label(this,SWT.WRAP);
-		vide2.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+
+		// Affichage d'un séparateur pour la présentation
+		Label sep1 = new Label(this, SWT.SEPARATOR|SWT.HORIZONTAL);
+		GridData dataSep = new GridData(GridData.FILL_HORIZONTAL);
+		Point pointSep = sep1.computeSize(SWT.DEFAULT,SWT.DEFAULT);
+		dataSep.heightHint = pointSep.y;
+		dataSep.horizontalSpan = 2;
+		sep1.setLayoutData(dataSep);
+		
+		
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+		// Récupération de toutes les activités associées à l'itération
+		CLabel lblActivites = new CLabel(this,SWT.WRAP);
+		lblActivites.setText(message.getString("PageProprietesIterationIHM.activite.lblActivites"));
+		Text auxLabelActivite;
+		EugesActivite auxActivite;
+		for (int i=0; i<it.getActiviteCount(); i++) {
+			auxActivite = it.getActivite(i).get_activiteParent();
+			auxLabelActivite = new Text(this, SWT.WRAP);
+			auxLabelActivite.setText(auxActivite.getName());
+			auxLabelActivite.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+		
+
+		// Récupération de toutes les versions associées à l'itération
+		CLabel lblProduits = new CLabel(this,SWT.WRAP);
+		lblProduits.setText(message.getString("PageProprietesIterationIHM.produit.lblProduits"));
+		Text auxLabelProduit;
+		for (Iterator iter = EugesElements.getProduitsIteration(it).iterator(); iter.hasNext();) {
+			EugesVersion auxVersion = (EugesVersion) iter.next();
+			auxLabelProduit = new Text(this, SWT.WRAP);
+			auxLabelProduit.setText(auxVersion.get_produitParent().getName() + " " + auxVersion.get_nom());
+			auxLabelProduit.setEditable(false);
+			vide = new Label(this, SWT.NONE);
+			vide.setText("");
+		}
+		
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		
+
+		// Vide pour la présentation
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
+		vide = new Label(this, SWT.NONE);
+		vide.setText("");
 		
 		
 		// mise en place des caractéristiques du GridLayout (hauteur, largeur, remplissage, span, ...)

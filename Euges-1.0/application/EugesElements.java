@@ -10,7 +10,9 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import utilitaires.MyDate;
+import donnees.Iteration;
 import donnees.Projet;
+import donnees.eugesSpem.EugesActRealise;
 import donnees.eugesSpem.EugesActivite;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
@@ -334,5 +336,159 @@ public class EugesElements {
 				nb += actTemp.getActRealiseCount();
 		}
 		return nb;
+	}
+	// Retourne tous les rôles de la personne : pers
+	public static Vector getRolesPersonne(EugesPersonne pers) {
+		Vector resultat = new Vector();
+		for (Iterator iter = EugesElements.listeRoles.iterator(); iter.hasNext();) {
+			EugesRole auxRole = (EugesRole) iter.next();
+			Vector auxPersonnes = getPersonnesRole(auxRole);
+			if (auxPersonnes.contains(pers)) {
+				resultat.add(auxRole);
+			}
+		}
+		return resultat;
+	}
+	
+	
+	// Retourne toutes les personnes associées au role : r
+	public static Vector getPersonnesRole(EugesRole r) {
+		Vector resultat = new Vector();
+		boolean appartient = false;
+		EugesPersonne auxPersonne;
+		Iterator it = EugesElements.listePersonnes.iterator();
+		
+		while(!appartient && it.hasNext()){
+			auxPersonne = (EugesPersonne) it.next();
+			Iteration auxIteration;
+			for (Iterator it2 = EugesElements._projet.get_listeIteration().iterator(); it2.hasNext();) {
+				auxIteration = (Iteration) it2.next();
+				
+				// Recuperation des Roles de l'itération
+				EugesRole auxRoleAct;	
+				Vector tempRoles = auxIteration.getAssociation(auxPersonne);
+				for (Iterator iterator = tempRoles.iterator(); iterator.hasNext();) {
+					auxRoleAct = (EugesRole) iterator.next();
+					if (auxRoleAct.getName() == r.getName() && !resultat.contains(auxPersonne)) {
+						appartient = true;
+						resultat.add(auxPersonne);	
+					}
+				}	
+			}
+			appartient = false;
+		}
+		
+		return resultat;
+	}
+
+	
+	// Retourne toutes les activites associées au role : r
+	public static Vector getActivitesRole(EugesRole r) {
+		Vector resultat = new Vector();
+		EugesActivite auxActivite;
+		EugesActRealise auxActRealise;
+		boolean appartient = false;
+		Iterator it2 = EugesElements.listeActivites.iterator();
+		while(!appartient && it2.hasNext()){
+			auxActivite = (EugesActivite) it2.next();
+			for (int n=0; n<auxActivite.getRoleCount(); n++) {
+				if(auxActivite.getRole(n).getName().equals(r.getName()) && !appartient) {
+					appartient = true;
+					resultat.add(auxActivite);	
+				}
+			}	
+			appartient = false;
+		}
+		return resultat;
+	}
+	
+
+	// Retourne tous les produits associées à la personne : pers
+	public static Vector getProduitsPersonne(EugesPersonne pers) {
+		Vector resultat = new Vector();
+		EugesProduit auxProduit;
+		EugesVersion auxVersion;
+		boolean appartient = false;
+		Iterator it = EugesElements.listeProduits.iterator();
+		while(it.hasNext()){
+			auxProduit = (EugesProduit) it.next();
+			for (int n=0; n<auxProduit.getVersionCount(); n++) { 
+				auxVersion = auxProduit.getVersionPrecise(n);
+				
+				// Si auxPersonne est responsable de la version
+				if (auxVersion.get_responsable() != null && pers.getNom() == auxVersion.get_responsable().getNom()) {
+					resultat.add(auxVersion.get_produitParent());
+					appartient = true;
+				}
+				else {
+					for (int m=0; m<auxVersion.get_acteurs().size(); m++) {
+						if((EugesPersonne) auxVersion.get_acteurs().elementAt(m) == pers && !appartient) {
+							resultat.add(auxVersion.get_produitParent());
+							appartient = true;
+						}
+					}
+				}		
+			}
+			appartient = false;
+		}
+		return resultat;
+	}
+	
+	
+	// Retourne toutes les activités qui ont en entrée le produit : prod
+	public static Vector getActivitesProduitIn(EugesProduit prod) {
+		Vector resultat= new Vector();
+		Vector activites = EugesElements.listeActivites;
+		for (Iterator it = activites.iterator(); it.hasNext();) {
+			EugesActivite auxActivite = (EugesActivite) it.next();
+			if (auxActivite.contientProduitIn(prod)) {
+				resultat.add(auxActivite);
+			}
+		}
+		return resultat;
+	}
+
+	
+	// Retourne toutes les activités qui ont en sortie le produit : prod
+	/**
+	 * 
+	 */
+	public static Vector getActivitesProduitOut(EugesProduit prod) {
+		Vector resultat = new Vector();
+		EugesActivite act;
+		Vector activites = EugesElements.listeActivites;
+		for (Iterator it = activites.iterator(); it.hasNext();) {
+			EugesActivite auxActivite = (EugesActivite) it.next();
+			if (auxActivite.contientProduitOut(prod)) {
+				resultat.add(auxActivite);
+			}
+		}
+		return resultat;
+	}
+	
+	
+	// Retourne toutes les versions associées à une itération
+	public static Vector getProduitsIteration(Iteration it) {
+		Vector resultat = new Vector();
+		EugesVersion auxProduits;
+		
+		for (int i=0; i<it.getActiviteCount(); i++) {
+			EugesActRealise auxActRealise = it.getActivite(i);
+			for (int k=0; k<auxActRealise.getProduitInCount(); k++) {
+				EugesVersion auxVersion = auxActRealise.getProduitIn(k); 
+				if (!resultat.contains(auxVersion)) {
+					resultat.add(auxVersion);
+				}
+			}
+			
+			for (int l=0; l<auxActRealise.getProduitOutCount(); l++) {
+				EugesVersion auxVersion = auxActRealise.getProduitOut(l); 
+				if (!resultat.contains(auxVersion)) {
+					resultat.add(auxVersion);
+				}
+			}
+		}
+		
+		return resultat;
 	}
 }

@@ -6,22 +6,7 @@
  */
 package ihm;
 
-import ihm.proprietes.PageProprietesActRealiseIHM;
-import ihm.proprietes.PageProprietesActiviteIHM;
-import ihm.proprietes.PageProprietesIterationIHM;
-import ihm.proprietes.PageProprietesListeActivitesIHM;
-import ihm.proprietes.PageProprietesListeIterationsIHM;
-import ihm.proprietes.PageProprietesListePersonnesIHM;
-import ihm.proprietes.PageProprietesListeProduitsIHM;
-import ihm.proprietes.PageProprietesListeProduitsInIHM;
-import ihm.proprietes.PageProprietesListeProduitsOutIHM;
-import ihm.proprietes.PageProprietesListeRolesIHM;
-import ihm.proprietes.PageProprietesPersonneIHM;
-import ihm.proprietes.PageProprietesProduitIHM;
-import ihm.proprietes.PageProprietesProjetIHM;
-import ihm.proprietes.PageProprietesProjetVideIHM;
-import ihm.proprietes.PageProprietesRoleIHM;
-import ihm.proprietes.PageProprietesVersionIHM;
+import ihm.proprietes.*;
 
 import java.util.ResourceBundle;
 
@@ -38,7 +23,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import utilitaires.GestionImage;
+
 import configuration.Config;
 import donnees.Iteration;
 import donnees.Projet;
@@ -48,6 +33,8 @@ import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesRole;
 import donnees.eugesSpem.EugesVersion;
+
+import utilitaires.GestionImage;
 
 /**
  * @author Nicolas Elbeze
