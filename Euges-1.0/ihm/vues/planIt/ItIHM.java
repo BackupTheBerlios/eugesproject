@@ -674,11 +674,31 @@ public class ItIHM extends Composite {
 	public void majProd() {
 		Vector vIn = It.getProdIn(_activitesTABLE.getItems());
 		Vector vOut = It.getProdOut(_activitesTABLE.getItems());
+		/*Vector vIn = new Vector();
+		 for (int i = 0; i < _it.getActiviteCount(); i++) {
+		 EugesActRealise a = _it.getActivite(i);
+		 EugesActivite act = a.get_activiteParent();
+		 for (int j = 0; j < act.getProduitInCount(); j++) {
+		 if (!vIn.contains(act.getProduitIn(j)))
+		 vIn.add(act.getProduitIn(j));
+		 }
+		 }
+		 
+		 Vector vOut = new Vector();
+		 for (int i = 0; i < _it.getActiviteCount(); i++) {
+		 EugesActRealise a = _it.getActivite(i);
+		 EugesActivite act = a.get_activiteParent();
+		 for (int j = 0; j < act.getProduitOutCount(); j++) {
+		 if (!vOut.contains(act.getProduitOut(j)))
+		 vOut.add(act.getProduitOut(j));
+		 }
+		 }*/
 		// maj de la combo
 		_produitsCOMBO.removeAll();
 		for (Iterator iter = vOut.iterator(); iter.hasNext();) {
 			EugesProduit e = (EugesProduit) iter.next();
-			_produitsCOMBO.add(e.toString());
+			if(e != null)
+				_produitsCOMBO.add(e.toString());
 		}
 		_produitsCOMBO.select(0);
 		_produitsCOMBO.pack();
@@ -743,6 +763,15 @@ public class ItIHM extends Composite {
 			s = "" + _it.getActivite(i).get_chargeReelle();
 			item.setText(2, s);
 			item.setData(_it.getActivite(i));
+			
+			// on crée les participants
+			TableTreeItem subitem;
+			for (int j=0; j<_it.getActivite(i).getPersonneCount(); j++) {
+				subitem = new TableTreeItem(item, SWT.NONE);
+				subitem.setText(0,_it.getActivite(i).getPersonne(j).toString());
+				subitem.setText(1,"");
+				subitem.setText(2,"");
+			}
 		}
 	}
 }
