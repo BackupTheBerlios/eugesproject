@@ -60,6 +60,7 @@ public class OuvertureProjet {
 		FenetrePrincipaleIHM.itemFermer.setEnabled(true);
 		FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
 		((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
+		FenetrePrincipaleIHM._vues.setVisible(0);
 		PlanItIHM.majContenuWidgets();
 		ArbrePrincipalIHM._tri.actualiser();
 		}

@@ -248,6 +248,8 @@ public class PageAttributionRolesIHM extends PageAssistantIHM {
 						TreeItem[] rolesPers = persSelected[0].getItems();
 						for (int i=0;i<rolesPers.length;i++) {
 							it.supprimerAssociation(p,PageAttributionRoles.getRole(rolesPers[i].getText()));
+							System.out.println(p);
+							System.out.println(PageAttributionRoles.getRole(rolesPers[i].getText()));
 							rolesPers[i].dispose();
 						}
 					}

@@ -212,8 +212,9 @@ public class FenetrePrincipaleIHM {
 			menuItemQuitter.setText(message.getString("menu.fichier.quitter"));
 			menuItemQuitter.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					FermerProjet(shell);
-					shell.close();
+					if (FermerProjet(shell)!=SWT.CANCEL){
+						shell.close();
+					}
 				}
 			});	
 		

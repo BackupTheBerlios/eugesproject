@@ -150,7 +150,7 @@ public class Iteration {
 	}
 	
 	public void supprimerAssociation(EugesPersonne p, EugesRole r) {
-		if (!contientAssociation(p,r)) {
+		if (contientAssociation(p,r)) {
 			int index;
 			if ((index = contientPersonne(p)) != -1) {
 				Vector temp = (Vector) _personnesRoles.elementAt(index);
