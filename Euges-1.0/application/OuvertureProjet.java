@@ -45,7 +45,7 @@ public class OuvertureProjet {
 	public OuvertureProjet(String uri) throws SAXException, IOException {
 		try
 		{
-			XMLReader xr = XMLReaderFactory.createXMLReader("org.apache.crimson.parser.XMLReaderImpl");
+			XMLReader xr = XMLReaderFactory.createXMLReader();
 			MySAXApp handler = new MySAXApp();
 			xr.setContentHandler(handler);
 			xr.setErrorHandler(handler);
