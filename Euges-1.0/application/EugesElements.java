@@ -651,7 +651,16 @@ public class EugesElements {
 		/*File FileMenu  = new File (chemin+"/menu.htm");
 		File FilePrincipale  = new File (chemin+"/principale.htm");
 		File FileTitre  = new File (chemin+"/titre.htm");*/
+		
+		//Creation du repertoire au cas ou l'utilisateur 
+		//l'aurait supprimé durant l'execution du programme
+		File rep = new File(chemin);
+		rep.mkdir();
+		
 		try {
+			
+			
+			
 			
 			//Génération de l'index : 
 			FileWriter fichierIndex = new FileWriter (FileIndex);
@@ -672,6 +681,8 @@ public class EugesElements {
 			//Génération des pages d'itérations : 
 			File repIterations = new File(chemin+"/iterations");
 			repIterations.mkdir();
+			
+		
 			_projet.genereIterations(chemin);
 			
 			//Création du repertoire contenant les images :

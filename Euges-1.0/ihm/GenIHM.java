@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.MessageBox;
 import java.io.FileOutputStream;
 
 import application.EugesElements;
@@ -128,11 +129,24 @@ public class GenIHM extends Dialog{
 					
 					EugesElements.genereSite(text4.getText(),check);
 					shellGen.dispose();
-				} catch (Exception e1) {}
+				} catch (Exception e1) {}{
 				
+				}
+			
+			try {	
+				String test = EugesElements._projet.get_description();
+			}
+			catch (Exception e2)
+			
+			{
+				MessageBox msg = new MessageBox(shell, SWT.ICON_QUESTION|SWT.YES|SWT.NO|SWT.CANCEL);
+				msg.setText(message.getString("GenIHM.err"));
+				msg.setMessage(message.getString("GenIHM.errgen"));
+				msg.open();
+			}
+		
 			}
 		});
-		
 		
 		
 		//bouton annuler
