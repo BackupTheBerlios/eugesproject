@@ -116,12 +116,12 @@ public class CalendrierIHM extends Dialog{
 		int anneeCourante = today.getYear()+1900;
 		
 		//remplissage du combo année
-		for (int j =0, i = anneeCourante; i< anneeCourante +20 ;i++, j++)
+		for (int j =0, i = anneeCourante - 10; i< anneeCourante +20 ;i++, j++)
 		{
 			Integer an = new Integer (i);
 			_comboAnnee.add(an.toString(),j);
 		}
-		_comboAnnee.select(0);
+		_comboAnnee.select(10);
 		//définition du layout de enTete
 		enTete.setLayout (new GridLayout (2,true));
 		

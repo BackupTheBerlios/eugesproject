@@ -386,6 +386,7 @@ public class FenetreGestionProduitsIHM {
 		_activites.removeAll();
 		for (Iterator iter = EugesElements.listeActivites.iterator(); iter.hasNext();) {
 			EugesActivite e = (EugesActivite) iter.next();
+		
 			// Activité
 			TreeItem temp = new TreeItem(_activites,SWT.NONE);
 			temp.setImage(GestionImage._activite);
@@ -394,8 +395,11 @@ public class FenetreGestionProduitsIHM {
 			// Produits IN
 			TreeItem temp2 = new TreeItem(temp,SWT.NONE);
 			temp2.setText(message.getString("FenetreGestionProduitsIHM.prodIn"));
+			
 			for (int i = 0; i < e.getProduitInCount(); i++) {
 				TreeItem temp3 = new TreeItem(temp2,SWT.NONE);
+				EugesProduit p = e.getProduitIn(i);
+				System.out.println(p);
 				temp3.setText(e.getProduitIn(i).toString());
 				temp3.setImage(GestionImage._produit);
 				temp3.setData(e.getProduitIn(i));
@@ -403,6 +407,7 @@ public class FenetreGestionProduitsIHM {
 			// Produits OUT
 			temp2 = new TreeItem(temp,SWT.NONE);
 			temp2.setText(message.getString("FenetreGestionProduitsIHM.prodOut"));
+			
 			for (int i = 0; i < e.getProduitOutCount(); i++) {
 				TreeItem temp3 = new TreeItem(temp2,SWT.NONE);
 				temp3.setText(e.getProduitOut(i).toString());
