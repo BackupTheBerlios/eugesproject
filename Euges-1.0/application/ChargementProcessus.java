@@ -136,10 +136,10 @@ public class ChargementProcessus {
 			}
 		}
 		catch (Exception e) {
-				MessageBox msg = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR);
-				msg.setText(message.getString("ChargementProcessus.erreur"));
-				msg.setMessage(message.getString("ChargementProcessus.erreurChamps"));
-				msg.open();
+			MessageBox msg = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_ERROR);
+			msg.setText(message.getString("ChargementProcessus.erreur"));
+			msg.setMessage(message.getString("ChargementProcessus.erreurChamps"));
+			msg.open();
 		}
 	}
 }

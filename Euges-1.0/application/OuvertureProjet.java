@@ -43,8 +43,8 @@ public class OuvertureProjet {
 	 * Contructeur.
 	 */
 	public OuvertureProjet(String uri) throws SAXException, IOException {
-		try
-		{
+		try{
+			//"org.apache.crimson.parser.XMLReaderImpl"
 			XMLReader xr = XMLReaderFactory.createXMLReader();
 			MySAXApp handler = new MySAXApp();
 			xr.setContentHandler(handler);
@@ -63,7 +63,6 @@ public class OuvertureProjet {
 				FenetrePrincipaleIHM.itemFermer.setEnabled(true);
 				FenetrePrincipaleIHM.itemEnregistrer.setEnabled(true);
 				((PlanItIHM)FenetrePrincipaleIHM._vues.elementAt(0)).majIt(EugesElements._projet._listeIteration.size());
-				FenetrePrincipaleIHM._vues.setVisible(0);
 				PlanItIHM.majContenuWidgets();
 				ArbrePrincipalIHM._tri.actualiser();
 			}
@@ -77,6 +76,7 @@ public class OuvertureProjet {
 			}
 		}
 		catch(SAXException e){
+			e.printStackTrace();
 			Shell shell = new Shell();
 			MessageBox msgErreur = new MessageBox(shell,SWT.ICON_ERROR); 
 			msgErreur.setMessage(message.getString("texte")); 
