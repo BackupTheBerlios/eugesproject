@@ -11,8 +11,11 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Monitor;
@@ -20,6 +23,7 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import utilitaires.EugesNavigateur;
 import utilitaires.GestionImage;
 
 /**
@@ -62,6 +66,8 @@ public class ProgressStart{
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		shell.setLocation (x, y);
 		shell.open();
+		GC gc = new GC(shell);
+		gc.drawImage(GestionImage._start, 0, 0);
 		shell.addPaintListener(new PaintListener(){
 			public void paintControl(PaintEvent e) {
 				//ajout de l'image
@@ -77,9 +83,20 @@ public class ProgressStart{
 				 */
 				public void mouseDoubleClick(MouseEvent e) {
 					shell.dispose();
+					EugesNavigateur fenetre = new EugesNavigateur("http://www.euges.fr.st");
 				}
 			});
-			shell.setToolTipText("Double click");
+			final Button fermer = new Button(shell, SWT.NONE);
+			fermer.setImage(GestionImage._fermerBar);
+			fermer.setSize(17,17);
+			fermer.setLocation(shell.getSize().x-30, 10);
+			fermer.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					shell.dispose();
+				}
+			});
+			
+			shell.setToolTipText("www.euges.fr.st");
 			String listeNoms = "                                           Logiciel développé par : Mathieu Gayraud - Nicolas Broueilh - Nicolas Elbeze - William Ferreira - Nicolas Giroire - Bruno Chauvet - Cyril Gerla - Julien Hays - Ludovic Pradel - Nicolas Teulier";
 			Text auteurs = new Text(shell, SWT.BORDER);
 			auteurs.setSize(200,20);
