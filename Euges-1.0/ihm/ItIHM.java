@@ -95,7 +95,7 @@ public class ItIHM extends Composite {
 		
 		final ScrollBar vBar = this.getVerticalBar ();
 		vBar.setIncrement(5);
-		
+		System.out.println(vBar);
 		vBar.addListener (SWT.Selection, new Listener () {
 			public void handleEvent (Event e) {
 				Point location = c.getLocation ();

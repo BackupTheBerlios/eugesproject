@@ -23,6 +23,7 @@
 package donnees.spem.core;
 
 import java.io.Serializable;
+
 import donnees.spem.SpemVisitor;
 
 /**
@@ -31,7 +32,7 @@ import donnees.spem.SpemVisitor;
  * Specify an abstract method to allow visitors
  * See the visitor design pattern for more informations
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public abstract class Element implements Serializable, Cloneable
 {

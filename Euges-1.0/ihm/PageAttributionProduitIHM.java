@@ -29,12 +29,11 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import utilitaires.GestionImage;
-
+import application.EugesElements;
 import configuration.Config;
 import donnees.eugesSpem.EugesPersonne;
 import donnees.eugesSpem.EugesProduit;
 import donnees.eugesSpem.EugesVersion;
-import application.*;
 
 /**
  * @author Nicolas

@@ -22,26 +22,26 @@
 
 package donnees.spem;
 
-import donnees.spem.modelmanagement.SPackage;
-import donnees.spem.process.components.ProcessComponent;
-import donnees.spem.process.components.SProcess;
-import donnees.spem.process.structure.WorkDefinition;
-import donnees.spem.process.structure.ProcessPerformer;
-import donnees.spem.process.structure.WorkProduct;
-import donnees.spem.process.structure.ProcessRole;
-import donnees.spem.process.structure.Activity;
 import donnees.spem.basic.ExternalDescription;
 import donnees.spem.basic.Guidance;
 import donnees.spem.basic.GuidanceKind;
-import donnees.spem.diagram.ClassDiagram;
 import donnees.spem.diagram.ActivityDiagram;
+import donnees.spem.diagram.ClassDiagram;
+import donnees.spem.modelmanagement.SPackage;
+import donnees.spem.process.components.ProcessComponent;
+import donnees.spem.process.components.SProcess;
+import donnees.spem.process.structure.Activity;
+import donnees.spem.process.structure.ProcessPerformer;
+import donnees.spem.process.structure.ProcessRole;
+import donnees.spem.process.structure.WorkDefinition;
+import donnees.spem.process.structure.WorkProduct;
 
 
 /**
  * Interface for visiting SPEM models
  * For more details see the visitor design pattern
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public interface SpemVisitor
 {

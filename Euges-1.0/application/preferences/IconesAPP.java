@@ -9,8 +9,8 @@ package application.preferences;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import utilitaires.CopierFichier;
 import configuration.Config;
-import utilitaires.*;
 
 /**
  * @author Nicolas

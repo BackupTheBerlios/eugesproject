@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Text;
 
 import utilitaires.GestionImage;
 import utilitaires.MailElements;
-
 import configuration.Config;
 /**
  * @author Jude

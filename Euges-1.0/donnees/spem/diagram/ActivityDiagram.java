@@ -23,18 +23,16 @@
 package donnees.spem.diagram;
 
 import java.io.Serializable;
+import java.util.Vector;
 
-//import org.ipsquad.utils.ErrorManager;
-
+import donnees.spem.SpemVisitor;
 import donnees.spem.core.ModelElement;
 import donnees.spem.process.structure.Activity;
-import donnees.spem.SpemVisitor;
-import java.util.Vector;
 
 /**
  * Base class for the activity diagram
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ActivityDiagram extends SpemDiagram
 {

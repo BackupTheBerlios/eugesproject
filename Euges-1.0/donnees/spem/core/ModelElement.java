@@ -22,13 +22,14 @@
 
 package donnees.spem.core;
 
-import donnees.spem.modelmanagement.SPackage;
 import java.util.Vector;
+
+import donnees.spem.modelmanagement.SPackage;
 
 /**
  * Base class for the elements of the model
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public abstract class ModelElement extends Element
 {

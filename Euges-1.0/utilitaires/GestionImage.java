@@ -48,6 +48,9 @@ public class GestionImage {
 	public static Image _navStop;
 	public static Image _navGo;
 	
+	public static Image _toolTabIt;
+	public static Image _toolGraphIt;
+	public static Image _toolGraphLine;
 	private URL url;
 	
 	private String _basePath = "/configuration/images/";
@@ -150,6 +153,15 @@ public class GestionImage {
 			
 			url = getClass().getResource(_basePath + "navigatorGif/stop.gif");
 			_navStop = new Image(display,url.openStream());
+	
+			url = getClass().getResource(_basePath + "icones/tabIt.ico");
+			_toolTabIt = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/graphIt.png");
+			_toolGraphIt = new Image(display,url.openStream());
+			
+			url = getClass().getResource(_basePath + "icones/graphLine.ico");
+			_toolGraphLine = new Image(display,url.openStream());
 			
 		} catch (IOException e) {
 			System.out.println("Erreur au chargement d'une image");

@@ -22,14 +22,15 @@
 
 package donnees.spem.modelmanagement;
 
+import java.util.Vector;
+
 import donnees.spem.SpemVisitor;
 import donnees.spem.core.ModelElement;
-import java.util.Vector;
 
 /**
  * Package of the model
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SPackage extends ModelElement
 {
