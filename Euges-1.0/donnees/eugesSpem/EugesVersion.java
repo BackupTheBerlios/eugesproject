@@ -4,6 +4,8 @@
  */
 package donnees.eugesSpem;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -167,5 +169,41 @@ public class EugesVersion {
 	public void set_acteurs(Vector _acteurs) {
 		this._acteurs = _acteurs;
 	}
-
+	/**
+	 * @param ecriture
+	 */
+	public void sauvegarderProduitIn(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<ProduitsIn name=\""+this.get_nom()+"\"/>\n");
+			//sauvegarde de l'état
+			ecriture.write("<_version _nom=\""+this.get_nom()+"\" _etat=\""+this.get_etat()+"\" _realisation=\""+this.get_realisation()+"\" _responsable=\""+this.get_responsable()+"\" _produitParent=\""+this.get_produitParent()+"\"/>\n");
+			//sauvegarde des acteurs
+			for (int i = 0; i<_acteurs.size();i++)
+			{
+				((EugesPersonne)_acteurs.get(i)).sauvegardeActeur(ecriture);
+			}
+			
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+		
+	}
+	public void sauvegarderProduitOut(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<ProduitsOut name=\""+this.get_nom()+"\"/>\n");
+			//sauvegarde de l'état
+			ecriture.write("<_version _nom=\""+this.get_nom()+"\" _etat=\""+this.get_etat()+"\" _realisation=\""+this.get_realisation()+"\" _responsable=\""+this.get_responsable()+"\" _produitParent=\""+this.get_produitParent()+"\"/>\n");
+			//sauvegarde des acteurs
+			for (int i = 0; i<_acteurs.size();i++)
+			{
+				((EugesPersonne)_acteurs.get(i)).sauvegardeActeur(ecriture);
+			}
+			
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -4,6 +4,8 @@
  */
 package donnees.eugesSpem;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 import donnees.spem.process.structure.WorkProduct;
@@ -93,5 +95,16 @@ public class EugesProduit extends WorkProduct{
 	public void set_versionSuivante(double suivante) {
 		_versionSuivante = suivante;
 	}
-
+	/**
+	 * @param ecriture
+	 */
+	public void sauvegarder(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<EugesProduit name=\""+this.getName()+"\"/>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
 }

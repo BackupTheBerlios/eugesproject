@@ -6,6 +6,8 @@
  */
 package donnees;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -240,5 +242,32 @@ public class Iteration {
 			}
 		}
 		return v;
+	}
+	/**
+	 * @param ecriture
+	 */
+		public void sauvegarderAssociation(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<Iteration _numIt=\""+this.get_numIt()+"\"/>\n");
+			for (int i = 0; i<_activitesRealisees.size();i++)
+			{
+				((EugesActRealise)_activitesRealisees.get(i)).sauvegarder(ecriture);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void sauvegardePartielle(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<Iteration _numIt=\""+this.get_numIt()+"\" _dateDebut=\""+this.get_dateDebut()+"\" _dateFin=\""+this.get_dateFin()+"\"/>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
 	}
 }

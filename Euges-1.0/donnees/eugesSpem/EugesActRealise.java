@@ -4,6 +4,8 @@
  */
 package donnees.eugesSpem;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -201,5 +203,32 @@ public class EugesActRealise {
 	public void set_produitsOut(Vector out) {
 		_produitsOut = out;
 	}
-
+	/**
+	 * @param ecriture
+	 */
+	public void sauvegarder(BufferedWriter ecriture) {
+		try {
+			//sauvegarde de l'activité elle meme
+			ecriture.write("<EugesActRealise _chargeEstimee=\""+this.get_chargeEstimee()+"\" _chargeReelle=\""+this.get_chargeReelle()+"\" _activiteParent=\""+this.get_activiteParent()+"\"/>\n");
+			//sauvegarde des personnes participant à l'acivié
+			for (int i = 0; i<_personnes.size();i++)
+			{
+				((EugesPersonne)_personnes.get(i)).sauvegardeAssociation(ecriture);
+			}
+			//sauvegarde des produitsIn
+			for (int i = 0; i<_produitsIn.size();i++)
+			{
+				((EugesVersion)_produitsIn.get(i)).sauvegarderProduitIn(ecriture);
+			}
+			//sauvegarde des produitsOut
+			for (int i = 0; i<_produitsOut.size();i++)
+			{
+				((EugesVersion)_produitsOut.get(i)).sauvegarderProduitOut(ecriture);
+			}
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+		
+	}
 }

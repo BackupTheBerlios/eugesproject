@@ -6,6 +6,8 @@
  */
 package donnees;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.SortedSet;
@@ -237,5 +239,43 @@ public class Projet {
 	 */
 	public int getNombreIteration(){
 		return _listeIteration.size();
+	}
+	/**
+	 * @param ecriture
+	 */
+	public void sauvegarderAssociations(BufferedWriter ecriture) {
+		try {
+			//sauvegarde des itérations
+			for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
+			{
+				ecriture.write("<_association>\n");
+				((Iteration)iter.next()).sauvegarderAssociation(ecriture);
+				ecriture.write("</_association>\n");
+			}
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void sauvegardePartielle(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<Projet _nomProjet=\""+this.get_nomProjet()+"\" _dateDebut =\""+this.get_dateDebut()+"\" _dateFin=\""+this.get_dateFin()+"\" _repDestination=\""+this.get_repDestination()+"\" _processus=\""+this.get_processus()+"\" _description=\""+this.get_description()+"\"/>\n");
+		} catch (IOException e) {
+			System.out.println (e);
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void sauvegardeIterations(BufferedWriter ecriture) {
+			//sauvegarde des itérations
+			for (Iterator iter = _listeIteration.iterator(); iter.hasNext();)
+			{
+				((Iteration)iter.next()).sauvegardePartielle(ecriture);
+			}		
 	}
 }

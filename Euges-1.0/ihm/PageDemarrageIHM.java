@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import utilitaires.GestionImage;
+import application.OuvertureProjet;
 import configuration.Config;
 /**
  * @author Will
@@ -72,10 +73,20 @@ public class PageDemarrageIHM extends Dialog{
 		projetExistant.setImage(imageOuvrir);
 		projetExistant.addSelectionListener(new SelectionAdapter() {
 												public void widgetSelected(SelectionEvent e) {
-													FileDialog fileDialog = new FileDialog(shellDemarrage);
-													String chemin;
-													if ((chemin=fileDialog.open())!=null)
-														shellDemarrage.dispose();
+													FileDialog fileDialog = new FileDialog(shell);
+													fileDialog.setText(message.getString("titreFenetreOuvrir"));
+													String [] tab = {"*.egs"};
+													fileDialog.setFilterExtensions(tab);
+													String chemin = fileDialog.open();
+													if (chemin!=null)
+													{
+														try {
+															OuvertureProjet parser = new OuvertureProjet(chemin);
+															shellDemarrage.dispose();
+														} catch (Throwable t) {
+															t.printStackTrace();
+														}
+													}
 												}
 											});
 		//label ouvrir projet

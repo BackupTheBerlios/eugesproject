@@ -4,6 +4,8 @@
  */
 package donnees.eugesSpem;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -188,5 +190,39 @@ public class EugesActivite extends Activity{
 	 */
 	public Vector get_activitesRealisees() {
 		return _activites;
+	}
+	/**
+	 * @param ecriture
+	 * @return
+	 */
+	public void sauvegarder(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<EugesActivite>\n");
+			//sauvegarde de _activites
+			for (int i = 0; i<_activites.size();i++)
+			{
+				((EugesActRealise)_activites.get(i)).sauvegarder(ecriture);
+			}
+			//sauvegarde _de roles
+			for (int i = 0; i<_roles.size();i++)
+			{
+				((EugesRole)_roles.get(i)).sauvegarder(ecriture);
+			}
+			ecriture.write("</EugesActivite>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void sauvegardePartielle(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<EugesActivite name=\""+this.getName()+"\"/>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
 	}
 }

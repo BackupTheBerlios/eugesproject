@@ -35,6 +35,8 @@ import org.eclipse.swt.widgets.ToolItem;
 import utilitaires.EugesAide;
 import utilitaires.GestionImage;
 import utilitaires.MyDate;
+import application.EugesElements;
+import application.OuvertureProjet;
 import configuration.Config;
 
 
@@ -86,7 +88,7 @@ public class FenetrePrincipaleIHM {
 		public static ToolItem itemToolLine;
 		
 		// l'arbre à gauche
-		public static ArbrePrincipalIHM tree;
+		public static ArbrePrincipalIHM _tree;
 		
 		//liste des vues de l'application
 		public static VuesIHM _vues; 
@@ -143,7 +145,16 @@ public class FenetrePrincipaleIHM {
 			menuItemOuvrir.setText(message.getString("menu.fichier.ouvrir"));
 			menuItemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					ouvrir();
+					String chemin = new String();
+					chemin = ouvrir();
+					if (chemin !=null)
+					{
+						try {
+							OuvertureProjet parser = new OuvertureProjet(chemin);
+						} catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
 				}
 			});
 		
@@ -163,7 +174,7 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrer.setEnabled(false);
 			menuItemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Enregistrer projet en cours");
+					EugesElements.sauvegarde();
 				}
 			});
 		
@@ -172,7 +183,8 @@ public class FenetrePrincipaleIHM {
 			menuItemEnregistrerSous.setEnabled(false);
 			menuItemEnregistrerSous.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					enregistrerSous();
+					String chemin = new String (enregistrerSous()+".xml");
+					EugesElements.sauvegarde(chemin);
 				}
 			});
 		
@@ -322,7 +334,16 @@ public class FenetrePrincipaleIHM {
 			itemOuvrir.setToolTipText(message.getString("toolbar.ouvrir.tooltiptext"));
 			itemOuvrir.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					ouvrir();
+					String chemin = new String();
+					chemin = ouvrir();
+					if (chemin!=null)
+					{
+						try {
+							OuvertureProjet parser = new OuvertureProjet(chemin);
+						} catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
 				}
 			});	
 		
@@ -353,7 +374,7 @@ public class FenetrePrincipaleIHM {
 			itemEnregistrer.setEnabled(false);
 			itemEnregistrer.addListener(SWT.Selection, new Listener(){
 				public void handleEvent(Event e){
-					System.out.println("Enregistrer projet");
+					EugesElements.sauvegarde();
 				}
 			});	
 			toolBar2.pack();
@@ -448,7 +469,7 @@ public class FenetrePrincipaleIHM {
 			final SashForm sashForm = new SashForm(shell, SWT.HORIZONTAL);
 			
 			// Arbre
-			tree = new ArbrePrincipalIHM(sashForm);
+			_tree = new ArbrePrincipalIHM(sashForm);
 			//creation du vecteur de vues
 			_vues = new VuesIHM(sashForm);
 			
@@ -518,7 +539,7 @@ public class FenetrePrincipaleIHM {
 		private String ouvrir(){
 			FileDialog fileDialog = new FileDialog(shell);
 			fileDialog.setText(message.getString("titreFenetreOuvrir"));
-			String [] tab = {"*.txt"};
+			String [] tab = {"*.egs"};
 			fileDialog.setFilterExtensions(tab);
 			String file = fileDialog.open();
 			

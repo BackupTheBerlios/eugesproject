@@ -4,6 +4,8 @@
  */
 package donnees.eugesSpem;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 
@@ -116,5 +118,59 @@ public class EugesPersonne {
 	public EugesRole getRole(int i) {
 		return (EugesRole) _roles.get(i);
 	}
-
+	/**
+	 * @param ecriture
+	 */
+	public void sauvegarder(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<EugesPersonne _id=\""+this.getId()+"\" _nom=\""+this.getNom()+"\" _prenom=\""+this.getPrenom()+"\" _mail=\""+this.getMail()+"\"/>\n");
+			//sauvegarde des rôles
+			ecriture.write("<_roles>\n");
+			for (int i = 0; i<_roles.size();i++)
+			{
+				((EugesRole)_roles.get(i)).sauvegarder(ecriture);
+			}
+			ecriture.write("</_roles>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void sauvegardePartielle(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<EugesPersonne _id=\""+this.getId()+"\" _nom=\""+this.getNom()+"\" _prenom=\""+this.getPrenom()+"\" _mail=\""+this.getMail()+"\"/>\n");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	public void sauvegardeAssociation(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<_personne _string=\""+this+"\"/>\n");
+			for (int i = 0; i<_roles.size();i++)
+			{
+				((EugesRole)_roles.get(i)).sauvegarderAssociation(ecriture);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	public void sauvegardeActeur(BufferedWriter ecriture) {
+		try {
+			ecriture.write("<_acteur _string=\""+this+"\"/>\n");
+			for (int i = 0; i<_roles.size();i++)
+			{
+				((EugesRole)_roles.get(i)).sauvegarderAssociation(ecriture);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
 }
